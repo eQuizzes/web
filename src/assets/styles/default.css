@@ -1,0 +1,51 @@
+:root {
+  font-size: 60%;
+
+  --color-background: #141622;
+  --color-background-gradient: linear-gradient(180deg, #1E2132 0%, rgba(17, 19, 33, 0.72) 100%);;
+  --color-blue-ligth: #4CC9F0; 
+
+  --shadow-contain: 0px 1px 4px rgba(0, 0, 0, 0.48);
+  --shadow-item: 1px 2px 4px rgba(0, 0, 0, 0.4)
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100vh; 
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-blue-ligth);
+  font-family: 'Ubuntu', sans-serif;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--color-blue-ligth);
+  text-decoration: none;
+  font-size: 1.8rem;
+  text-shadow: var(--shadow-item); 
+}
+
+button {
+  border: none;
+  box-shadow: var(--shadow-contain);
+  display: flex;
+  justify-content: space-between;
+}
+
+button:focus {
+  outline: none;
+}
+
+div, #root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
