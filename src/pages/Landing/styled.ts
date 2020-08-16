@@ -5,13 +5,20 @@ import { LandingPageProps } from './Landing';
 export const LandingPage = styled.main<LandingPageProps>`
   background-image: url('${({ background }) => background}');
   background-repeat: no-repeat;
-  background-position: 2.4rem 34rem;
+  background-position: right 34rem;
   padding: 0 2.4rem;
+  width: 100vw;
+  max-width: 900px;
+
+  @media (min-width: 779px) {
+    background-image: none;
+  }
 `;
 
 export const FistFold = styled.div`
   height: 100vh;
-
+  display: grid;
+  grid-template-rows: auto 1fr 1fr;
   a {
     margin-top: 1.6rem;
 
@@ -22,8 +29,20 @@ export const FistFold = styled.div`
 `;
 
 export const Title = styled.h1`
-  margin: 10rem 0;
-  font-size: 4.6rem;
+  margin-top: 5rem;
+  text-align: center;
+  font-size: 4.2rem;
   font-weight: bold;
   text-shadow: var(--shadow-item);
+`;
+
+export const Description = styled.p`
+  font-size: 1.6rem;
+  text-shadow: var(--shadow-item);
+`;
+
+export const Section = styled.section`
+  height: 52vh;
+  justify-content: space-between;
+  margin-bottom: 8rem;
 `;

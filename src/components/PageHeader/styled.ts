@@ -14,6 +14,7 @@ export const Button = styled.button`
   padding: .8rem;
   border-radius: 50%;
   font-size: 3.2rem;
+  cursor: pointer;
 `;
 
 export const Logo = styled.img`

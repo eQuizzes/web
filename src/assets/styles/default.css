@@ -6,7 +6,9 @@
   --color-blue-ligth: #4CC9F0; 
 
   --shadow-contain: 0px 1px 4px rgba(0, 0, 0, 0.48);
-  --shadow-item: 1px 2px 4px rgba(0, 0, 0, 0.4)
+  --shadow-item: 1px 2px 4px rgba(0, 0, 0, 0.4);
+
+  --max-width-default-components: 300px;
 }
 
 * {
@@ -24,6 +26,10 @@ body {
   color: var(--color-blue-ligth);
   font-family: 'Ubuntu', sans-serif;
   line-height: 1.2;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
 }
 
 a {
@@ -44,7 +50,7 @@ button:focus {
   outline: none;
 }
 
-div, #root {
+div, section, article, footer, #root {
   display: flex;
   flex-direction: column;
   align-items: center;

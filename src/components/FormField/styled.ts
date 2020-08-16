@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components';
 
-import { InputProps } from './FormField';
+import { InputProps } from './interface';
 
 export const FormFieldWrapper = styled.div`
   position: relative;
+  width: 90%;
+  max-width: var(--max-width-default-components);
 
   textarea {
     min-height: 150px;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormFieldProps } from './FormField';
+import { FormFieldProps } from './interface';
 import { FormFieldWrapper, Input, Span } from './styled';
 
 const FormField: React.FC<FormFieldProps> = ({ value, name, label, onChange }) => {
