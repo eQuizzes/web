@@ -33,12 +33,12 @@ export const Title = styled.h1`
   text-align: center;
   font-size: 4.2rem;
   font-weight: bold;
-  text-shadow: var(--shadow-item);
+  text-shadow: ${({ theme }) => theme.shadows.item};
 `;
 
 export const Description = styled.p`
   font-size: 1.6rem;
-  text-shadow: var(--shadow-item);
+  text-shadow: ${({ theme }) => theme.shadows.item};
 `;
 
 export const Section = styled.section`

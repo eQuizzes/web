@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 
 export const ButtonStyled = styled.button`
-  border: 2.5px solid var(--color-blue-ligth);
-  background: var(--color-background);
-  box-shadow: var(--shadow-contain);
+  border: 2.5px solid ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.background};
+  box-shadow: ${({ theme }) => theme.shadows.container};
   padding: 1.2rem 2.4rem;
-  color: var(--color-blue-ligth);
+  color: ${({ theme }) => theme.colors.primary};
   font-size: 2.4rem;
-  text-shadow: var(--shadow-item);
+  text-shadow: ${({ theme }) => theme.shadows.item};
   border-radius: 32px;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 90%;
-  max-width: var(--max-width-default-components);
+  max-width: 300px;
 `;

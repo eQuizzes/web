@@ -5,7 +5,7 @@ import { InputProps } from './interface';
 export const FormFieldWrapper = styled.div`
   position: relative;
   width: 90%;
-  max-width: var(--max-width-default-components);
+  max-width: 300px;
 
   textarea {
     min-height: 150px;
@@ -13,7 +13,7 @@ export const FormFieldWrapper = styled.div`
 `;
 
 export const Span = styled.span`
-  color: var(--color-blue-ligth);
+  color: ${({ theme }) => theme.colors.primary};
   opacity: 0.64;
 
   height: 2.2rem;
@@ -43,8 +43,8 @@ export const Span = styled.span`
     bottom: 0;
     z-index: -1;
 
-    background: var(--color-background);
-    border: 3px solid var(--color-blue-ligth);
+    background: ${({ theme }) => theme.colors.background};
+    border: 3px solid ${({ theme }) => theme.colors.primary};
     border-radius: 2rem;
     transform: scaleX(0);
     transition: 360ms ease-in-out;
@@ -53,14 +53,14 @@ export const Span = styled.span`
 
 export const Input = styled.input<InputProps>`
   background: transparent;
-  color: var(--color-blue-light);
+  color: ${({ theme }) => theme.colors.primary};
   display: block;
   width: 100%;
   height: 5.2rem;
   font-size: 2rem;
 
   outline: 0;
-  border: 2px solid var(--color-blue-ligth);
+  border: 2px solid ${({ theme }) => theme.colors.primary};
   border-radius: 32px;
 
   padding: 1.2rem 2.4rem;

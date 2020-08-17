@@ -5,6 +5,6 @@ export const FooterWrapper = styled.footer`
   height: 4rem;
   font-weight: 600;
   font-size: 1.6rem;
-  color: var(--color-blue-ligth);
-  text-shadow: var(--shadow-item);
+  color: ${({ theme }) => theme.colors.primary};
+  text-shadow: ${({ theme }) => theme.shadows.item};
 `;
