@@ -16,4 +16,3 @@ export const ButtonStyled = styled.button`
   width: 90%;
   max-width: var(--max-width-default-components);
 `;
-

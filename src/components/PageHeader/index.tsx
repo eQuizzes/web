@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiMenu } from 'react-icons/fi'
+import { FiMenu } from 'react-icons/fi';
 
 import logoImg from '../../assets/images/FavIcon.svg';
 

@@ -6,9 +6,7 @@ import './assets/styles/normalize.css';
 import './assets/styles/default.css';
 
 function App() {
-  return (
-    <Landing />
-  );
+  return <Landing />;
 }
 
 export default App;

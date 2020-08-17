@@ -24,17 +24,24 @@ function Landing() {
         <PageHeader />
         <Title>A alternativa correta para seus estudos!</Title>
         <div>
-          <FormField label="Código da Sala" name="pin" value={values.pin} onChange={handleChange} />
+          <FormField
+            label="Código da Sala"
+            name="pin"
+            value={values.pin}
+            onChange={handleChange}
+          />
 
-          <a href="#" title="Possui cadastro? Faça o login">Possui cadastro? <span>Faça o login</span></a>
+          <a href="#" title="Possui cadastro? Faça o login">
+            Possui cadastro? <span>Faça o login</span>
+          </a>
         </div>
       </FistFold>
 
       <Section>
         <Title>Venha com a gente!</Title>
         <Description>
-          Que tal você fazer parte de nossa história?
-          Tenha acessos e conteúdos exclusivos
+          Que tal você fazer parte de nossa história? Tenha acessos e conteúdos
+          exclusivos
         </Description>
         <Button>Cadastre-se</Button>
       </Section>
@@ -42,8 +49,8 @@ function Landing() {
       <Section>
         <Title>Já tem uma conta?</Title>
         <Description>
-          Incrível! Você já é parte de tudo isso!
-          Conte conosco para auxilar seu inglês!
+          Incrível! Você já é parte de tudo isso! Conte conosco para auxilar seu
+          inglês!
         </Description>
         <Button>Entre</Button>
       </Section>

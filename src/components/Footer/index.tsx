@@ -4,9 +4,7 @@ import { FooterWrapper } from './styled';
 
 function Footer() {
   return (
-    <FooterWrapper>
-      &copy;copyright {new Date().getFullYear()}
-    </FooterWrapper>
+    <FooterWrapper>&copy;copyright {new Date().getFullYear()}</FooterWrapper>
   );
 }
 

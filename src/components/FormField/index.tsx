@@ -3,7 +3,12 @@ import React from 'react';
 import { FormFieldProps } from './interface';
 import { FormFieldWrapper, Input, Span } from './styled';
 
-const FormField: React.FC<FormFieldProps> = ({ value, name, label, onChange }) => {
+const FormField: React.FC<FormFieldProps> = ({
+  value,
+  name,
+  label,
+  onChange,
+}) => {
   const fieldId = `id_${name}`;
   const hasValue = Boolean(value.length);
 
@@ -16,13 +21,10 @@ const FormField: React.FC<FormFieldProps> = ({ value, name, label, onChange }) =
           name={name}
           onChange={onChange}
         />
-        <Span>
-          {label}
-        </Span>
+        <Span>{label}</Span>
       </label>
-
     </FormFieldWrapper>
   );
-}
+};
 
 export default FormField;

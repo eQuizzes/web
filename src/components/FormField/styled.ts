@@ -17,21 +17,21 @@ export const Span = styled.span`
   opacity: 0.64;
 
   height: 2.2rem;
-  position: absolute; 
+  position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
   z-index: -1;
-  
+
   display: flex;
   align-items: center;
-  
+
   transform-origin: 0% 0%;
   font-size: 1.8rem;
   font-style: normal;
 
   padding: 1.4rem 2.6rem;
-  
+
   transition: 240ms ease-in-out;
 
   &:before {
@@ -58,39 +58,40 @@ export const Input = styled.input<InputProps>`
   width: 100%;
   height: 5.2rem;
   font-size: 2rem;
-  
+
   outline: 0;
   border: 2px solid var(--color-blue-ligth);
   border-radius: 32px;
-  
+
   padding: 1.2rem 2.4rem;
-  
+
   resize: none;
-  
+
   &:focus + ${Span} {
     z-index: 1;
     opacity: 1;
     left: 1.6rem;
     top: 0;
-    transform: scale(.6) translateY(-1.5rem);
+    transform: scale(0.6) translateY(-1.5rem);
 
     &:before {
-      transform: scaleX(1);        
+      transform: scaleX(1);
     }
   }
 
-  ${({ hasValue }) => hasValue && css`
-    + ${Span} {
-      z-index: 1;
-      opacity: 1;
-      left: 1.6rem;
-      top: 0;
-      transform: scale(.6) translateY(-1.5rem);
+  ${({ hasValue }) =>
+    hasValue &&
+    css`
+      + ${Span} {
+        z-index: 1;
+        opacity: 1;
+        left: 1.6rem;
+        top: 0;
+        transform: scale(0.6) translateY(-1.5rem);
 
-      &:before {
-        transform: scaleX(1);        
+        &:before {
+          transform: scaleX(1);
+        }
       }
-    }
-  `};
+    `};
 `;
-
