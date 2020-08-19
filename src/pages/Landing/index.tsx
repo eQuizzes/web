@@ -8,7 +8,14 @@ import useForm from '../../hooks/useForm';
 
 import backgroundSvg from '../../assets/images/backgroundCheck.svg';
 
-import { LandingPage, FistFold, Title, Description, Section } from './styled';
+import {
+  LandingPage,
+  FistFold,
+  Title,
+  Description,
+  Section,
+  Article,
+} from './styled';
 import Footer from '../../components/Footer';
 
 function Landing() {
@@ -38,20 +45,24 @@ function Landing() {
       </FistFold>
 
       <Section>
-        <Title>Venha com a gente!</Title>
-        <Description>
-          Que tal você fazer parte de nossa história? Tenha acessos e conteúdos
-          exclusivos
-        </Description>
+        <Article>
+          <Title>Venha com a gente!</Title>
+          <Description>
+            Que tal você fazer parte de nossa história? Tenha acessos e
+            conteúdos exclusivos
+          </Description>
+        </Article>
         <Button>Cadastre-se</Button>
       </Section>
 
       <Section>
-        <Title>Já tem uma conta?</Title>
-        <Description>
-          Incrível! Você já é parte de tudo isso! Conte conosco para auxilar seu
-          inglês!
-        </Description>
+        <Article>
+          <Title>Já tem uma conta?</Title>
+          <Description>
+            Incrível! Você já é parte de tudo isso! Conte conosco para auxilar
+            seu inglês!
+          </Description>
+        </Article>
         <Button>Entre</Button>
       </Section>
 

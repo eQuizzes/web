@@ -6,8 +6,6 @@ import dark from './assets/styles/themes/dark';
 
 import Landing from './pages/Landing';
 
-import './assets/styles/normalize.css';
-
 import DefaultStyles from './assets/styles/default';
 
 function App() {

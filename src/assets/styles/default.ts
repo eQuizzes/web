@@ -16,8 +16,8 @@ html, body, #root {
 }
 
 body {
-  background: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.primary};
+  background: ${(props) => props.theme.colors.background};
+  color: ${(props) => props.theme.colors.primary};
   font-family: 'Ubuntu', sans-serif;
   line-height: 1.2;
 }
@@ -27,15 +27,17 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 a {
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   text-decoration: none;
   font-size: 1.8rem;
-  text-shadow: ${({ theme }) => theme.shadows.item};
+}
+
+li {
+  list-style: none;
 }
 
 button {
   border: none;
-  box-shadow: ${({ theme }) => theme.shadows.container};
   display: flex;
   justify-content: space-between;
 }

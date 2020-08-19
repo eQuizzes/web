@@ -13,13 +13,13 @@ export const FormFieldWrapper = styled.div`
 `;
 
 export const Span = styled.span`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   opacity: 0.64;
 
   height: 2.2rem;
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 2.6rem;
   transform: translateY(-50%);
   z-index: -1;
 
@@ -43,8 +43,8 @@ export const Span = styled.span`
     bottom: 0;
     z-index: -1;
 
-    background: ${({ theme }) => theme.colors.background};
-    border: 3px solid ${({ theme }) => theme.colors.primary};
+    background: ${(props) => props.theme.colors.background};
+    border: 3px solid ${(props) => props.theme.colors.primary};
     border-radius: 2rem;
     transform: scaleX(0);
     transition: 360ms ease-in-out;
@@ -53,14 +53,14 @@ export const Span = styled.span`
 
 export const Input = styled.input<InputProps>`
   background: transparent;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   display: block;
   width: 100%;
   height: 5.2rem;
   font-size: 2rem;
 
   outline: 0;
-  border: 2px solid ${({ theme }) => theme.colors.primary};
+  border: 2px solid ${(props) => props.theme.colors.primary};
   border-radius: 32px;
 
   padding: 1.2rem 2.4rem;
@@ -70,7 +70,7 @@ export const Input = styled.input<InputProps>`
   &:focus + ${Span} {
     z-index: 1;
     opacity: 1;
-    left: 1.6rem;
+    left: 4.2rem;
     top: 0;
     transform: scale(0.6) translateY(-1.5rem);
 
@@ -85,7 +85,7 @@ export const Input = styled.input<InputProps>`
       + ${Span} {
         z-index: 1;
         opacity: 1;
-        left: 1.6rem;
+        left: 4.2rem;
         top: 0;
         transform: scale(0.6) translateY(-1.5rem);
 

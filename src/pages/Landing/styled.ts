@@ -6,6 +6,7 @@ export const LandingPage = styled.main<LandingPageProps>`
   background-image: url('${({ background }) => background}');
   background-repeat: no-repeat;
   background-position: right 34rem;
+  background-attachment: fixed;
   padding: 0 2.4rem;
   width: 100vw;
   max-width: 900px;
@@ -28,21 +29,25 @@ export const FistFold = styled.div`
   }
 `;
 
+export const Article = styled.article``;
+
 export const Title = styled.h1`
   margin-top: 5rem;
-  text-align: center;
+  text-align: left;
   font-size: 4.2rem;
   font-weight: bold;
-  text-shadow: ${({ theme }) => theme.shadows.item};
+  text-shadow: ${(props) => props.theme.shadows.item};
 `;
 
 export const Description = styled.p`
   font-size: 1.6rem;
-  text-shadow: ${({ theme }) => theme.shadows.item};
+  margin-top: 16px;
+  text-shadow: ${(props) => props.theme.shadows.item};
 `;
 
 export const Section = styled.section`
-  height: 52vh;
+  height: 45vh;
+  max-height: 300px;
   justify-content: space-between;
   margin-bottom: 8rem;
 `;

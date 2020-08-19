@@ -1,22 +1,33 @@
 import React from 'react';
-import { FiMenu } from 'react-icons/fi';
 
-import logoImg from '../../assets/images/FavIcon.svg';
+import Header from './components/Header';
 
-import { Button, Header, Logo } from './styled';
+import { HeaderWrapper, Navegation, Menu, LinkList, LinkItem } from './styled';
 
-function PageHeader() {
+const PageHeader: React.FC = () => {
+  function handleToggleMenu() {
+    const menu = document.getElementById('menu');
+    menu?.classList.toggle('open');
+  }
+
   return (
-    <Header>
-      <Button>
-        <Logo src={logoImg} alt="Logo English Quiz" />
-      </Button>
+    <HeaderWrapper>
+      <Menu id="menu">
+        <Header
+          isMenuIcon={false}
+          title="Fechar Menu"
+          onClick={handleToggleMenu}
+        />
 
-      <Button title="Toggle Menu">
-        <FiMenu />
-      </Button>
-    </Header>
+        <Navegation>
+          <LinkList>
+            <LinkItem> Teste</LinkItem>
+          </LinkList>
+        </Navegation>
+      </Menu>
+      <Header isMenuIcon={true} title="Abrir Menu" onClick={handleToggleMenu} />
+    </HeaderWrapper>
   );
-}
+};
 
 export default PageHeader;
