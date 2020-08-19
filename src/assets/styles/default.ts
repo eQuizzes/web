@@ -30,6 +30,7 @@ a {
   color: ${(props) => props.theme.colors.primary};
   text-decoration: none;
   font-size: 1.8rem;
+  cursor: pointer;
 }
 
 li {
@@ -40,6 +41,7 @@ button {
   border: none;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 button:focus {

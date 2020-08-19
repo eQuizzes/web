@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export const ButtonStyled = styled.button`
-  border: 2.5px solid ${(props) => props.theme.colors.primary};
-  background: ${(props) => props.theme.colors.background};
-  box-shadow: ${(props) => props.theme.shadows.container};
-  padding: 1.2rem 2.4rem;
-  color: ${(props) => props.theme.colors.primary};
   font-size: 2.4rem;
+  padding: 1.2rem 2.4rem;
+  background: transparent;
+  color: ${(props) => props.theme.colors.primary};
+  box-shadow: ${(props) => props.theme.shadows.container};
   text-shadow: ${(props) => props.theme.shadows.item};
+  border: 2.5px solid ${(props) => props.theme.colors.primary};
   border-radius: 32px;
   text-align: center;
   display: flex;

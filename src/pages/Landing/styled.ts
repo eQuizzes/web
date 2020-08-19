@@ -5,7 +5,7 @@ import { LandingPageProps } from './Landing';
 export const LandingPage = styled.main<LandingPageProps>`
   background-image: url('${({ background }) => background}');
   background-repeat: no-repeat;
-  background-position: right 34rem;
+  background-position: right bottom;
   background-attachment: fixed;
   padding: 0 2.4rem;
   width: 100vw;
