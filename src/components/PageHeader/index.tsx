@@ -1,6 +1,4 @@
 import React from 'react';
-import { FiChevronRight } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
 
 import Header from './components/Header';
 import LinkItem from './components/LinkItem';

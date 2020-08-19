@@ -18,6 +18,7 @@ import {
   Section,
   Article,
 } from './styled';
+import { FiChevronRight } from 'react-icons/fi';
 
 function Landing() {
   const valuesInitials = {
@@ -37,7 +38,10 @@ function Landing() {
             name="pin"
             value={values.pin}
             onChange={handleChange}
-          />
+            onClick={() => {}}
+          >
+            <FiChevronRight />
+          </FormField>
 
           <Link to="/" title="Possui cadastro? Faça o login">
             Possui cadastro? <span>Faça o login</span>

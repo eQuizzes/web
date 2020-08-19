@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 export interface InputProps {
   hasValue: boolean;
+  hasChildren: boolean;
 }
 
 export interface FormFieldProps {
@@ -9,5 +10,5 @@ export interface FormFieldProps {
   name: string;
   label: string;
   onChange: FunctionComponentElement;
-  link?: Link;
+  onClick?: FunctionComponentElement;
 }
