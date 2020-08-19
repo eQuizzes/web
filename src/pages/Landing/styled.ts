@@ -20,7 +20,7 @@ export const FistFold = styled.div`
   height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr 1fr;
-  a {
+  article a {
     margin-top: 1.6rem;
 
     span {

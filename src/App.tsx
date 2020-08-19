@@ -2,10 +2,9 @@ import React from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 import usePersistedState from './hooks/usePersistedState';
 
+import Routes from './pages/routes';
+
 import dark from './assets/styles/themes/dark';
-
-import Landing from './pages/Landing';
-
 import DefaultStyles from './assets/styles/default';
 
 function App() {
@@ -14,7 +13,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <DefaultStyles />
-      <Landing />
+      <Routes />
     </ThemeProvider>
   );
 }

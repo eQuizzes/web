@@ -1,8 +1,11 @@
 import React from 'react';
+import { FiChevronRight } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 import Header from './components/Header';
+import LinkItem from './components/LinkItem';
 
-import { HeaderWrapper, Navegation, Menu, LinkList, LinkItem } from './styled';
+import { HeaderWrapper, Navegation, Menu, LinkList } from './styled';
 
 const PageHeader: React.FC = () => {
   function handleToggleMenu() {
@@ -21,7 +24,8 @@ const PageHeader: React.FC = () => {
 
         <Navegation>
           <LinkList>
-            <LinkItem> Teste</LinkItem>
+            <LinkItem to="/" title="Cadastre-se" />
+            <LinkItem to="/" title="Porque a gente?" />
           </LinkList>
         </Navegation>
       </Menu>

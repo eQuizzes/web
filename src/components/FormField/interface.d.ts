@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export interface InputProps {
   hasValue: boolean;
 }
@@ -7,4 +9,5 @@ export interface FormFieldProps {
   name: string;
   label: string;
   onChange: FunctionComponentElement;
+  link?: Link;
 }

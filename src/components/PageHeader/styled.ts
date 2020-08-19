@@ -33,17 +33,3 @@ export const Navegation = styled.nav`
 export const LinkList = styled.ul`
   flex-direction: column;
 `;
-
-export const LinkItem = styled.li`
-  border: 2px solid ${(props) => props.theme.colors.primary};
-  border-radius: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 24px;
-  text-align: center;
-  font-size: 2.4rem;
-  font-weight: 500;
-  box-shadow: ${(props) => props.theme.shadows.container};
-  text-shadow: ${(props) => props.theme.shadows.item};
-`;

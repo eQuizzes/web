@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import PageHeader from '../../components/PageHeader';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
+import Footer from '../../components/Footer';
 
 import useForm from '../../hooks/useForm';
 
@@ -16,7 +18,6 @@ import {
   Section,
   Article,
 } from './styled';
-import Footer from '../../components/Footer';
 
 function Landing() {
   const valuesInitials = {
@@ -30,7 +31,7 @@ function Landing() {
       <FistFold>
         <PageHeader />
         <Title>A alternativa correta para seus estudos!</Title>
-        <div>
+        <Article>
           <FormField
             label="Código da Sala"
             name="pin"
@@ -38,10 +39,10 @@ function Landing() {
             onChange={handleChange}
           />
 
-          <a href="#" title="Possui cadastro? Faça o login">
+          <Link to="/" title="Possui cadastro? Faça o login">
             Possui cadastro? <span>Faça o login</span>
-          </a>
-        </div>
+          </Link>
+        </Article>
       </FistFold>
 
       <Section>
