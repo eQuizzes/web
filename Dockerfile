@@ -1,14 +1,13 @@
 FROM mhart/alpine-node:latest
 
-WORKDIR /quiz_web
+WORKDIR /equiz
 
-COPY package.json /quiz_web
-
+COPY package*.json ./
+COPY yarn*.lock ./
 RUN yarn
 
-ADD src /quiz_web/src
-ADD public /quiz_web/public
+COPY . .
 
-RUN yarn build
+EXPOSE 8080
 
 CMD ["yarn", "start"]
