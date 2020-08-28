@@ -5,11 +5,17 @@ Comandos mais utilizados no docker como ajuda
 ## Executar o Dockerfile
 
 ```
-$ docker build -t any_name/name_docker .
+$ docker build -t name_container/name_docker .
 ```
 
 ## Executar o docker
 
 ```
-$ docker run --name name_docker -p 3333:3333 -d any_name/name_docker
+$ docker run -p 8080:8080 --name name_docker -d name_container/name_docker
+```
+
+## Listar os dockers em execução
+
+```
+$ docker ps -a
 ```
