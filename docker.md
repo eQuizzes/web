@@ -5,13 +5,13 @@ Comandos mais utilizados no docker como ajuda
 ## Executar o Dockerfile
 
 ```
-$ docker build -t name_container/name_docker .
+$ docker build -t omnidev/equiz .
 ```
 
 ## Executar o docker
 
 ```
-$ docker run -p 8080:8080 --name name_docker -d name_container/name_docker
+$ docker run -p 8080:8080 --name equiz -d omnidev/equiz
 ```
 
 ## Listar os dockers em execução
