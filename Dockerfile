@@ -1,15 +1,14 @@
-FROM mhart/alpine-node:latest
+FROM node:12
 
-WORKDIR /equiz
+WORKDIR /usr/src/equiz
+COPY package.json yarn.lock ./
 
-COPY package*.json /equiz
-COPY yarn*.lock /equiz
 RUN yarn
 
 RUN yarn build
 
-COPY /build /equiz
+COPY /build .
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD ["yarn", "start"]
