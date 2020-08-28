@@ -24,4 +24,10 @@ export const ButtonStyled = styled.button`
     border-top-color: transparent;
     border-bottom-color: transparent;
   }
+
+  a {
+    font-size: inherit;
+    display: block;
+    width: 100%;
+  }
 `;

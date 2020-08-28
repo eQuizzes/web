@@ -36,13 +36,13 @@ export const Title = styled.h1`
   text-align: left;
   font-size: 4.2rem;
   font-weight: bold;
-  text-shadow: ${(props) => props.theme.shadows.item};
+  text-shadow: 1px 2px 4px ${(props) => props.theme.shadows.item};
 `;
 
 export const Description = styled.p`
   font-size: 1.6rem;
   margin-top: 16px;
-  text-shadow: ${(props) => props.theme.shadows.item};
+  text-shadow: 1px 2px 4px ${(props) => props.theme.shadows.item};
 `;
 
 export const Section = styled.section`

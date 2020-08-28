@@ -57,7 +57,11 @@ function Landing() {
             conteúdos exclusivos
           </Description>
         </Article>
-        <Button>Cadastre-se</Button>
+        <Button>
+          <Link to="/newRegister" title="Cadastra-se">
+            Cadastre-se
+          </Link>
+        </Button>
       </Section>
 
       <Section>

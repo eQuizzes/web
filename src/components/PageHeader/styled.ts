@@ -15,7 +15,7 @@ export const Menu = styled.div`
   background: ${(props) => props.theme.colors.backgroundGradient};
   border-radius: 0 0 40px 40px;
   border-bottom: 3px solid ${(props) => props.theme.colors.primary};
-  box-shadow: ${(props) => props.theme.shadows.container};
+  box-shadow: 0px 1px 4px ${(props) => props.theme.shadows.container};
 
   transform: translateY(-100%);
   transition: all 260ms ease-in-out;
