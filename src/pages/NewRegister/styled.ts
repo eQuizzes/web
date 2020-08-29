@@ -8,12 +8,12 @@ export const Title = styled.h2`
 `;
 
 export const Description = styled.p`
-  padding: 0 24px 4rem;
+  padding: 0 24px;
   font-size: 1.8rem;
 `;
 
 export const Form = styled.form`
-  padding: 0 24px;
+  padding: 32px 24px 0;
   display: flex;
   flex-direction: column;
   row-gap: 12px;
