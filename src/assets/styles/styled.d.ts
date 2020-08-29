@@ -9,9 +9,5 @@ declare module 'styled-components' {
 
       primary: string;
     };
-    shadows: {
-      container: string;
-      item: string;
-    };
   }
 }

@@ -22,7 +22,7 @@ const PageHeader: React.FC = () => {
 
         <Navegation>
           <LinkList>
-            <LinkItem to="/" title="Cadastre-se" />
+            <LinkItem to="/newRegister" title="Cadastre-se" />
             <LinkItem to="/" title="Porque a gente?" />
           </LinkList>
         </Navegation>

@@ -8,9 +8,4 @@ export default {
 
     primary: '#4CC9F0',
   },
-
-  shadows: {
-    container: 'rgba(0, 0, 0, 0.48)', //0px 1px 4px
-    item: 'rgba(0, 0, 0, 0.4)', //1px 2px 4px
-  },
 };

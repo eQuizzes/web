@@ -5,8 +5,8 @@ export const ButtonStyled = styled.button`
   padding: 1.2rem 2.4rem;
   background: ${(props) => props.theme.colors.backgroundGradient};
   color: ${(props) => props.theme.colors.primary};
-  box-shadow: ${(props) => props.theme.shadows.container};
-  text-shadow: ${(props) => props.theme.shadows.item};
+  box-shadow: var(--box-shadow);
+  text-shadow: var(--text-shadow);
   border: 1px solid ${(props) => props.theme.colors.primary};
   border-radius: 32px;
   text-align: center;

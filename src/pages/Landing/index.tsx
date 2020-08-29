@@ -57,7 +57,7 @@ function Landing() {
             conteúdos exclusivos
           </Description>
         </Article>
-        <Button>
+        <Button color="primary-outline">
           <Link to="/newRegister" title="Cadastra-se">
             Cadastre-se
           </Link>
@@ -72,7 +72,7 @@ function Landing() {
             seu inglês!
           </Description>
         </Article>
-        <Button>Entre</Button>
+        <Button color="primary-outline">Entre</Button>
       </Section>
 
       <Footer />

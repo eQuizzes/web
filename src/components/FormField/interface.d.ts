@@ -11,4 +11,5 @@ export interface FormFieldProps {
   label: string;
   onChange: FunctionComponentElement;
   onClick?: FunctionComponentElement;
+  type?: string;
 }

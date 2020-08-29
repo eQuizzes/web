@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div`
 export const Button = styled.button`
   background: ${(props) => props.theme.colors.backgroundGradient};
   color: ${(props) => props.theme.colors.primary};
-  box-shadow: ${(props) => props.theme.shadows.container};
+  box-shadow: var(--box-shadow);
   padding: 0.8rem;
   border-radius: 50%;
   font-size: 3.2rem;

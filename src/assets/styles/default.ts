@@ -3,6 +3,9 @@ import { createGlobalStyle } from 'styled-components';
 export default createGlobalStyle`
 :root {
   font-size: 60%;
+
+  --box-shadow: '0px 1px 4px rgba(0, 0, 0, 0.48)';
+  --text-shadow: '1px 2px 4px rgba(0, 0, 0, 0.4)';
 }
 
 * {
@@ -27,7 +30,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 a {
-  color: ${(props) => props.theme.colors.primary};
+  color: inherit;
   text-decoration: none;
   font-size: 1.8rem;
   cursor: pointer;
@@ -53,5 +56,6 @@ div, section, article, footer, #root {
   flex-direction: column;
   align-items: center;
 }
+
 
 `;

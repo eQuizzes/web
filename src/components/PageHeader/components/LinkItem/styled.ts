@@ -33,8 +33,8 @@ export const LinkItemContainer = styled.li`
   align-items: center;
   text-align: center;
   font-weight: 500;
-  box-shadow: ${(props) => props.theme.shadows.container};
-  text-shadow: ${(props) => props.theme.shadows.item};
+  box-shadow: var(--box-shadow);
+  text-shadow: var(--text-shadow);
   margin-top: 16px;
 
   &:first-child {

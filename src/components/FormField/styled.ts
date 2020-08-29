@@ -3,8 +3,7 @@ import styled, { css } from 'styled-components';
 import { InputProps } from './interface';
 
 export const FormFieldWrapper = styled.div`
-  width: 90%;
-  max-width: 300px;
+  width: 100%;
 
   textarea {
     min-height: 150px;
@@ -13,6 +12,7 @@ export const FormFieldWrapper = styled.div`
 
 export const Label = styled.label`
   position: relative;
+  width: 100%;
 `;
 
 export const Span = styled.span`
@@ -61,7 +61,7 @@ export const Input = styled.input<InputProps>`
   width: 100%;
   height: 5.2rem;
   font-size: 2rem;
-  box-shadow: ${(props) => props.theme.shadows.container};
+  box-shadow: var(--box-shadow);
 
   outline: 0;
   border: 2px solid ${(props) => props.theme.colors.primary};
@@ -119,7 +119,7 @@ export const ButtonCircle = styled.button`
   padding: 0.8em;
   padding-right: 2.4rem;
   background: ${(props) => props.theme.colors.primary};
-  box-shadow: ${(props) => props.theme.shadows.container};
+  box-shadow: var(--box-shadow);
   transition: all 260ms ease-in-out;
 
   svg {

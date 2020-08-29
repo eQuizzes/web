@@ -10,9 +10,12 @@ const FormField: React.FC<FormFieldProps> = ({
   label,
   onChange,
   onClick,
+  type,
 }) => {
   const fieldId = `id_${name}`;
   const hasValue = Boolean(value.length);
+  const typeInput = Boolean(value.length) ? type : 'text';
+
   return (
     <FormFieldWrapper>
       <Label htmlFor={fieldId}>
@@ -23,6 +26,7 @@ const FormField: React.FC<FormFieldProps> = ({
           name={name}
           onChange={onChange}
           onClick={onClick}
+          type={typeInput}
         />
         <Span>{label}</Span>
         {children && <ButtonCircle>{children}</ButtonCircle>}
