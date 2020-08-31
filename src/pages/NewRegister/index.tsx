@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import PageDefault from '../../components/PageDefault';
-import FormField from '../../components/FormField';
-import Button from '../../components/Button';
+import StepOne from './components/StepOne';
+import StepTwo from './components/StepTwo';
+import StepThree from './components/StepThree';
 
 import useForm from '../../hooks/useForm';
 
-import { Title, Description, Form, TwoColumns, LinkLogin } from './styled';
+import { Steps, ConfirmContainer } from './styled';
 
 function NewRegister() {
   const valuesInitials = {
@@ -14,50 +16,88 @@ function NewRegister() {
     lastName: '',
     dateOfBirth: '',
     email: '',
+    username: '',
+    password: '',
   };
+  const history = useHistory();
+  const [step, setStep] = useState<1 | 2 | 3>(3);
+  const [registerConfirm, setRegisterConfirm] = useState<Boolean>(false);
 
   const { handleChange, values } = useForm(valuesInitials);
 
+  function validationStep(stepValidation: number) {
+    switch (stepValidation) {
+      case 1:
+        if (values.firstName === '') {
+          alert('Preencha o primeiro nome');
+          return false;
+        }
+        if (values.lastName === '') {
+          alert('Preencha o sobrenome');
+          return false;
+        }
+        if (values.dateOfBirth === '') {
+          alert('Preencha a data de aniversário');
+          return false;
+        }
+        if (values.email === '') {
+          alert('Preencha o e-mail');
+          return false;
+        }
+        break;
+      case 2:
+        if (values.username === '') {
+          alert('Preencha o nome de usuário');
+          return false;
+        }
+        if (values.password === '') {
+          alert('Preencha a senha do usuário');
+          return false;
+        }
+
+        break;
+    }
+
+    return true;
+  }
+
+  function handleStep(step: 1 | 2 | 3, to: 1 | 2 | 3) {
+    if (step < to && !validationStep(step)) return null;
+
+    setStep(to);
+    return null;
+  }
+
+  function handleConfirmRegister() {
+    setRegisterConfirm(true);
+
+    setTimeout(() => {
+      setRegisterConfirm(false);
+      history.push('/');
+    }, 2200);
+  }
+
   return (
     <PageDefault>
-      <Title>Cadastre-se</Title>
-      <Description>
-        Venha fazer parte da nossa história, faça parte da English Quiz!
-      </Description>
-      <Form>
-        <TwoColumns>
-          <FormField
-            label="Nome"
-            name="firstName"
-            value={values.firstName}
-            onChange={handleChange}
-          />
-          <FormField
-            label="Sobrenome"
-            name="lastName"
-            value={values.lastName}
-            onChange={handleChange}
-          />
-        </TwoColumns>
-        <FormField
-          label="Data Nascimento"
-          name="dateOfBirth"
-          value={values.dateOfBirth}
-          onChange={handleChange}
-          type="date"
+      <Steps step={step}>
+        <StepOne
+          handleStep={handleStep}
+          handleChange={handleChange}
+          values={values}
         />
-        <FormField
-          label="E-mail"
-          name="email"
-          value={values.email}
-          onChange={handleChange}
-          type="email"
+        <StepTwo
+          handleStep={handleStep}
+          handleChange={handleChange}
+          values={values}
         />
-        <Button color="primary">Continuar</Button>
-      </Form>
-      <LinkLogin to="/login" title="Faça o login">
-        Possui cadastro? <b>Faça o login</b>
-      </LinkLogin>
+        <StepThree
+          handleStep={handleStep}
+          handleConfirmRegister={handleConfirmRegister}
+        />
+      </Steps>
+      <ConfirmContainer registerConfirm={registerConfirm}>
+        {/* <Image src={imgConfirm} alt="" /> */}
+      </ConfirmContainer>
     </PageDefault>
   );
 }

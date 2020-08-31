@@ -1,34 +1,48 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { StepProps, ConfirmContainerProps } from './interface';
 
-import { Link } from 'react-router-dom';
-
-export const Title = styled.h2`
-  padding: 2rem 24px 8px;
-  font-size: 4.6rem;
-`;
-
-export const Description = styled.p`
-  padding: 0 24px;
-  font-size: 1.8rem;
-`;
-
-export const Form = styled.form`
-  padding: 32px 24px 0;
+export const Steps = styled.section<StepProps>`
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  row-gap: 12px;
+  position: relative;
+  transition: all 320ms ease-in-out;
+  min-height: 240px;
 
-  button {
-    margin: 32px auto 16px auto;
-  }
+  ${({ step }) => css`
+    article {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 320ms ease-in-out;
+
+      &:nth-child(${step}) {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  `}
 `;
 
-export const TwoColumns = styled.div`
-  flex-direction: row;
-  column-gap: 12px;
-`;
+export const ConfirmContainer = styled.div<ConfirmContainerProps>`
+  position: absolute;
+  top: 120px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 120px;
+  background: ${(props) => props.theme.colors.background};
+  transform: scale(0);
+  transition: transform 320ms ease-in-out;
 
-export const LinkLogin = styled(Link)`
-  padding: 0 24px;
-  margin: 0 auto;
+  ${({ registerConfirm }) =>
+    registerConfirm &&
+    css`
+      transform: scale(1);
+    `}
 `;

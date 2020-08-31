@@ -15,16 +15,14 @@ export const Label = styled.label`
   width: 100%;
 `;
 
-export const Span = styled.span`
+export const Text = styled.label`
   color: ${(props) => props.theme.colors.primary};
-  opacity: 0.64;
 
   height: 2.2rem;
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 0.6rem;
   transform: translateY(-50%);
-  z-index: -1;
 
   display: flex;
   align-items: center;
@@ -34,8 +32,10 @@ export const Span = styled.span`
   font-style: normal;
 
   padding: 1.4rem 2.6rem;
+  border-radius: 1.2rem;
 
   transition: 240ms ease-in-out;
+  background: ${(props) => props.theme.colors.background};
 
   &:before {
     content: '';
@@ -71,7 +71,7 @@ export const Input = styled.input<InputProps>`
 
   resize: none;
 
-  &:focus + ${Span} {
+  &:focus + ${Text} {
     z-index: 1;
     opacity: 1;
     left: 1.6rem;
@@ -86,7 +86,7 @@ export const Input = styled.input<InputProps>`
   ${({ hasValue }) =>
     hasValue &&
     css`
-      + ${Span} {
+      + ${Text} {
         z-index: 1;
         opacity: 1;
         left: 1.6rem;

@@ -4,8 +4,8 @@ export default createGlobalStyle`
 :root {
   font-size: 60%;
 
-  --box-shadow: '0px 1px 4px rgba(0, 0, 0, 0.48)';
-  --text-shadow: '1px 2px 4px rgba(0, 0, 0, 0.4)';
+  --box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.48);
+  --text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 * {

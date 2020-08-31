@@ -7,7 +7,6 @@ export const ButtonStyled = styled.button<ButtonProps>`
   line-height: 1;
   padding: 1.2rem 2.4rem;
   box-shadow: var(--box-shadow);
-  text-shadow: var(--text-shadow);
   border-radius: 32px;
   text-align: center;
   display: flex;
@@ -43,6 +42,7 @@ export const ButtonStyled = styled.button<ButtonProps>`
           background: ${(props) => props.theme.colors.backgroundGradient};
           color: ${(props) => props.theme.colors.primary};
           border: 1px solid ${(props) => props.theme.colors.primary};
+          text-shadow: var(--text-shadow);
 
           &:hover,
           &:focus {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FormFieldProps } from './interface';
-import { FormFieldWrapper, Label, Input, Span, ButtonCircle } from './styled';
+import { FormFieldWrapper, Label, Input, Text, ButtonCircle } from './styled';
 
 const FormField: React.FC<FormFieldProps> = ({
   children,
@@ -13,13 +13,14 @@ const FormField: React.FC<FormFieldProps> = ({
   type,
 }) => {
   const fieldId = `id_${name}`;
-  const hasValue = Boolean(value.length);
-  const typeInput = Boolean(value.length) ? type : 'text';
+  const hasValue = value !== '';
+  const typeInput = type !== undefined ? type : 'text';
 
   return (
     <FormFieldWrapper>
       <Label htmlFor={fieldId}>
         <Input
+          id={fieldId}
           hasValue={hasValue}
           hasChildren={Boolean(children)}
           value={value}
@@ -27,8 +28,9 @@ const FormField: React.FC<FormFieldProps> = ({
           onChange={onChange}
           onClick={onClick}
           type={typeInput}
+          autoComplete="off"
         />
-        <Span>{label}</Span>
+        <Text htmlFor={fieldId}>{label}</Text>
         {children && <ButtonCircle>{children}</ButtonCircle>}
       </Label>
     </FormFieldWrapper>
