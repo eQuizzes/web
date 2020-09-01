@@ -11,10 +11,12 @@ const FormField: React.FC<FormFieldProps> = ({
   onChange,
   onClick,
   type,
+  stroke,
 }) => {
   const fieldId = `id_${name}`;
   const hasValue = value !== '';
   const typeInput = type !== undefined ? type : 'text';
+  const strokeWidth = stroke !== undefined ? stroke : '2.4px';
 
   return (
     <FormFieldWrapper>

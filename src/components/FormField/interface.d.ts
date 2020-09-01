@@ -5,6 +5,10 @@ export interface InputProps {
   hasChildren: boolean;
 }
 
+export interface ButtonCircleProps {
+  strokeWidth?: string;
+}
+
 export interface FormFieldProps {
   value: string;
   name: string;
@@ -12,4 +16,5 @@ export interface FormFieldProps {
   onChange: FunctionComponentElement;
   onClick?: FunctionComponentElement;
   type?: string;
+  stroke?: string;
 }

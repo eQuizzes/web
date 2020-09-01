@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { InputProps } from './interface';
+import { InputProps, ButtonCircleProps } from './interface';
 
 export const FormFieldWrapper = styled.div`
   width: 100%;
@@ -106,7 +106,7 @@ export const Input = styled.input<InputProps>`
     `};
 `;
 
-export const ButtonCircle = styled.button`
+export const ButtonCircle = styled.button<ButtonCircleProps>`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -130,7 +130,7 @@ export const ButtonCircle = styled.button`
     border-radius: 32px;
     border: 3px solid ${(props) => props.theme.colors.background};
     background: ${(props) => props.theme.colors.primary};
-    stroke-width: 2px;
+    stroke-width: ${({ strokeWidth }) => strokeWidth};
     transition: all 260ms ease-in-out;
     padding: 1px;
   }

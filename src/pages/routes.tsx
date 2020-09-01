@@ -7,6 +7,7 @@ import Login from './Login';
 import RecoveryPassword from './RecoveryPassword';
 import RecoveryPasswordCode from './RecoveryPasswordCode';
 import RecoveryPasswordNew from './RecoveryPasswordNew';
+import About from './About';
 
 function Routes() {
   return (
@@ -17,6 +18,7 @@ function Routes() {
       <Route path="/recoveryPassword" component={RecoveryPassword} />
       <Route path="/recoveryPasswordCode" component={RecoveryPasswordCode} />
       <Route path="/recoveryPasswordNew" component={RecoveryPasswordNew} />
+      <Route path="/about" component={About} />
     </BrowserRouter>
   );
 }
