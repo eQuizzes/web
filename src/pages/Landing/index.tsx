@@ -43,7 +43,7 @@ function Landing() {
             <FiChevronRight />
           </FormField>
 
-          <Link to="/" title="Possui cadastro? Faça o login">
+          <Link to="/login" title="Possui cadastro? Faça o login">
             Possui cadastro? <span>Faça o login</span>
           </Link>
         </Article>
@@ -72,7 +72,11 @@ function Landing() {
             seu inglês!
           </Description>
         </Article>
-        <Button color="primary-outline">Entre</Button>
+        <Button color="primary-outline">
+          <Link to="/login" title="Faça o login">
+            Entre
+          </Link>
+        </Button>
       </Section>
 
       <Footer />

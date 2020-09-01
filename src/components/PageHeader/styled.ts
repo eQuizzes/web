@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderWrapper = styled.header`
   width: 100%;
+  padding: 0 24px;
 `;
 
 export const Menu = styled.div`
@@ -9,6 +10,7 @@ export const Menu = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 
   width: 100%;
   padding: 0 24px;

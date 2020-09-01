@@ -122,7 +122,8 @@ export const ButtonCircle = styled.button`
   box-shadow: var(--box-shadow);
   transition: all 260ms ease-in-out;
 
-  svg {
+  svg,
+  img {
     width: 37px;
     height: 37px;
     color: ${(props) => props.theme.colors.background};
@@ -133,12 +134,19 @@ export const ButtonCircle = styled.button`
     transition: all 260ms ease-in-out;
   }
 
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &:focus-within,
   &:hover {
     padding-right: 0.8em;
     padding-left: 2.4rem;
 
-    svg {
+    svg,
+    img {
       transform: rotate(360deg);
     }
   }

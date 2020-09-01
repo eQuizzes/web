@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { HeaderWrapper } from '../../components/PageHeader/styled';
+
 import { LandingPageProps } from './Landing';
 
 export const LandingPage = styled.main<LandingPageProps>`
@@ -13,6 +15,10 @@ export const LandingPage = styled.main<LandingPageProps>`
 
   @media (min-width: 779px) {
     background-image: none;
+  }
+
+  ${HeaderWrapper} {
+    padding: 0;
   }
 `;
 
