@@ -130,8 +130,9 @@ export const ButtonCircle = styled.button`
     border-radius: 32px;
     border: 3px solid ${(props) => props.theme.colors.background};
     background: ${(props) => props.theme.colors.primary};
-    stroke-width: 2.6px;
+    stroke-width: 2px;
     transition: all 260ms ease-in-out;
+    padding: 1px;
   }
 
   a {
