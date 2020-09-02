@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdYoutubeSearchedFor } from 'react-icons/md';
 import Collapse from '../../components/Collapse';
 
@@ -36,6 +36,18 @@ function About() {
   };
 
   const { handleChange, values } = useForm(valuesInitials);
+  const [listQuestion, setListQuestion] = useState(data);
+
+  function applySearch() {
+    setListQuestion(
+      data.filter((question) => question.title.includes(values.search))
+    );
+  }
+
+  function handleListQuestions(e: React.ChangeEvent<HTMLInputElement>) {
+    handleChange(e);
+    applySearch();
+  }
 
   return (
     <PageDefault>
@@ -45,13 +57,15 @@ function About() {
           label="Pesquisar"
           name="search"
           value={values.search}
-          onChange={handleChange}
+          onChange={handleListQuestions}
+          stroke="0.5"
+          onClick={applySearch}
         >
           <MdYoutubeSearchedFor />
         </FormField>
         <CollapsesWrapper>
-          {data &&
-            data.map(({ id, title, description }) => (
+          {listQuestion &&
+            listQuestion.map(({ id, title, description }) => (
               <Collapse key={id} label={title}>
                 <Description>{description}</Description>
               </Collapse>
