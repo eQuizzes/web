@@ -8,7 +8,7 @@ import Footer from '../../components/Footer';
 
 import useForm from '../../hooks/useForm';
 
-import backgroundSvg from '../../assets/images/backgroundCheck.svg';
+import backgroundSvg from '../../assets/images/FavIcon.svg';
 
 import {
   LandingPage,

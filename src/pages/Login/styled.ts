@@ -7,6 +7,10 @@ export const Title = styled.h2`
   padding: 2rem 24px 8px;
   font-size: 4.6rem;
   width: 100%;
+
+  @media (min-width: 768px) {
+    padding-top: 3.2rem;
+  }
 `;
 
 export const Description = styled.p`
@@ -43,4 +47,5 @@ export const LinkLogin = styled(Link)`
   padding: 0 24px;
   font-size: 1.8rem;
   width: 100%;
+  text-align: center;
 `;

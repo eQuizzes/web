@@ -5,16 +5,27 @@ import { HeaderWrapper } from '../../components/PageHeader/styled';
 import { LandingPageProps } from './Landing';
 
 export const LandingPage = styled.main<LandingPageProps>`
-  background-image: url('${({ background }) => background}');
-  background-repeat: no-repeat;
-  background-position: right bottom;
-  background-attachment: fixed;
   padding: 0 2.4rem;
-  width: 100vw;
-  max-width: 900px;
+  width: 100%;
 
-  @media (min-width: 779px) {
-    background-image: none;
+  &:after {
+    content: '';
+    background-image: url('${({ background }) => background}');
+    background-size: 100vh;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: fixed;
+    opacity: 0.08;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    z-index: -1;
+
+    @media (min-width: 768px) {
+      background-size: 100vw;
+    }
   }
 
   ${HeaderWrapper} {
@@ -35,7 +46,13 @@ export const FistFold = styled.div`
   }
 `;
 
-export const Article = styled.article``;
+export const Article = styled.article`
+  @media (min-width: 768px) {
+    width: 768px;
+    max-width: 768px;
+    margin: 0 auto;
+  }
+`;
 
 export const Title = styled.h1`
   margin-top: 5rem;
@@ -43,6 +60,10 @@ export const Title = styled.h1`
   font-size: 4.2rem;
   font-weight: bold;
   text-shadow: var(--text-shadow);
+
+  @media (min-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export const Description = styled.p`
