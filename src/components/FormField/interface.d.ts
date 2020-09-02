@@ -5,6 +5,10 @@ export interface InputProps {
   hasChildren: boolean;
 }
 
+export interface TextProps {
+  type: string;
+}
+
 export interface ButtonCircleProps {
   strokeWidth?: string;
 }

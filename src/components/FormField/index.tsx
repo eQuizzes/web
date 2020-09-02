@@ -32,8 +32,12 @@ const FormField: React.FC<FormFieldProps> = ({
           type={typeInput}
           autoComplete="off"
         />
-        <Text htmlFor={fieldId}>{label}</Text>
-        {children && <ButtonCircle>{children}</ButtonCircle>}
+        <Text type={typeInput} htmlFor={fieldId}>
+          {label}
+        </Text>
+        {children && (
+          <ButtonCircle strokeWidth={strokeWidth}>{children}</ButtonCircle>
+        )}
       </Label>
     </FormFieldWrapper>
   );

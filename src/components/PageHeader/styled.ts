@@ -10,7 +10,10 @@ export const Menu = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  bottom: 5vh;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
 
   width: 100%;
   padding: 0 24px;
@@ -27,11 +30,21 @@ export const Menu = styled.div`
   }
 `;
 
-export const Navegation = styled.nav`
+export const Navigation = styled.nav`
+  flex: 1;
   width: 100%;
   padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const LinkList = styled.ul`
   flex-direction: column;
+`;
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
 `;

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { InputProps, ButtonCircleProps } from './interface';
+import { InputProps, TextProps, ButtonCircleProps } from './interface';
 
 export const FormFieldWrapper = styled.div`
   width: 100%;
@@ -15,7 +15,7 @@ export const Label = styled.label`
   width: 100%;
 `;
 
-export const Text = styled.label`
+export const Text = styled.label<TextProps>`
   color: ${(props) => props.theme.colors.primary};
 
   height: 2.2rem;
@@ -35,7 +35,11 @@ export const Text = styled.label`
   border-radius: 1.2rem;
 
   transition: 240ms ease-in-out;
-  background: ${(props) => props.theme.colors.background};
+  ${({ type }) =>
+    type === 'date' &&
+    css`
+      background: ${(props) => props.theme.colors.background};
+    `}
 
   &:before {
     content: '';

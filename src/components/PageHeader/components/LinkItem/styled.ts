@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Circle = styled.div`
   position: absolute;
-  right: -1px;
+  right: -1rem;
   top: 0;
   bottom: 0;
   height: 100%;
