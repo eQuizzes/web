@@ -4,9 +4,10 @@ import { StepProps, ConfirmContainerProps } from './interface';
 export const Steps = styled.section<StepProps>`
   flex: 1;
   display: flex;
+  justify-content: center;
   position: relative;
   transition: all 320ms ease-in-out;
-  min-height: 240px;
+  min-height: 51rem;
 
   ${({ step }) => css`
     article {
@@ -21,6 +22,15 @@ export const Steps = styled.section<StepProps>`
       &:nth-child(${step}) {
         transform: scale(1);
         opacity: 1;
+      }
+
+      @media (min-width: 768px) {
+        left: 50%;
+        transform: scale(0) translateX(-50%);
+
+        &:nth-child(${step}) {
+          transform: scale(1) translateX(-50%);
+        }
       }
     }
   `}

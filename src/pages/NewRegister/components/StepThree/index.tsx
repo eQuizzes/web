@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Button from '../../../../components/Button';
+import Collapse from '../../../../components/Collapse';
+
 import {
   Container,
   TitleWrapper,
@@ -10,8 +13,6 @@ import {
 } from './styled';
 
 import { StepThreeProps } from './interface';
-import Button from '../../../../components/Button';
-import Collapse from '../../../../components/Collapse';
 
 const StepThree: React.FC<StepThreeProps> = ({
   handleConfirmRegister,

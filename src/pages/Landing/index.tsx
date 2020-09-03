@@ -1,5 +1,7 @@
 import React from 'react';
+import Lottie from 'lottie-react-web';
 import { Link } from 'react-router-dom';
+import { FiChevronRight } from 'react-icons/fi';
 
 import PageHeader from '../../components/PageHeader';
 import FormField from '../../components/FormField';
@@ -8,7 +10,7 @@ import Footer from '../../components/Footer';
 
 import useForm from '../../hooks/useForm';
 
-import backgroundSvg from '../../assets/images/FavIcon.svg';
+import lottieBooks from '../../assets/lottie/books.json';
 
 import {
   LandingPage,
@@ -18,7 +20,6 @@ import {
   Section,
   Article,
 } from './styled';
-import { FiChevronRight } from 'react-icons/fi';
 
 function Landing() {
   const valuesInitials = {
@@ -28,10 +29,19 @@ function Landing() {
   const { handleChange, values } = useForm(valuesInitials);
 
   return (
-    <LandingPage background={backgroundSvg}>
+    <LandingPage>
       <FistFold>
         <PageHeader />
         <Title>A alternativa correta para seus estudos!</Title>
+
+        <Lottie
+          options={{
+            autoplay: true,
+            loop: true,
+            animationData: lottieBooks,
+          }}
+        />
+
         <Article>
           <FormField
             label="Código da Sala"

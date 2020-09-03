@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Lottie from 'lottie-react-web';
 import { useHistory } from 'react-router-dom';
 
 import PageDefault from '../../components/PageDefault';
@@ -7,6 +8,8 @@ import StepTwo from './components/StepTwo';
 import StepThree from './components/StepThree';
 
 import useForm from '../../hooks/useForm';
+
+import lottieAccept from '../../assets/lottie/accept.json';
 
 import { Steps, ConfirmContainer } from './styled';
 
@@ -74,7 +77,7 @@ function NewRegister() {
     setTimeout(() => {
       setRegisterConfirm(false);
       history.push('/');
-    }, 2200);
+    }, 5000);
   }
 
   return (
@@ -96,7 +99,12 @@ function NewRegister() {
         />
       </Steps>
       <ConfirmContainer registerConfirm={registerConfirm}>
-        {/* <Image src={imgConfirm} alt="" /> */}
+        <Lottie
+          options={{
+            animationData: lottieAccept,
+          }}
+          isPaused={!registerConfirm}
+        />
       </ConfirmContainer>
     </PageDefault>
   );
