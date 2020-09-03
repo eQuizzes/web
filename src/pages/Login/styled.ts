@@ -10,6 +10,7 @@ export const Title = styled.h2`
 
   @media (min-width: 768px) {
     padding-top: 3.2rem;
+    text-align: center;
   }
 `;
 
@@ -17,6 +18,10 @@ export const Description = styled.p`
   padding: 0 24px;
   font-size: 1.8rem;
   width: 100%;
+
+  @media (min-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export const Form = styled.form`

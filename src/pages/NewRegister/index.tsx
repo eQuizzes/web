@@ -17,12 +17,12 @@ import api from '../../services/api';
 
 function NewRegister() {
   const valuesInitials = {
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    email: '',
-    username: '',
-    password: '',
+    firstName: 'marlin',
+    lastName: 'pão duro',
+    dateOfBirth: '1999-09-18',
+    email: 'marlito@pao.duro',
+    username: 'marlito',
+    password: 'pao',
   };
   const history = useHistory();
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -86,11 +86,13 @@ function NewRegister() {
         },
       })
       .then(() => {
+        setRegisterConfirm(true);
+
         setTimeout(() => {
           setRegisterConfirm(false);
 
           history.push('/student/home');
-        }, 5000);
+        }, 3600);
       })
       .catch(() => {
         alert('Erro ao cadastro!');
