@@ -13,6 +13,8 @@ import lottieAccept from '../../assets/lottie/accept.json';
 
 import { Steps, ConfirmContainer } from './styled';
 
+import api from '../../services/api';
+
 function NewRegister() {
   const valuesInitials = {
     firstName: '',
@@ -71,13 +73,33 @@ function NewRegister() {
     return null;
   }
 
+  function addNewStudent() {
+    api
+      .post('aluno', {
+        pessoa: {
+          nome: values.firstName,
+          sobrenome: values.lastName,
+          dataNascimento: values.dateOfBirth,
+          email: values.email,
+          usuario: values.username,
+          senha: values.password,
+        },
+      })
+      .then(() => {
+        setTimeout(() => {
+          setRegisterConfirm(false);
+
+          history.push('/student/home');
+        }, 5000);
+      })
+      .catch(() => {
+        alert('Erro ao cadastro!');
+      });
+  }
+
   function handleConfirmRegister() {
     setRegisterConfirm(true);
-
-    setTimeout(() => {
-      setRegisterConfirm(false);
-      history.push('/');
-    }, 5000);
+    addNewStudent();
   }
 
   return (
