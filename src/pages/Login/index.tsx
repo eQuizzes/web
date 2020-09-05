@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import api from '../../services/api';
 
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
@@ -9,7 +11,6 @@ import useForm from '../../hooks/useForm';
 import iconRecovery from '../../assets/images/icons/recoveryPassword.svg';
 
 import { Title, Description, Form, FieldsWrapper, LinkLogin } from './styled';
-import { Link } from 'react-router-dom';
 
 function Login() {
   const valuesInitials = {
@@ -17,7 +18,26 @@ function Login() {
     password: '',
   };
 
+  const history = useHistory();
   const { handleChange, values } = useForm(valuesInitials);
+
+  function loginStudant() {
+    api
+      .post('/aluno/validarLoginAluno', {
+        usuario: values.username,
+        senha: values.password,
+      })
+      .then((response) => {
+        const { data } = response;
+        console.log(data);
+
+        history.push('/student/home');
+      })
+      .catch(({ response }) => {
+        const { data } = response;
+        alert(data);
+      });
+  }
 
   return (
     <PageDefault>
@@ -43,7 +63,9 @@ function Login() {
             </Link>
           </FormField>
         </FieldsWrapper>
-        <Button color="primary">Entrar</Button>
+        <Button color="primary" onClick={loginStudant}>
+          Entrar
+        </Button>
       </Form>
       <LinkLogin to="/newRegister" title="Cadastre-se agora mesmo">
         Não tem cadastro? <b>Venha com a gente</b>
