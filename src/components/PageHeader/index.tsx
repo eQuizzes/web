@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
 
 import Header from './components/Header';
@@ -18,11 +18,30 @@ import {
   ButtonsWrapper,
 } from './styled';
 
-const PageHeader: React.FC = () => {
+import { HeaderProps } from './interface';
+
+const links = [
+  {
+    route: 'newRegister',
+    title: 'Cadastra-se',
+    logout: true,
+  },
+  {
+    route: 'about',
+    title: 'Porque a gente?',
+    logout: true,
+  },
+];
+
+const PageHeader: React.FC<HeaderProps> = ({ type, studentOn, text }) => {
   const valuesInitials = {
     pin_menu: '',
   };
 
+  const howType = type === undefined ? 'icon' : type;
+  const hasStudentOn = Boolean(studentOn);
+  const { url } = useRouteMatch();
+  const routeActive = url.replace('/student/', '');
   const { handleChange, values } = useForm(valuesInitials);
 
   function handleToggleMenu() {
@@ -37,12 +56,27 @@ const PageHeader: React.FC = () => {
           isMenuIcon={false}
           title="Fechar Menu"
           onClick={handleToggleMenu}
+          student={hasStudentOn}
+          type={hasStudentOn ? 'exit' : 'icon'}
         />
 
         <Navigation>
           <LinkList>
-            <LinkItem to="/newRegister" title="Cadastre-se" />
-            <LinkItem to="/about" title="Porque a gente?" />
+            {links
+              .filter(
+                ({ route, logout }) =>
+                  route !== routeActive && Boolean(logout) === !hasStudentOn
+              )
+              .map((link) => {
+                const logged = Boolean(link?.logout) ? '' : '/student';
+                return (
+                  <LinkItem
+                    key={link.route}
+                    to={`${logged}/${link.route}`}
+                    title={link.title}
+                  />
+                );
+              })}
           </LinkList>
           <ButtonsWrapper>
             <FormField
@@ -62,7 +96,14 @@ const PageHeader: React.FC = () => {
           </ButtonsWrapper>
         </Navigation>
       </Menu>
-      <Header isMenuIcon={true} title="Abrir Menu" onClick={handleToggleMenu} />
+      <Header
+        isMenuIcon={true}
+        title="Abrir Menu"
+        onClick={handleToggleMenu}
+        student={hasStudentOn}
+        type={howType}
+        text={text}
+      />
     </HeaderWrapper>
   );
 };
