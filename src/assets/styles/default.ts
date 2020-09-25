@@ -57,5 +57,7 @@ div, section, article, footer, #root {
   align-items: center;
 }
 
-
+fieldset {
+  border: none;
+}
 `;

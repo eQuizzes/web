@@ -8,6 +8,7 @@ declare module 'styled-components' {
       backgroundGradient: string;
 
       primary: string;
+      primaryOpacity64: string;
     };
   }
 }

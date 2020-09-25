@@ -9,7 +9,11 @@ import RecoveryPasswordNew from './RecoveryPassword/pages/New';
 import RecoveryPassword from './RecoveryPassword';
 import About from './About';
 
+import Account from './Student/Account';
+
 function Routes() {
+  const subdomainStudent = 'student';
+
   return (
     <BrowserRouter>
       <Route path="/" exact component={Landing} />
@@ -19,6 +23,7 @@ function Routes() {
       <Route path="/recoveryPassword/new" component={RecoveryPasswordNew} />
       <Route path="/recoveryPassword" component={RecoveryPassword} />
       <Route path="/about" component={About} />
+      <Route path={`/${subdomainStudent}/account`} component={Account} />
     </BrowserRouter>
   );
 }

@@ -1,7 +1,15 @@
 import React from 'react';
 
 import { FormFieldProps } from './interface';
-import { FormFieldWrapper, Label, Input, Text, ButtonCircle } from './styled';
+import {
+  FormFieldWrapper,
+  Label,
+  Input,
+  Text,
+  Prefix,
+  Textarea,
+  ButtonCircle,
+} from './styled';
 
 const FormField: React.FC<FormFieldProps> = ({
   children,
@@ -12,31 +20,54 @@ const FormField: React.FC<FormFieldProps> = ({
   onClick,
   type,
   stroke,
+  prefix,
 }) => {
   const fieldId = `id_${name}`;
   const hasValue = value !== '';
+  const hasLabel = Boolean(label.length);
   const typeInput = type !== undefined ? type : 'text';
+  const isTextarea = type === 'textarea';
   const strokeWidth = stroke !== undefined ? stroke : '2.4px';
+  const hasPrefix = prefix !== undefined;
 
   return (
     <FormFieldWrapper>
-      <Label htmlFor={fieldId}>
-        <Input
-          id={fieldId}
-          hasValue={hasValue}
-          hasChildren={Boolean(children)}
-          value={value}
-          name={name}
-          onChange={onChange}
-          onClick={onClick}
-          type={typeInput}
-          autoComplete="off"
-        />
-        <Text type={typeInput} htmlFor={fieldId}>
+      <Label htmlFor={fieldId} type={typeInput}>
+        {hasPrefix && <Prefix htmlFor={fieldId}>{prefix}</Prefix>}
+        {isTextarea ? (
+          <Textarea
+            id={fieldId}
+            hasValue={hasValue}
+            hasChildren={Boolean(children)}
+            value={value}
+            name={name}
+            onChange={onChange}
+            autoComplete="off"
+          />
+        ) : (
+          <Input
+            id={fieldId}
+            hasValue={hasValue}
+            hasChildren={Boolean(children)}
+            value={value}
+            name={name}
+            onChange={onChange}
+            type={typeInput}
+            autoComplete="off"
+          />
+        )}
+
+        <Text hasLabel={hasLabel} type={typeInput} htmlFor={fieldId}>
           {label}
         </Text>
         {children && (
-          <ButtonCircle strokeWidth={strokeWidth}>{children}</ButtonCircle>
+          <ButtonCircle
+            onClick={onClick}
+            type="button"
+            strokeWidth={strokeWidth}
+          >
+            {children}
+          </ButtonCircle>
         )}
       </Label>
     </FormFieldWrapper>
