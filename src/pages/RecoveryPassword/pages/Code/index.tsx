@@ -1,10 +1,10 @@
 import React from 'react';
 import { FiCheck } from 'react-icons/fi';
 
-import FormField from '../../components/FormField';
-import PageDefault from '../../components/PageDefault';
+import FormField from '../../../../components/FormField';
+import PageDefault from '../../../../components/PageDefault';
 
-import useForm from '../../hooks/useForm';
+import useForm from '../../../../hooks/useForm';
 
 import { Title, Description, Form, FieldsWrapper, LinkLogin } from './styled';
 import { Link } from 'react-router-dom';
@@ -31,7 +31,7 @@ function RecoveryPasswordCode() {
             value={values.code}
             onChange={handleChange}
           >
-            <Link to="/recoveryPasswordNew">
+            <Link to="/recoveryPassword/new">
               <FiCheck />
             </Link>
           </FormField>
