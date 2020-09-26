@@ -2,7 +2,18 @@ import styled from 'styled-components';
 
 export const SearchClassWrapper = styled.div`
   padding: 0 24px 5.6rem;
+  display: grid;
+  grid-auto-rows: 10rem calc(100% - 10rem);
   flex: 1;
+`;
+
+export const Title = styled.h3`
+  font-size: 3.2rem;
+`;
+
+export const FieldsWrapper = styled.div`
+  flex: 1;
+  padding: 0 0 5.6rem;
   justify-content: center;
 `;
 

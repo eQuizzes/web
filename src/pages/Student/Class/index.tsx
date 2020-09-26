@@ -9,11 +9,13 @@ import Item from './components/Item';
 
 import {
   Header,
+  Title,
   Info,
   Name,
   Code,
   SearchClassWrapper,
   FormFieldWrapper,
+  FieldsWrapper,
   ListStudents,
   Student,
 } from './styled';
@@ -34,14 +36,17 @@ const Class: React.FC = () => {
     <PageStudent type="icon">
       {data.length === 0 ? (
         <SearchClassWrapper>
-          <FormField
-            label="Código da turma"
-            name="codeClass"
-            onChange={handleChange}
-            value={values.codeClass}
-          >
-            <FiSearch />
-          </FormField>
+          <Title>Pratique em turma</Title>
+          <FieldsWrapper>
+            <FormField
+              label="Código da turma"
+              name="codeClass"
+              onChange={handleChange}
+              value={values.codeClass}
+            >
+              <FiSearch />
+            </FormField>
+          </FieldsWrapper>
         </SearchClassWrapper>
       ) : (
         <>
