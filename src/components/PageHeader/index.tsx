@@ -31,6 +31,18 @@ const links = [
     title: 'Porque a gente?',
     logout: true,
   },
+  {
+    route: 'class',
+    title: 'Turma',
+  },
+  {
+    route: 'live',
+    title: 'Live',
+  },
+  {
+    route: 'account',
+    title: 'Perfil',
+  },
 ];
 
 const PageHeader: React.FC<HeaderProps> = ({ type, studentOn, text }) => {

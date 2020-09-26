@@ -10,6 +10,7 @@ import RecoveryPassword from './RecoveryPassword';
 import About from './About';
 
 import Account from './Student/Account';
+import Class from './Student/Class';
 
 function Routes() {
   const subdomainStudent = 'student';
@@ -24,6 +25,7 @@ function Routes() {
       <Route path="/recoveryPassword" component={RecoveryPassword} />
       <Route path="/about" component={About} />
       <Route path={`/${subdomainStudent}/account`} component={Account} />
+      <Route path={`/${subdomainStudent}/class`} component={Class} />
     </BrowserRouter>
   );
 }

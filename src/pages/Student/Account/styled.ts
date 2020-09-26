@@ -58,7 +58,7 @@ export const TypesFone = styled.div`
 
 export const ThreeColumns = styled.div`
   display: grid;
-  grid-template-columns: 8rem 8rem auto;
+  grid-template-columns: 7rem 7rem auto;
   column-gap: 0.8rem;
 
   &:first-of-type {
