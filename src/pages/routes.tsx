@@ -11,6 +11,7 @@ import About from './About';
 
 import Account from './Student/Account';
 import Class from './Student/Class';
+import Live from './Student/Live';
 
 function Routes() {
   const subdomainStudent = 'student';
@@ -26,6 +27,7 @@ function Routes() {
       <Route path="/about" component={About} />
       <Route path={`/${subdomainStudent}/account`} component={Account} />
       <Route path={`/${subdomainStudent}/class`} component={Class} />
+      <Route path={`/${subdomainStudent}/live`} component={Live} />
     </BrowserRouter>
   );
 }
