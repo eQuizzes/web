@@ -21,7 +21,7 @@ function Login() {
   const history = useHistory();
   const { handleChange, values } = useForm(valuesInitials);
 
-  function loginStudant() {
+  function loginStudent() {
     api
       .post('/aluno/validarLoginAluno', {
         usuario: values.username,
@@ -63,7 +63,7 @@ function Login() {
             </Link>
           </FormField>
         </FieldsWrapper>
-        <Button color="primary" onClick={loginStudant}>
+        <Button color="primary" onClick={loginStudent}>
           Entrar
         </Button>
       </Form>

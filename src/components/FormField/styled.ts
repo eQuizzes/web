@@ -23,7 +23,7 @@ export const Label = styled.label<LabelProps>`
   box-shadow: var(--box-shadow);
 
   border: 2.5px solid ${(props) => props.theme.colors.primary};
-  border-radius: 32px;
+  border-radius: 3.2rem;
 
   padding: 0 1.4rem;
 
