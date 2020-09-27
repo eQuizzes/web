@@ -1,11 +1,9 @@
 import React from 'react';
 
-import Chat from '../../components/Chat';
-
-import PageInit from './pages/Init';
+import Question from './pages/Question';
 
 const Quiz: React.FC = () => {
-  return <PageInit />;
+  return <Question />;
 };
 
 export default Quiz;
