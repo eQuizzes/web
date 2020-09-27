@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FiArrowLeft, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import { FiArrowLeft, FiBell, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
 
 import logoImg from '../../../../assets/images/FavIcon.svg';
 
@@ -35,11 +35,9 @@ const Header: React.FC<HeaderProps> = ({
             <FiLogOut />
           </Button>
         ) : (
-          <Link to="/student/home" title="Ir para Home">
-            <Button>
-              <Logo src={logoImg} alt="Logo English Quiz" />
-            </Button>
-          </Link>
+          <Button>
+            <FiBell />
+          </Button>
         )
       ) : (
         <Link to="/" title="Ir para Home">

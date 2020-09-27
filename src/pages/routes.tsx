@@ -8,9 +8,11 @@ import RecoveryPasswordCode from './RecoveryPassword/pages/Code';
 import RecoveryPasswordNew from './RecoveryPassword/pages/New';
 import RecoveryPassword from './RecoveryPassword';
 import About from './About';
+import Quiz from './Quiz';
 
 import Account from './Student/Account';
 import Class from './Student/Class';
+import Home from './Student/Home';
 import Live from './Student/Live';
 
 function Routes() {
@@ -25,6 +27,10 @@ function Routes() {
       <Route path="/recoveryPassword/new" component={RecoveryPasswordNew} />
       <Route path="/recoveryPassword" component={RecoveryPassword} />
       <Route path="/about" component={About} />
+      <Route path="/quiz" component={Quiz} />
+
+      <Route path={`/${subdomainStudent}`} exact component={Home} />
+      <Route path={`/${subdomainStudent}/home`} component={Home} />
       <Route path={`/${subdomainStudent}/account`} component={Account} />
       <Route path={`/${subdomainStudent}/class`} component={Class} />
       <Route path={`/${subdomainStudent}/live`} component={Live} />

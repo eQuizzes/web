@@ -31,8 +31,8 @@ import {
 
 const Account: React.FC = () => {
   const valuesInitials = {
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     cpf: '',
     dateOfBirth: '',
     genre: 'M',
@@ -61,7 +61,7 @@ const Account: React.FC = () => {
     options: [],
   });
 
-  const [staties, setStaties] = useState<OptionsSelect>({
+  const [states, setStates] = useState<OptionsSelect>({
     options: [
       {
         label: '',
@@ -157,7 +157,7 @@ const Account: React.FC = () => {
           return optionsNameStaties;
         });
 
-        setStaties({
+        setStates({
           options: optionsStaties,
         });
       })
@@ -199,14 +199,14 @@ const Account: React.FC = () => {
             <TwoColumns>
               <FormField
                 label="Nome"
-                name="firstname"
-                value={values.firstname}
+                name="firstName"
+                value={values.firstName}
                 onChange={handleChange}
               />
               <FormField
                 label="Sobrenome"
-                name="lastname"
-                value={values.lastname}
+                name="lastName"
+                value={values.lastName}
                 onChange={handleChange}
               />
             </TwoColumns>
@@ -301,7 +301,7 @@ const Account: React.FC = () => {
               name="cep"
               value={cep}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setState(e.target.value)
+                setCep(e.target.value)
               }
               onClick={handleCep}
             >
@@ -321,7 +321,7 @@ const Account: React.FC = () => {
                   label="UF"
                   onChange={(e: any) => setState(e.value)}
                   value={state}
-                  options={staties.options}
+                  options={states.options}
                 />
               ) : (
                 <FormField
