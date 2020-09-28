@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import RadioButton from '../../../../components/RadioButton';
 
 import {
-  MoreVertical,
   SettingsWrapper,
+  MoreVertical,
   SubTitle,
   Legend,
   Option,
@@ -11,7 +11,7 @@ import {
 } from './styled';
 
 const Settings: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [templateResponse, setTemplateResponse] = useState<string>('1');
 
   function handleIsOpen() {

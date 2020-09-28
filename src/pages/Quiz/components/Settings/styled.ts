@@ -2,9 +2,9 @@ import styled, { css } from 'styled-components';
 import { FiMoreVertical, FiX } from 'react-icons/fi';
 
 import {
+  RadioButtonContainer,
   RadioButtonWrapper,
   Label,
-  RadioButtonContainer,
 } from '../../../../components/RadioButton/styled';
 
 import { SettingsProps } from './interface';
