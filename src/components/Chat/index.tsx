@@ -6,7 +6,6 @@ import FormField from '../FormField';
 
 import {
   ContainerMessage,
-  TeacherMessage,
   ContainerIcon,
   ContainerChat,
   QuizMessage,
@@ -33,7 +32,6 @@ const Chat: React.FC = () => {
         <ContainerMessage>
           <MyMessage>Minha mensagem</MyMessage>
           <QuizMessage>Mensagem servidor</QuizMessage>
-          <TeacherMessage>Mensagem professor</TeacherMessage>
         </ContainerMessage>
         <FormField
           label="Mensagem"

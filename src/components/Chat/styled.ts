@@ -83,10 +83,6 @@ export const QuizMessage = styled(Message)`
   border-bottom-left-radius: 0;
 `;
 
-export const TeacherMessage = styled(QuizMessage)`
-  position: relative;
-`;
-
 export const MyMessage = styled(Message)`
   text-align: right;
   margin-left: auto;
