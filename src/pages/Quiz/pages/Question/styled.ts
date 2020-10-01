@@ -38,6 +38,9 @@ export const QuestionStyles = styled.p`
   font-size: 2.4rem;
   text-shadow: var(--text-shadow);
   padding-bottom: 6.4rem;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
 `;
 
 export const ResponseWrapper = styled.div`
@@ -75,5 +78,13 @@ export const ButtonsWrapper = styled.div<ButtonsProps>`
       background: ${(props) => props.theme.colors.primary};
       color: ${(props) => props.theme.colors.background};
     }
+  }
+`;
+
+export const ButtonsWrapperFull = styled(ButtonsWrapper)`
+  flex-direction: column;
+
+  ${Button} {
+    font-size: 2.2rem;
   }
 `;

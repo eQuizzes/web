@@ -11,11 +11,19 @@ import {
 } from './styled';
 
 const Settings: React.FC = () => {
+  const initialTemplateResponse = localStorage.getItem('templateResponse');
   const [isOpen, setIsOpen] = useState(false);
-  const [templateResponse, setTemplateResponse] = useState<string>('1');
+  const [templateResponse, setTemplateResponse] = useState<string>(
+    initialTemplateResponse !== null ? initialTemplateResponse : '1'
+  );
 
   function handleIsOpen() {
     setIsOpen(!isOpen);
+  }
+
+  function handleTemplateResponse(type: string) {
+    localStorage.setItem('templateResponse', type);
+    setTemplateResponse(type);
   }
 
   return (
@@ -41,7 +49,7 @@ const Settings: React.FC = () => {
             value={templateResponse}
             name="templateResponse"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setTemplateResponse(e.target.value);
+              handleTemplateResponse(e.target.value);
             }}
           />
         </Option>

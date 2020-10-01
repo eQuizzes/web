@@ -42,3 +42,4 @@ export const AverageClass = styled.div`
 export const HistoryQuestions = styled.div`
   padding: 3.2rem 24px;
 `;
+export const Graph = styled.canvas``;

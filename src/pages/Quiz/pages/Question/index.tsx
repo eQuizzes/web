@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  ButtonsWrapperFull,
   QuestionWrapper,
   ResponseWrapper,
   QuestionStyles,
@@ -13,7 +14,9 @@ import {
 } from './styled';
 
 const Question: React.FC = () => {
-  return (
+  const templateResponse = localStorage.getItem('templateResponse');
+
+  return templateResponse === '1' ? (
     <QuestionWrapper>
       <Header>
         <Number>
@@ -31,6 +34,22 @@ const Question: React.FC = () => {
           <Button>D</Button>
         </ButtonsWrapper>
       </ResponseWrapper>
+    </QuestionWrapper>
+  ) : (
+    <QuestionWrapper>
+      <Header>
+        <Number>
+          <sup>3</sup>/<sub>9</sub>
+        </Number>
+        <Timer>60</Timer>
+      </Header>
+      <QuestionStyles>Aguarde o professor iniciar o Quiz</QuestionStyles>
+      <ButtonsWrapperFull active={1}>
+        <Button>Acho que seja a resposta certo, acertei?!!</Button>
+        <Button>Acho que seja a resposta certo, acertei?!!</Button>
+        <Button>Acho que seja a resposta certo, acertei?!!</Button>
+        <Button>Acho que seja a resposta certo, acertei?!!</Button>
+      </ButtonsWrapperFull>
     </QuestionWrapper>
   );
 };
