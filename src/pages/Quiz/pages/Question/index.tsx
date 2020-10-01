@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   ButtonsWrapperFull,
@@ -15,6 +15,11 @@ import {
 
 const Question: React.FC = () => {
   const templateResponse = localStorage.getItem('templateResponse');
+  const [active, setActive] = useState<1 | 2 | 3 | 4>(1);
+
+  function handleActive(number: 1 | 2 | 3 | 4) {
+    setActive(number);
+  }
 
   return templateResponse === '1' ? (
     <QuestionWrapper>
@@ -24,15 +29,16 @@ const Question: React.FC = () => {
         </Number>
         <Timer>60</Timer>
       </Header>
-      <QuestionStyles>Aguarde o professor iniciar o Quiz</QuestionStyles>
+      <QuestionStyles>É a resposta certa?</QuestionStyles>
       <ResponseWrapper>
-        <Response>Acho que seja a resposta certo, acertei?!!</Response>
-        <ButtonsWrapper active={1}>
+        <Response>Acho que seja a resposta certa, acertei?!!</Response>
+        <ButtonsWrapper active={active}>
           <Button>A</Button>
           <Button>B</Button>
           <Button>C</Button>
           <Button>D</Button>
         </ButtonsWrapper>
+        <Button>Confirmar</Button>
       </ResponseWrapper>
     </QuestionWrapper>
   ) : (

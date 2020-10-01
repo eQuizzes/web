@@ -37,14 +37,12 @@ export const QuestionStyles = styled.p`
   font-weight: 500;
   font-size: 2.4rem;
   text-shadow: var(--text-shadow);
+  padding-top: 6.4rem;
   padding-bottom: 6.4rem;
-  min-height: 50vh;
+  flex: 1;
   display: flex;
   align-items: center;
-`;
-
-export const ResponseWrapper = styled.div`
-  grid-gap: 2.4rem;
+  justify-content: center;
 `;
 
 export const Response = styled.p`
@@ -62,15 +60,16 @@ export const Button = styled.button`
   padding: 0.8rem 1.8rem;
   box-shadow: var(--box-shadow);
   text-shadow: var(--text-shadow);
-  font: 600 3rem 'Roboto', sans-serif;
+  font: 600 2rem 'Roboto', sans-serif;
   color: ${(props) => props.theme.colors.primary};
   transition: all 260ms ease-in-out;
 `;
 
 export const ButtonsWrapper = styled.div<ButtonsProps>`
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
-  grid-gap: 2rem;
+  grid-gap: 0.8rem;
   width: 100%;
 
   ${Button} {
@@ -83,8 +82,22 @@ export const ButtonsWrapper = styled.div<ButtonsProps>`
 
 export const ButtonsWrapperFull = styled(ButtonsWrapper)`
   flex-direction: column;
+  grid-gap: 1.6rem;
 
   ${Button} {
     font-size: 2.2rem;
+  }
+`;
+
+export const ResponseWrapper = styled.div`
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  grid-gap: 2.4rem;
+
+  > ${Button} {
+    font-size: 2.4rem;
+    font-weight: 500;
+    align-items: center;
   }
 `;
