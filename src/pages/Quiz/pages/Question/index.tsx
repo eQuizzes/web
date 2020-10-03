@@ -51,10 +51,18 @@ const Question: React.FC = () => {
       </Header>
       <QuestionStyles>Aguarde o professor iniciar o Quiz</QuestionStyles>
       <ButtonsWrapperFull active={1}>
-        <Button>Acho que seja a resposta certo, acertei?!!</Button>
-        <Button>Acho que seja a resposta certo, acertei?!!</Button>
-        <Button>Acho que seja a resposta certo, acertei?!!</Button>
-        <Button>Acho que seja a resposta certo, acertei?!!</Button>
+        <Button onClick={() => handleActive(1)}>
+          Acho que seja a resposta certo, acertei?!!
+        </Button>
+        <Button onClick={() => handleActive(2)}>
+          Acho que seja a resposta certo, acertei?!!
+        </Button>
+        <Button onClick={() => handleActive(3)}>
+          Acho que seja a resposta certo, acertei?!!
+        </Button>
+        <Button onClick={() => handleActive(4)}>
+          Acho que seja a resposta certo, acertei?!!
+        </Button>
       </ButtonsWrapperFull>
     </QuestionWrapper>
   );

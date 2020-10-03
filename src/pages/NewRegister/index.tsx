@@ -17,12 +17,12 @@ import api from '../../services/api';
 
 function NewRegister() {
   const valuesInitials = {
-    firstName: 'marlin',
-    lastName: 'pão duro',
-    dateOfBirth: '1999-09-18',
-    email: 'marlito@pao.duro',
-    username: 'marlito',
-    password: 'pao',
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    email: '',
+    username: '',
+    password: '',
   };
   const history = useHistory();
   const [step, setStep] = useState<1 | 2 | 3>(1);
