@@ -91,7 +91,7 @@ function NewRegister() {
         setTimeout(() => {
           setRegisterConfirm(false);
 
-          history.push('/student/home');
+          history.push('/login');
         }, 3600);
       })
       .catch(() => {
