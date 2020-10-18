@@ -63,9 +63,7 @@ function Login() {
             </Link>
           </FormField>
         </FieldsWrapper>
-        <Button color="primary" onClick={loginStudent}>
-          Entrar
-        </Button>
+        <Button onClick={loginStudent}>Entrar</Button>
       </Form>
       <LinkLogin to="/newRegister" title="Cadastre-se agora mesmo">
         Não tem cadastro? <b>Venha com a gente</b>
