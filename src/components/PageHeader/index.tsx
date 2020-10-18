@@ -23,7 +23,7 @@ import { HeaderProps } from './interface';
 const links = [
   {
     route: 'newRegister',
-    title: 'Cadastra-se',
+    title: 'Cadastre-se',
     logout: true,
   },
   {

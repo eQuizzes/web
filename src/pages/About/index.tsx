@@ -12,21 +12,21 @@ import { Container, Title, CollapsesWrapper, Description } from './styled';
 const data = [
   {
     id: 1,
-    title: 'Como user em aulas?',
+    title: 'Como usar em aulas?',
     description:
-      'Partimos do conceito da metodologia de sala de aula invertida, o aluno estuda a máteria fora da aula, assim tendo apenas dúvidas e a prática em sala de aula.',
+      'Partimos do conceito da metodologia de sala de aula invertida, o aluno estuda a matéria fora da aula, assim tendo apenas dúvidas e a prática em sala de aula.',
   },
   {
     id: 2,
     title: 'O que há de diferente?',
     description:
-      'Partimos do conceito da metodologia de sala de aula invertida, o aluno estuda a máteria fora da aula, assim tendo apenas dúvidas e a prática em sala de aula.',
+      'Partimos do conceito da metodologia de sala de aula invertida, o aluno estuda a matéria fora da aula, assim tendo apenas dúvidas e a prática em sala de aula.',
   },
   {
     id: 3,
     title: 'Tem gamificação?',
     description:
-      'Partimos do conceito da metodologia de sala de aula invertida, o aluno estuda a máteria fora da aula, assim tendo apenas dúvidas e a prática em sala de aula.',
+      'Partimos do conceito da metodologia de sala de aula invertida, o aluno estuda a matéria fora da aula, assim tendo apenas dúvidas e a prática em sala de aula.',
   },
 ];
 
