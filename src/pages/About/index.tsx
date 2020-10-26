@@ -39,6 +39,7 @@ function About() {
   const [listQuestion, setListQuestion] = useState(data);
 
   function applySearch() {
+    console.log(values.search);
     setListQuestion(
       data.filter((question) => question.title.includes(values.search))
     );

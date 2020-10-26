@@ -43,6 +43,7 @@ const Class: React.FC = () => {
               name="codeClass"
               onChange={handleChange}
               value={values.codeClass}
+              maxLength={5}
             >
               <FiSearch />
             </FormField>

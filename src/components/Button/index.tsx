@@ -9,7 +9,7 @@ const Button: React.FC<ButtonProps> = ({
   to,
   title,
   children,
-  color,
+  color = 'primary',
   onClick,
 }) => {
   const isLink = Boolean(to?.length);

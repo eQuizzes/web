@@ -31,12 +31,14 @@ const StepOne: React.FC<StepOneProps> = ({
             name="firstName"
             value={values.firstName}
             onChange={handleChange}
+            maxLength={40}
           />
           <FormField
             label="Sobrenome"
             name="lastName"
             value={values.lastName}
             onChange={handleChange}
+            maxLength={40}
           />
         </TwoColumns>
         <FormField
@@ -45,6 +47,7 @@ const StepOne: React.FC<StepOneProps> = ({
           value={values.dateOfBirth}
           onChange={handleChange}
           type="date"
+          maxLength={10}
         />
         <FormField
           label="E-mail"
@@ -52,6 +55,7 @@ const StepOne: React.FC<StepOneProps> = ({
           value={values.email}
           onChange={handleChange}
           type="email"
+          maxLength={254}
         />
         <Button onClick={() => handleStep(1, 2)} color="primary">
           Continuar

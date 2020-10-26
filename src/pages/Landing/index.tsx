@@ -49,6 +49,7 @@ function Landing() {
             value={values.pin}
             onChange={handleChange}
             onClick={() => {}}
+            maxLength={8}
           >
             <FiChevronRight />
           </FormField>

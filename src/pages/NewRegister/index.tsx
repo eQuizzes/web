@@ -14,6 +14,7 @@ import lottieAccept from '../../assets/lottie/accept.json';
 import { Steps, ConfirmContainer } from './styled';
 
 import api from '../../services/api';
+import validation from '../../util/validation';
 
 function NewRegister() {
   const valuesInitials = {
@@ -23,6 +24,7 @@ function NewRegister() {
     email: '',
     username: '',
     password: '',
+    confirmPassword: '',
   };
   const history = useHistory();
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -42,7 +44,11 @@ function NewRegister() {
           return false;
         }
         if (values.dateOfBirth === '') {
-          alert('Preencha a data de aniversário');
+          alert('Preencha a data de nascimento');
+          return false;
+        }
+        if (!validation.dateMinToDay(values.dateOfBirth)) {
+          alert('Preencha a data de nascimento corretamente');
           return false;
         }
         if (values.email === '') {
@@ -59,7 +65,14 @@ function NewRegister() {
           alert('Preencha a senha do usuário');
           return false;
         }
-
+        if (values.confirmPassword === '') {
+          alert('Preencha a confirmação de senha');
+          return false;
+        }
+        if (values.password != values.confirmPassword) {
+          alert('As senhas não coincidem');
+          return false;
+        }
         break;
     }
 
