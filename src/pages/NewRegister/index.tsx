@@ -14,7 +14,7 @@ import lottieAccept from '../../assets/lottie/accept.json';
 import { Steps, ConfirmContainer } from './styled';
 
 import api from '../../services/api';
-import validation from '../../util/validation';
+import validation from '../../utils/validation';
 
 function NewRegister() {
   const valuesInitials = {
@@ -69,7 +69,7 @@ function NewRegister() {
           alert('Preencha a confirmação de senha');
           return false;
         }
-        if (values.password != values.confirmPassword) {
+        if (values.password !== values.confirmPassword) {
           alert('As senhas não coincidem');
           return false;
         }

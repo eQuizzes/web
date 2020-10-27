@@ -11,11 +11,11 @@ import FormField from '../FormField';
 import useForm from '../../hooks/useForm';
 
 import {
+  ButtonsWrapper,
   HeaderWrapper,
   Navigation,
-  Menu,
   LinkList,
-  ButtonsWrapper,
+  Menu,
 } from './styled';
 
 import { HeaderProps } from './interface';
@@ -112,11 +112,13 @@ const PageHeader: React.FC<HeaderProps> = ({ type, studentOn, text }) => {
             >
               <FiChevronRight />
             </FormField>
-            <Button color="primary">
-              <Link to="/login" title="Faça o login">
-                Entrar
-              </Link>
-            </Button>
+            {!hasStudentOn && (
+              <Button color="primary">
+                <Link to="/login" title="Faça o login">
+                  Entrar
+                </Link>
+              </Button>
+            )}
           </ButtonsWrapper>
         </Navigation>
       </Menu>

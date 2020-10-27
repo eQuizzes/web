@@ -1,42 +1,22 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import api from '../../services/api';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
 import PageDefault from '../../components/PageDefault';
-
-import useForm from '../../hooks/useForm';
-
 import iconRecovery from '../../assets/images/icons/recoveryPassword.svg';
 
 import { Title, Description, Form, FieldsWrapper, LinkLogin } from './styled';
+import { useAuth } from '../../contexts/auth';
 
 function Login() {
-  const valuesInitials = {
-    username: '',
-    password: '',
-  };
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const history = useHistory();
-  const { handleChange, values } = useForm(valuesInitials);
+  const { signIn } = useAuth();
 
   function loginStudent() {
-    api
-      .post('/aluno/validarLoginAluno', {
-        usuario: values.username,
-        senha: values.password,
-      })
-      .then((response) => {
-        const { data } = response;
-        console.log(data);
-
-        history.push('/student/home');
-      })
-      .catch(({ response }) => {
-        const { data } = response;
-        alert(data);
-      });
+    signIn(username, password);
   }
 
   return (
@@ -49,15 +29,19 @@ function Login() {
           <FormField
             label="Usuário"
             name="username"
-            value={values.username}
-            onChange={handleChange}
+            value={username}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setUsername(e.target.value)
+            }
             maxLength={15}
           />
           <FormField
             label="Senha"
             name="password"
-            value={values.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
             maxLength={32}
           >
             <Link to="/recoveryPassword" title="Recuperar sua senha">

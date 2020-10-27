@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Question from './pages/Question';
+import Init from './pages/Init';
 
 const Quiz: React.FC = () => {
-  return <Question />;
+  return <Init />;
 };
 
 export default Quiz;

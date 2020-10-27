@@ -3,19 +3,22 @@ import { ToastProvider } from 'react-toast-notifications';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 import usePersistedState from './hooks/usePersistedState';
 
-import Routes from './pages/routes';
+import { AuthProvider } from './contexts/auth';
+import Routes from './routes';
 
 import dark from './assets/styles/themes/dark';
 import DefaultStyles from './assets/styles/default';
 
 function App() {
-  const [theme] = usePersistedState<DefaultTheme>('theme', dark);
+  const [theme] = usePersistedState<DefaultTheme>('@eQuiz:theme', dark);
 
   return (
     <ThemeProvider theme={theme}>
       <DefaultStyles />
       <ToastProvider>
-        <Routes />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </ToastProvider>
     </ThemeProvider>
   );
