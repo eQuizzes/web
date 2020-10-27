@@ -60,4 +60,12 @@ div, section, article, footer, #root {
 fieldset {
   border: none;
 }
+
+.react-toast-notifications__toast {
+  flex-direction: row;
+
+  div {
+    display: block;
+  }
+}
 `;

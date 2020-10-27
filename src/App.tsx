@@ -10,7 +10,7 @@ import dark from './assets/styles/themes/dark';
 import DefaultStyles from './assets/styles/default';
 
 function App() {
-  const [theme] = usePersistedState<DefaultTheme>('@eQuiz:theme', dark);
+  const [theme] = usePersistedState<DefaultTheme>('@EQuiz:theme', dark);
 
   return (
     <ThemeProvider theme={theme}>
