@@ -51,12 +51,15 @@ const links = [
   },
 ];
 
-const PageHeader: React.FC<HeaderProps> = ({ type, studentOn, text }) => {
+const PageHeader: React.FC<HeaderProps> = ({
+  type = 'icon',
+  studentOn,
+  text,
+}) => {
   const valuesInitials = {
     pin_menu: '',
   };
 
-  const howType = type === undefined ? 'icon' : type;
   const hasStudentOn = Boolean(studentOn);
   const { url } = useRouteMatch();
   const routeActive = url.replace('/student/', '');
@@ -125,11 +128,10 @@ const PageHeader: React.FC<HeaderProps> = ({ type, studentOn, text }) => {
                   !isHomePage(route)
               )
               .map((link) => {
-                const logged = Boolean(link?.logout) ? '' : '/student';
                 return (
                   <LinkItem
                     key={link.route}
-                    to={`${logged}/${link.route}`}
+                    to={`/${link.route}`}
                     title={link.title}
                   />
                 );
@@ -160,7 +162,7 @@ const PageHeader: React.FC<HeaderProps> = ({ type, studentOn, text }) => {
         title="Abrir Menu"
         onClick={handleToggleMenu}
         student={hasStudentOn}
-        type={howType}
+        type={type}
         text={text}
       />
     </HeaderWrapper>
