@@ -2,7 +2,7 @@ import Quiz from '../pages/Quiz';
 
 const QuizRoutes = [
   {
-    path: '/quiz',
+    path: '/quiz/:movQuizId',
     component: Quiz,
   },
 ];

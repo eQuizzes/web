@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
 
 import Header from './components/Header';
@@ -19,6 +19,8 @@ import {
 } from './styled';
 
 import { HeaderProps } from './interface';
+import api from '../../services/api';
+import { useToasts } from 'react-toast-notifications';
 
 const links = [
   {
@@ -59,6 +61,8 @@ const PageHeader: React.FC<HeaderProps> = ({ type, studentOn, text }) => {
   const { url } = useRouteMatch();
   const routeActive = url.replace('/student/', '');
   const { handleChange, values } = useForm(valuesInitials);
+  const { addToast } = useToasts();
+  const history = useHistory();
 
   function isHomePage(path: string): boolean {
     const isPageHome = path === 'home' && routeActive === '';
@@ -69,6 +73,35 @@ const PageHeader: React.FC<HeaderProps> = ({ type, studentOn, text }) => {
   function handleToggleMenu() {
     const menu = document.getElementById('menu');
     menu?.classList.toggle('open');
+  }
+
+  function handleValidationCodeAccessQuiz() {
+    api
+      .post('movQuizAluno', {
+        codigoAcesso: values.pin_menu,
+        nomeAluno: '',
+      })
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'info',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        history.push(`/quiz/${response.data.movQuizId}`);
+      })
+      .catch((error) => {
+        console.error(error.message);
+        addToast(
+          'Houve um erro inesperado na validação do código, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
   }
 
   return (
@@ -108,7 +141,7 @@ const PageHeader: React.FC<HeaderProps> = ({ type, studentOn, text }) => {
               name="pin_menu"
               value={values.pin_menu}
               onChange={handleChange}
-              onClick={() => {}}
+              onClick={handleValidationCodeAccessQuiz}
             >
               <FiChevronRight />
             </FormField>

@@ -1,32 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Lottie from 'lottie-react-web';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
+import { useToasts } from 'react-toast-notifications';
 
 import PageHeader from '../../components/PageHeader';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 
-import useForm from '../../hooks/useForm';
+import api from '../../services/api';
 
 import lottieBooks from '../../assets/lottie/books.json';
 
 import {
+  Description,
   LandingPage,
   FistFold,
-  Title,
-  Description,
   Section,
   Article,
+  Title,
 } from './styled';
 
 function Landing() {
-  const valuesInitials = {
-    pin: '',
-  };
+  const [codeAccessQuiz, setCodeAccessQuiz] = useState('');
 
-  const { handleChange, values } = useForm(valuesInitials);
+  const history = useHistory();
+  const { addToast } = useToasts();
+
+  function handleValidationCodeAccessQuiz() {
+    api
+      .post('movQuizAluno', {
+        codigoAcesso: codeAccessQuiz,
+        nomeAluno: '',
+      })
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'info',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        history.push(`/quiz/${response.data.movQuizId}`);
+      })
+      .catch((error) => {
+        console.error(error.message);
+        addToast(
+          'Houve um erro inesperado na validação do código, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
 
   return (
     <LandingPage>
@@ -45,10 +74,12 @@ function Landing() {
         <Article>
           <FormField
             label="Código da Sala"
-            name="pin"
-            value={values.pin}
-            onChange={handleChange}
-            onClick={() => {}}
+            name="codeAccessQuiz"
+            value={codeAccessQuiz}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setCodeAccessQuiz(e.target.value)
+            }
+            onClick={handleValidationCodeAccessQuiz}
             maxLength={8}
           >
             <FiChevronRight />
