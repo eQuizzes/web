@@ -85,7 +85,10 @@ export const ButtonsWrapperFull = styled(ButtonsWrapper)`
   grid-gap: 1.6rem;
 
   ${Button} {
+    width: 100%;
     font-size: 2.2rem;
+    text-align: center;
+    justify-content: center;
   }
 `;
 

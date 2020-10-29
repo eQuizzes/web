@@ -93,7 +93,9 @@ const PageHeader: React.FC<HeaderProps> = ({
           return;
         }
 
-        history.push(`/quiz/${response.data.movQuizId}`);
+        history.push(
+          `/quiz/${response.data.movQuizId}/${response.data.quizId}`
+        );
       })
       .catch((error) => {
         console.error(error.message);

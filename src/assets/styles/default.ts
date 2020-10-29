@@ -65,7 +65,7 @@ fieldset {
   flex-direction: row;
 
   div {
-    display: block;
+    height: 100%;
   }
 }
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   ButtonsWrapperFull,
@@ -13,55 +13,123 @@ import {
   Timer,
 } from './styled';
 
-const Question: React.FC = () => {
-  const templateResponse = localStorage.getItem('templateResponse');
+import { IQuestionPage, IResponseStorage } from './interface';
+
+const Question: React.FC<IQuestionPage> = ({
+  question,
+  totalObject,
+  handleGetCurrentObject,
+}) => {
+  const templateResponse = localStorage.getItem('@EQuiz:templateResponse');
   const [active, setActive] = useState<1 | 2 | 3 | 4>(1);
+  const [time, setTime] = useState<number | undefined>(undefined);
 
   function handleActive(number: 1 | 2 | 3 | 4) {
     setActive(number);
   }
 
-  return templateResponse === '1' ? (
+  function handleSetTime() {
+    if (time === undefined) setTime(question?.timeSeconds);
+
+    if ((time || 0) > 0) {
+      let timerInterval = setInterval(() => {
+        setTime((c) => (c || 0) - 1);
+      }, 1000);
+      return () => clearInterval(timerInterval);
+    } else if (time === -1) {
+      setTime(undefined);
+    }
+  }
+
+  useEffect(handleSetTime, [time, question]);
+
+  useEffect(() => setTime(question?.timeSeconds), [question]);
+
+  useEffect(() => {
+    if (time !== 0 || totalObject === question?.orderByQuiz) return;
+
+    setTime(-1);
+    handleGetCurrentObject();
+  }, [time]);
+
+  function handleActiveToLetterAlternative() {
+    switch (active) {
+      case 1:
+        return 'A';
+      case 2:
+        return 'B';
+      case 3:
+        return 'C';
+      case 4:
+        return 'D';
+    }
+  }
+
+  function handleSubmitResponse(
+    letterAlternative: string = handleActiveToLetterAlternative()
+  ) {
+    const responseStudent = localStorage.getItem('@EQuiz:responseStudent');
+
+    let responses: IResponseStorage[] = [];
+    if (responseStudent !== null) {
+      responses = JSON.parse(responseStudent) as IResponseStorage[];
+    }
+
+    const hasResponse = responses.find(
+      ({ questionId }) => questionId === question?.questionQuizId || 0
+    );
+
+    if (hasResponse) return;
+
+    responses.push({
+      letterAlternative,
+      questionId: question?.questionQuizId || 0,
+    });
+
+    localStorage.setItem('@EQuiz:responseStudent', JSON.stringify(responses));
+  }
+
+  return templateResponse !== '2' ? (
     <QuestionWrapper>
       <Header>
         <Number>
-          <sup>3</sup>/<sub>9</sub>
+          <sup>{question?.orderByQuiz}</sup>/<sub>{totalObject}</sub>
         </Number>
-        <Timer>60</Timer>
+        <Timer>{time}</Timer>
       </Header>
-      <QuestionStyles>É a resposta certa?</QuestionStyles>
+      <QuestionStyles>{question?.text}</QuestionStyles>
       <ResponseWrapper>
-        <Response>Acho que seja a resposta certa, acertei?!!</Response>
+        <Response>{question?.alternativeQuiz[active - 1]?.text || ''}</Response>
         <ButtonsWrapper active={active}>
-          <Button>A</Button>
-          <Button>B</Button>
-          <Button>C</Button>
-          <Button>D</Button>
+          <Button onClick={() => handleActive(1)}>A</Button>
+          <Button onClick={() => handleActive(2)}>B</Button>
+          <Button onClick={() => handleActive(3)}>C</Button>
+          <Button onClick={() => handleActive(4)}>D</Button>
         </ButtonsWrapper>
-        <Button>Confirmar</Button>
+        <Button onClick={() => handleSubmitResponse()}>Confirmar</Button>
       </ResponseWrapper>
     </QuestionWrapper>
   ) : (
     <QuestionWrapper>
       <Header>
         <Number>
-          <sup>3</sup>/<sub>9</sub>
+          <sup>{question?.orderByQuiz}</sup>/<sub>{totalObject}</sub>
         </Number>
-        <Timer>60</Timer>
+        <Timer>{time}</Timer>
       </Header>
-      <QuestionStyles>Aguarde o professor iniciar o Quiz</QuestionStyles>
-      <ButtonsWrapperFull active={1}>
+      <QuestionStyles>{question?.text}</QuestionStyles>
+      <ButtonsWrapperFull active={active}>
         <Button onClick={() => handleActive(1)}>
-          Acho que seja a resposta certo, acertei?!!
+          {question?.alternativeQuiz[0]?.text}
         </Button>
         <Button onClick={() => handleActive(2)}>
-          Acho que seja a resposta certo, acertei?!!
+          {question?.alternativeQuiz[1]?.text}
         </Button>
         <Button onClick={() => handleActive(3)}>
-          Acho que seja a resposta certo, acertei?!!
+          {question?.alternativeQuiz[2]?.text}
         </Button>
         <Button onClick={() => handleActive(4)}>
-          Acho que seja a resposta certo, acertei?!!
+          {question?.alternativeQuiz[3]?.text}
         </Button>
       </ButtonsWrapperFull>
     </QuestionWrapper>

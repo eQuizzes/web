@@ -38,12 +38,14 @@ function Landing() {
         if (response.status === 206) {
           addToast(response.data, {
             appearance: 'info',
-            autoDismiss: true,
+            autoDismiss: false,
           });
           return;
         }
 
-        history.push(`/quiz/${response.data.movQuizId}`);
+        history.push(
+          `/quiz/${response.data.movQuizId}/${response.data.quizId}`
+        );
       })
       .catch((error) => {
         console.error(error.message);
