@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Lottie from 'lottie-react-web';
 import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 import PageDefault from '../../components/PageDefault';
 import StepOne from './components/StepOne';
@@ -31,46 +32,83 @@ function NewRegister() {
   const [registerConfirm, setRegisterConfirm] = useState<Boolean>(false);
 
   const { handleChange, values } = useForm(valuesInitials);
+  const { addToast } = useToasts();
 
   function validationStep(stepValidation: number) {
     switch (stepValidation) {
       case 1:
         if (values.firstName === '') {
-          alert('Preencha o primeiro nome');
+          addToast('Preencha o primeiro nome', {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          document.getElementById('id_firstName')?.focus();
           return false;
         }
         if (values.lastName === '') {
-          alert('Preencha o sobrenome');
+          addToast('Preencha o sobrenome', {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          document.getElementById('id_lastName')?.focus();
           return false;
         }
         if (values.dateOfBirth === '') {
-          alert('Preencha a data de nascimento');
+          addToast('Preencha a data de nascimento', {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          document.getElementById('id_dateOfBirth')?.focus();
           return false;
         }
         if (!validation.dateMinToDay(values.dateOfBirth)) {
-          alert('Preencha a data de nascimento corretamente');
+          addToast('Preencha a data de nascimento corretamente', {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          document.getElementById('id_dateOfBirth')?.focus();
           return false;
         }
         if (values.email === '') {
-          alert('Preencha o e-mail');
+          addToast('Preencha o email', {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          document.getElementById('id_email')?.focus();
           return false;
         }
         break;
       case 2:
         if (values.username === '') {
-          alert('Preencha o nome de usuário');
+          addToast('Preencha o nome de usuário', {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          document.getElementById('id_username')?.focus();
           return false;
         }
         if (values.password === '') {
-          alert('Preencha a senha do usuário');
+          addToast('Preencha a senha', {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          document.getElementById('id_password')?.focus();
           return false;
         }
         if (values.confirmPassword === '') {
-          alert('Preencha a confirmação de senha');
+          addToast('Preencha a confirmação senha', {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          document.getElementById('id_confirmPassword')?.focus();
           return false;
         }
         if (values.password !== values.confirmPassword) {
-          alert('As senhas não coincidem');
+          addToast('As senhas não coincidem', {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          document.getElementById('id_password')?.focus();
           return false;
         }
         break;
