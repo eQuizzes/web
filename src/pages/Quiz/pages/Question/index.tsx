@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useToasts } from 'react-toast-notifications';
+
+import api from '../../../../services/api';
+import { useAuth } from '../../../../contexts/auth';
 
 import {
   ButtonsWrapperFull,
@@ -23,6 +27,9 @@ const Question: React.FC<IQuestionPage> = ({
   const templateResponse = localStorage.getItem('@EQuiz:templateResponse');
   const [active, setActive] = useState<1 | 2 | 3 | 4>(1);
   const [time, setTime] = useState<number | undefined>(undefined);
+
+  const { user } = useAuth();
+  const { addToast } = useToasts();
 
   function handleActive(number: 1 | 2 | 3 | 4) {
     setActive(number);
@@ -65,9 +72,7 @@ const Question: React.FC<IQuestionPage> = ({
     }
   }
 
-  function handleSubmitResponse(
-    letterAlternative: string = handleActiveToLetterAlternative()
-  ) {
+  function handleResponseForAnonymous(letterAlternative: string) {
     const responseStudent = localStorage.getItem('@EQuiz:responseStudent');
 
     let responses: IResponseStorage[] = [];
@@ -89,7 +94,52 @@ const Question: React.FC<IQuestionPage> = ({
     localStorage.setItem('@EQuiz:responseStudent', JSON.stringify(responses));
   }
 
-  return templateResponse !== '2' ? (
+  function handleResponseForStudent(letterAlternative: string) {
+    console.log();
+    api
+      .post('movQuizResposta', {
+        movQuizPerguntaId: 1,
+        alunoId: user?.studentId,
+        resposta: letterAlternative,
+      })
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        addToast('Resposta enviada com sucesso', {
+          appearance: 'info',
+          autoDismiss: true,
+        });
+      })
+      .catch((err) => {
+        console.error(err.message);
+        addToast(
+          'Houve algum erro inesperado ao cadastrar sua resposta, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+
+  function handleSubmitResponse(
+    letterAlternative: string = handleActiveToLetterAlternative()
+  ) {
+    if (!!user) {
+      handleResponseForStudent(letterAlternative);
+      return;
+    }
+
+    handleResponseForAnonymous(letterAlternative);
+  }
+
+  return templateResponse === '1' ? (
     <QuestionWrapper>
       <Header>
         <Number>
@@ -119,16 +169,16 @@ const Question: React.FC<IQuestionPage> = ({
       </Header>
       <QuestionStyles>{question?.text}</QuestionStyles>
       <ButtonsWrapperFull active={active}>
-        <Button onClick={() => handleActive(1)}>
+        <Button onClick={() => handleSubmitResponse('A')}>
           {question?.alternativeQuiz[0]?.text}
         </Button>
-        <Button onClick={() => handleActive(2)}>
+        <Button onClick={() => handleSubmitResponse('B')}>
           {question?.alternativeQuiz[1]?.text}
         </Button>
-        <Button onClick={() => handleActive(3)}>
+        <Button onClick={() => handleSubmitResponse('C')}>
           {question?.alternativeQuiz[2]?.text}
         </Button>
-        <Button onClick={() => handleActive(4)}>
+        <Button onClick={() => handleSubmitResponse('D')}>
           {question?.alternativeQuiz[3]?.text}
         </Button>
       </ButtonsWrapperFull>

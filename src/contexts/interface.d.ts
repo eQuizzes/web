@@ -1,8 +1,8 @@
-import { UserProps } from '../services/interface';
+import { IUser } from '../services/interface';
 
 export interface IAuthContext {
   signed: boolean;
-  user: UserProps | null;
+  user: IUser | null;
   signIn(username: string, password: string): Promise<void>;
   signOut(): void;
   loading: boolean;
