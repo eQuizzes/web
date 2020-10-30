@@ -56,7 +56,7 @@ const Quiz: React.FC = () => {
       let intervalGetStatus = setInterval(handleGetStatusQuiz, 5000);
       return () => clearInterval(intervalGetStatus);
     }
-  }, [setInterval, statusQuiz]);
+  }, [statusQuiz, handleGetStatusQuiz]);
 
   function handleGetListQuiz() {
     if (!quizId) return;
@@ -155,35 +155,6 @@ const Quiz: React.FC = () => {
   useEffect(handleGetStatusQuiz, [movQuizId, addToast]);
   useEffect(handleGetListQuiz, [quizId, addToast]);
   useEffect(handleGetCurrentObject, [statusQuiz, addToast]);
-
-  function handleNextObjectInQuiz(nextObject: number) {
-    api
-      .put(`movQuiz/persistirQuiz`, {
-        movQuizId,
-        objetoAtual: nextObject,
-      })
-      .then((response) => {
-        if (response.status === 206) {
-          addToast(response.data, {
-            appearance: 'warning',
-            autoDismiss: true,
-          });
-          return;
-        }
-
-        setCurrentObject(nextObject);
-      })
-      .catch((err) => {
-        console.error(err.message);
-        addToast(
-          'Houve algum erro inesperado trocar a pergunta, tente novamente mais tarde',
-          {
-            appearance: 'error',
-            autoDismiss: true,
-          }
-        );
-      });
-  }
 
   function handleViewStatus() {
     switch (statusQuiz) {

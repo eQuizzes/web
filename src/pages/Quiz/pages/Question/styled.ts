@@ -104,3 +104,20 @@ export const ResponseWrapper = styled.div`
     align-items: center;
   }
 `;
+
+export const MessageWrapper = styled.div`
+  width: 100%;
+  padding: 24px;
+  height: 100%;
+  flex: 1;
+`;
+
+export const TextMessage = styled.p`
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 3.2rem;
+`;

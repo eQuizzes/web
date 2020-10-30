@@ -10,6 +10,8 @@ import {
   ResponseWrapper,
   QuestionStyles,
   ButtonsWrapper,
+  MessageWrapper,
+  TextMessage,
   Response,
   Number,
   Button,
@@ -27,6 +29,7 @@ const Question: React.FC<IQuestionPage> = ({
   const templateResponse = localStorage.getItem('@EQuiz:templateResponse');
   const [active, setActive] = useState<1 | 2 | 3 | 4>(1);
   const [time, setTime] = useState<number | undefined>(undefined);
+  const [sendResponse, setSendResponse] = useState(false);
 
   const { user } = useAuth();
   const { addToast } = useToasts();
@@ -57,7 +60,7 @@ const Question: React.FC<IQuestionPage> = ({
 
     setTime(-1);
     handleGetCurrentObject();
-  }, [time]);
+  }, [time, handleGetCurrentObject, question, totalObject]);
 
   function handleActiveToLetterAlternative() {
     switch (active) {
@@ -95,7 +98,6 @@ const Question: React.FC<IQuestionPage> = ({
   }
 
   function handleResponseForStudent(letterAlternative: string) {
-    console.log();
     api
       .post('movQuizResposta', {
         movQuizPerguntaId: 1,
@@ -115,6 +117,7 @@ const Question: React.FC<IQuestionPage> = ({
           appearance: 'info',
           autoDismiss: true,
         });
+        setSendResponse(true);
       })
       .catch((err) => {
         console.error(err.message);
@@ -137,6 +140,21 @@ const Question: React.FC<IQuestionPage> = ({
     }
 
     handleResponseForAnonymous(letterAlternative);
+    setSendResponse(true);
+  }
+
+  if (sendResponse) {
+    return (
+      <MessageWrapper>
+        <Header>
+          <Number>
+            <sup>{question?.orderByQuiz}</sup>/<sub>{totalObject}</sub>
+          </Number>
+          <Timer>{time}</Timer>
+        </Header>
+        <TextMessage>Aguarde o fim da pergunta</TextMessage>
+      </MessageWrapper>
+    );
   }
 
   return templateResponse === '1' ? (

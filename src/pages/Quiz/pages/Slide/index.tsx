@@ -15,7 +15,7 @@ const QuizSlide: React.FC<ISlidePage> = ({
   useEffect(() => {
     let intervalGetCurrent = setInterval(handleGetCurrentObject, 5000);
     return () => clearInterval(intervalGetCurrent);
-  }, [setInterval]);
+  }, [handleGetCurrentObject]);
 
   return (
     <SlideWrapper>
