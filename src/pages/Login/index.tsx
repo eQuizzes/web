@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
 import PageDefault from '../../components/PageDefault';
+
+import { useAuth } from '../../contexts/auth';
+
 import iconRecovery from '../../assets/images/icons/recoveryPassword.svg';
 
 import { Title, Description, Form, FieldsWrapper, LinkLogin } from './styled';
-import { useAuth } from '../../contexts/auth';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const { signIn } = useAuth();
+  const { addToast } = useToasts();
 
   function loginStudent() {
     signIn(username, password);
   }
+
+  function handleHasExpirationToken() {
+    if (window.location.href.search('tokenExpired') <= 0) return;
+
+    addToast('Sua autenticação expirou, efetue o login novamente', {
+      appearance: 'info',
+      autoDismiss: true,
+    });
+
+    document.getElementById('id_username')?.focus();
+  }
+
+  useEffect(handleHasExpirationToken, [addToast]);
 
   return (
     <PageDefault>
@@ -43,6 +60,7 @@ function Login() {
               setPassword(e.target.value)
             }
             maxLength={32}
+            type="password"
           >
             <Link to="/recoveryPassword" title="Recuperar sua senha">
               <img src={iconRecovery} alt="Ícone para recuperação de senha" />
