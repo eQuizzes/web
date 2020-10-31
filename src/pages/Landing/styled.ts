@@ -5,6 +5,7 @@ import { HeaderWrapper } from '../../components/PageHeader/styled';
 export const LandingPage = styled.main`
   padding: 0 2.4rem;
   width: 100%;
+  max-width: 768px
 
   ${HeaderWrapper} {
     padding: 0;

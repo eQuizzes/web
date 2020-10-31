@@ -23,6 +23,7 @@ import { IQuestionPage, IResponseStorage } from './interface';
 
 const Question: React.FC<IQuestionPage> = ({
   question,
+  movQuizId,
   totalObject,
   handleGetCurrentObject,
 }) => {
@@ -100,9 +101,10 @@ const Question: React.FC<IQuestionPage> = ({
   function handleResponseForStudent(letterAlternative: string) {
     api
       .post('movQuizResposta', {
-        movQuizPerguntaId: 1,
+        movQuizId,
         alunoId: user?.studentId,
         resposta: letterAlternative,
+        perguntaQuizId: question?.questionQuizId,
       })
       .then((response) => {
         if (response.status === 206) {

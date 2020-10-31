@@ -1,3 +1,5 @@
+import { IResponseStudent } from "../../interface";
+
 export interface QuestionProps {
-  questionRight: boolean;
+  responseStudent: IResponseStudent[];
 }

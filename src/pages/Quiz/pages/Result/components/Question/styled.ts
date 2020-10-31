@@ -64,7 +64,12 @@ export const ResponseWrapper = styled.div`
 
 export const ResponseText = styled.p`
   font-size: 1.2rem;
-  text-align: justify;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 4rem;
+  height: 100%;
 `;
 
 export const IconErrorResponse = styled(FiX)`

@@ -15,6 +15,7 @@ import {
   IPlayParams,
   IQuizById,
 } from './interface';
+import Result from './pages/Result';
 
 const Quiz: React.FC = () => {
   const [listQuiz, setListQuiz] = useState<IQuizById[]>([]);
@@ -161,6 +162,7 @@ const Quiz: React.FC = () => {
       case 0:
         return <Init />;
       case 1:
+      case 2:
         const currentObjectQuiz = listQuiz.find(
           (q) => q.orderByQuiz === currentObject
         );
@@ -177,8 +179,11 @@ const Quiz: React.FC = () => {
             question={currentObjectQuiz?.questionQuiz}
             handleGetCurrentObject={handleGetCurrentObject}
             totalObject={totalObject}
+            movQuizId={movQuizId}
           />
         );
+      case 3:
+        return <Result movQuizId={movQuizId} />;
     }
   }
 

@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useToasts } from 'react-toast-notifications';
 import Chart from 'chart.js';
 
 import PageStudent from '../../../../components/PageStudent';
 import Question from './components/Question';
+
+import { useAuth } from '../../../../contexts/auth';
+import api from '../../../../services/api';
 
 import {
   HistoryQuestions,
@@ -15,13 +19,28 @@ import {
   Info,
 } from './styled';
 
-const Result: React.FC = () => {
-  useEffect(() => {
-    let labelsChart = [];
+import {
+  IResultPage,
+  IResultStudent,
+  IResponseStudent,
+  IResultStudentApi,
+  IResponseAllStudents,
+} from './interface';
 
-    for (let i = 0; i < 10; i++) {
-      labelsChart.push(`Pergunta ${i}`);
-    }
+const Result: React.FC<IResultPage> = ({ movQuizId }) => {
+  const [resultStudent, setResultStudent] = useState<IResultStudent>(
+    {} as IResultStudent
+  );
+
+  const { user } = useAuth();
+  const { addToast } = useToasts();
+
+  function handleSetDataInGraph() {
+    if (!resultStudent.responseAllStudents) return;
+
+    let labelsChart = resultStudent.responseAllStudents.map(
+      (student) => student.numberQuestion
+    );
 
     const canvas = document.getElementById(
       'studentsChart'
@@ -30,12 +49,13 @@ const Result: React.FC = () => {
     new Chart(canvas, {
       type: 'line',
       data: {
-        labels: labelsChart,
+        labels: labelsChart.map((label) => `Pergunta ${label}`),
         datasets: [
           {
             label: 'Média de Acertos',
-            data: [6, 7, 2, 3, 5, 2, 8, 4, 2, 5],
-
+            data: resultStudent.responseAllStudents.map(
+              (student) => student.totalCorrect
+            ),
             pointBackgroundColor: '#4CC9F0',
             backgroundColor: 'rgba(76, 201, 240, .24)',
             borderColor: '#4CC9F0',
@@ -76,20 +96,91 @@ const Result: React.FC = () => {
         },
       },
     });
-  }, []);
+  }
+
+  function handleGetResultStudent() {
+    if (!user) return;
+
+    api
+      .get(
+        `VWClassificacaoQuiz/movQuizId=${movQuizId}&alunoId=${user?.studentId}`
+      )
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        const resultApi = response.data as IResultStudentApi;
+
+        const responseAllStudents = resultApi.respostasDemaisAlunos.map(
+          (student) => {
+            const responseCurrentStudent = {
+              numberQuestion: student.numeroPergunta,
+              totalCorrect: student.quantidadeAcertos,
+            } as IResponseAllStudents;
+
+            return responseCurrentStudent;
+          }
+        );
+
+        const responseStudent = resultApi.respostasAlunoAtual.map((student) => {
+          const responseCurrentStudent = {
+            content: student.enunciado,
+            correct: student.acertou,
+            descriptionCorrect: student.descricaoAlternativaCorreta,
+            descriptionSelection: student.descricaoAlternativaSelecionada,
+            nivel: student.ePesoPergunta,
+            numberQuestion: student.numeroPergunta,
+            points: student.pontuacao,
+          } as IResponseStudent;
+
+          return responseCurrentStudent;
+        });
+
+        const newResult = {
+          description: resultApi.descricao,
+          nameStudent: resultApi.nomeAluno,
+          points: resultApi.pontuacao,
+          totalCorrect: resultApi.quantidadeAcertos,
+          totalError: resultApi.quantidadeErros,
+          responseAllStudents,
+          responseStudent,
+        } as IResultStudent;
+
+        setResultStudent(newResult);
+      })
+      .catch((err) => {
+        console.error(err);
+        addToast(
+          'Houve algum erro inesperado ao obter resultado do aluno, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+
+  useEffect(handleSetDataInGraph, [resultStudent]);
+
+  useEffect(handleGetResultStudent, [user, movQuizId]);
 
   return (
     <PageStudent type="back" text="Resultado">
       <ResultsWrapper>
         <Info>
           <SubTitle>Pontuação total</SubTitle>
-          <Value>2.544</Value>
+          <Value>{resultStudent.points}</Value>
           <SubTitle>Acertos</SubTitle>
-          <Value>6</Value>
+          <Value>{resultStudent.totalCorrect}</Value>
           <SubTitle>Erros</SubTitle>
-          <Value>3</Value>
+          <Value>{resultStudent.totalError}</Value>
         </Info>
-        <Medal>3º</Medal>
+        <Medal></Medal>
       </ResultsWrapper>
       <AverageClass>
         <SubTitle>Média da turma</SubTitle>
@@ -97,7 +188,7 @@ const Result: React.FC = () => {
       </AverageClass>
       <HistoryQuestions>
         <SubTitle>Histórico de perguntas</SubTitle>
-        <Question questionRight={true} />
+        <Question responseStudent={resultStudent.responseStudent} />
       </HistoryQuestions>
     </PageStudent>
   );
