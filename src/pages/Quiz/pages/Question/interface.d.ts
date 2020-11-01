@@ -1,5 +1,5 @@
 export interface ButtonsProps {
-  active: 1 | 2 | 3 | 4;
+  active?: 1 | 2 | 3 | 4;
 }
 
 export interface IAlternativeQuiz {

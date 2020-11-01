@@ -78,6 +78,11 @@ export const ButtonsWrapper = styled.div<ButtonsProps>`
       color: ${(props) => props.theme.colors.background};
     }
   }
+
+  ${Button}:hover {
+    background: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.background};
+  }
 `;
 
 export const ButtonsWrapperFull = styled(ButtonsWrapper)`

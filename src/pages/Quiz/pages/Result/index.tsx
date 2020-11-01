@@ -8,6 +8,8 @@ import Question from './components/Question';
 import { useAuth } from '../../../../contexts/auth';
 import api from '../../../../services/api';
 
+import constantsLocalStorage from '../../../../constants/localStorage';
+
 import {
   HistoryQuestions,
   ResultsWrapper,
@@ -22,18 +24,47 @@ import {
 import {
   IResultPage,
   IResultStudent,
+  IResponseStorage,
   IResponseStudent,
   IResultStudentApi,
+  IResponseStorageApi,
   IResponseAllStudents,
 } from './interface';
 
-const Result: React.FC<IResultPage> = ({ movQuizId }) => {
+const Result: React.FC<IResultPage> = ({ movQuizId, quizId }) => {
   const [resultStudent, setResultStudent] = useState<IResultStudent>(
     {} as IResultStudent
   );
+  const [quizForStudent, setQuizForStudent] = useState(null);
 
   const { user } = useAuth();
   const { addToast } = useToasts();
+
+  function handleGetForStudentQuiz() {
+    api
+      .get(`quiz/${quizId}`)
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        setQuizForStudent(response.data.somenteAlunosCadastrados);
+      })
+      .catch((err) => {
+        console.error(err);
+        addToast(
+          'Houve algum erro inesperado ao obter o tipo de estudante para o quiz',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
 
   function handleSetDataInGraph() {
     if (!resultStudent.responseAllStudents) return;
@@ -165,9 +196,62 @@ const Result: React.FC<IResultPage> = ({ movQuizId }) => {
       });
   }
 
+  function handleGetResultAnonymous() {
+    const responseStudent: IResponseStorage[] = JSON.parse(
+      localStorage.getItem(
+        constantsLocalStorage.RESPONSE_QUIZ_STUDENT_ANONYMOUS
+      ) || ''
+    );
+
+    const responseForApi: IResponseStorageApi[] = responseStudent.map(
+      (response) => {
+        const newResponse = {
+          alternativaQuiz: response.letterAlternative,
+          perguntaQuizId: response.questionId,
+        } as IResponseStorageApi;
+
+        return newResponse;
+      }
+    );
+
+    api
+      .post(`VWClassificacaoQuiz/${movQuizId}`, responseForApi)
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return;
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        addToast(
+          'Houve algum erro inesperado ao obter resultado do aluno anônimo, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+
+  function handleValidationHowTypeResponse() {
+    if (quizForStudent === null) return;
+
+    if (quizForStudent) {
+      handleGetResultStudent();
+    } else {
+      handleGetResultAnonymous();
+    }
+  }
+
+  useEffect(handleGetForStudentQuiz, [quizForStudent]);
+
   useEffect(handleSetDataInGraph, [resultStudent]);
 
-  useEffect(handleGetResultStudent, [user, movQuizId]);
+  useEffect(handleValidationHowTypeResponse, [user, movQuizId, quizForStudent]);
 
   return (
     <PageStudent type="back" text="Resultado">

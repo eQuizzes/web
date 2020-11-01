@@ -1,5 +1,6 @@
 export interface IResultPage {
   movQuizId: string;
+  quizId: string;
 }
 
 export interface IResultStudentApi {
@@ -52,4 +53,14 @@ export interface IResponseAllStudentsApi {
 export interface IResponseAllStudents {
   numberQuestion: number;
   totalCorrect: number;
+}
+
+export interface IResponseStorage {
+  letterAlternative: string;
+  questionId: number;
+}
+
+export interface IResponseStorageApi {
+  alternativaQuiz: string;
+  perguntaQuizId: number;
 }

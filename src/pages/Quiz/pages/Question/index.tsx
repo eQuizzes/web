@@ -197,7 +197,7 @@ const Question: React.FC<IQuestionPage> = ({
         <Timer>{time}</Timer>
       </Header>
       <QuestionStyles>{question?.text}</QuestionStyles>
-      <ButtonsWrapperFull active={active}>
+      <ButtonsWrapperFull>
         <Button onClick={() => handleSubmitResponse('A')}>
           {question?.alternativeQuiz[0]?.text}
         </Button>

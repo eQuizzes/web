@@ -20,7 +20,7 @@ import Result from './pages/Result';
 const Quiz: React.FC = () => {
   const [listQuiz, setListQuiz] = useState<IQuizById[]>([]);
   const [currentObject, setCurrentObject] = useState(0);
-  const [statusQuiz, setStatusQuiz] = useState(0);
+  const [statusQuiz, setStatusQuiz] = useState(-1);
   const [totalObject, setTotalObject] = useState(0);
 
   const { movQuizId, quizId } = useParams() as IPlayParams;
@@ -184,7 +184,7 @@ const Quiz: React.FC = () => {
         );
       case 3:
       case 4:
-        return <Result movQuizId={movQuizId} />;
+        return <Result movQuizId={movQuizId} quizId={quizId} />;
     }
   }
 
