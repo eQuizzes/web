@@ -183,6 +183,7 @@ const Quiz: React.FC = () => {
           />
         );
       case 3:
+      case 4:
         return <Result movQuizId={movQuizId} />;
     }
   }

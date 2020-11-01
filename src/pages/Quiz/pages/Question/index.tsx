@@ -4,6 +4,8 @@ import { useToasts } from 'react-toast-notifications';
 import api from '../../../../services/api';
 import { useAuth } from '../../../../contexts/auth';
 
+import constantsLocalStorage from '../../../../constants/localStorage';
+
 import {
   ButtonsWrapperFull,
   QuestionWrapper,
@@ -27,7 +29,9 @@ const Question: React.FC<IQuestionPage> = ({
   totalObject,
   handleGetCurrentObject,
 }) => {
-  const templateResponse = localStorage.getItem('@EQuiz:templateResponse');
+  const templateResponse = localStorage.getItem(
+    constantsLocalStorage.RESPONSE_QUIZ_STUDENT_ANONYMOUS
+  );
   const [active, setActive] = useState<1 | 2 | 3 | 4>(1);
   const [time, setTime] = useState<number | undefined>(undefined);
   const [sendResponse, setSendResponse] = useState(false);
@@ -77,7 +81,9 @@ const Question: React.FC<IQuestionPage> = ({
   }
 
   function handleResponseForAnonymous(letterAlternative: string) {
-    const responseStudent = localStorage.getItem('@EQuiz:responseStudent');
+    const responseStudent = localStorage.getItem(
+      constantsLocalStorage.RESPONSE_QUIZ_STUDENT_ANONYMOUS
+    );
 
     let responses: IResponseStorage[] = [];
     if (responseStudent !== null) {
@@ -95,7 +101,10 @@ const Question: React.FC<IQuestionPage> = ({
       questionId: question?.questionQuizId || 0,
     });
 
-    localStorage.setItem('@EQuiz:responseStudent', JSON.stringify(responses));
+    localStorage.setItem(
+      constantsLocalStorage.RESPONSE_QUIZ_STUDENT_ANONYMOUS,
+      JSON.stringify(responses)
+    );
   }
 
   function handleResponseForStudent(letterAlternative: string) {
