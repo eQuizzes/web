@@ -77,11 +77,14 @@ export const SelectStyled = styled(ReactSelect)`
     box-shadow: var(--box-shadow);
     z-index: 9;
 
+
     .react-select__menu-list {
       flex-direction: column;
       padding: 0 8px;
       border-radius: 3.2rem;
       width: 100%;
+      max-height: 12rem;
+      overflow: auto;
 
       .react-select__option {
         color: ${(props) => props.theme.colors.primary};

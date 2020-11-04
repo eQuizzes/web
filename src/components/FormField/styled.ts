@@ -18,7 +18,6 @@ export const Label = styled.label<LabelProps>`
   background: ${(props) => props.theme.colors.background};
   display: flex;
   align-items: center;
-  width: 100%;
   height: 5.2rem;
   box-shadow: var(--box-shadow);
 

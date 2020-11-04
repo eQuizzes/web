@@ -6,6 +6,7 @@ export const CollapseHeader = styled.div`
   flex-direction: row;
   width: 100%;
   padding-bottom: 0;
+  cursor: pointer;
 
   svg {
     width: 2.8rem;
@@ -25,6 +26,8 @@ export const Text = styled.p`
 `;
 
 export const CollapseBody = styled.div`
+  max-width: 100%;
+  width: 100%;
   max-height: 0px;
   overflow: hidden;
   transition: all 400ms ease-in-out;

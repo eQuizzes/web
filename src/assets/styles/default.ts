@@ -51,6 +51,20 @@ button:focus {
   outline: none;
 }
 
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 div, section, article, footer, #root {
   display: flex;
   flex-direction: column;
@@ -68,4 +82,5 @@ fieldset {
     height: 100%;
   }
 }
+
 `;

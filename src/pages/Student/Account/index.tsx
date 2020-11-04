@@ -394,26 +394,13 @@ const Account: React.FC = () => {
           </Collapse>
         </Fieldset>
         <Fieldset>
-          <Collapse label="Usuário">
+          <Collapse label="Dados de acesso">
             <FormField
               label="Usuário"
               name="username"
               value={values.username}
               onChange={handleChange}
               maxLength={15}
-            />
-            <Button color="primary-outline">Alterar usuário</Button>
-          </Collapse>
-        </Fieldset>
-        <Fieldset>
-          <Collapse label="Nova senha">
-            <FormField
-              label="Senha atual"
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-              type="password"
-              maxLength={32}
             />
             <FormField
               label="Nova senha"
@@ -431,7 +418,6 @@ const Account: React.FC = () => {
               type="password"
               maxLength={32}
             />
-            <Button color="primary-outline">Alterar senha</Button>
           </Collapse>
         </Fieldset>
         <ButtonsWrapper>
