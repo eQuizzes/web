@@ -179,6 +179,7 @@ const Quiz: React.FC = () => {
             question={currentObjectQuiz?.questionQuiz}
             handleGetCurrentObject={handleGetCurrentObject}
             totalObject={totalObject}
+            statusQuiz={statusQuiz}
             movQuizId={movQuizId}
           />
         );

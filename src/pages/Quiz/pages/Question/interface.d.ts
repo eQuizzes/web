@@ -25,6 +25,7 @@ export interface IQuestionPage {
   question?: IQuestionQuiz | null;
   totalObject: number;
   movQuizId: string;
+  statusQuiz: number;
   handleGetCurrentObject: () => void;
 }
 

@@ -26,6 +26,7 @@ import { IQuestionPage, IResponseStorage } from './interface';
 const Question: React.FC<IQuestionPage> = ({
   question,
   movQuizId,
+  statusQuiz,
   totalObject,
   handleGetCurrentObject,
 }) => {
@@ -164,6 +165,20 @@ const Question: React.FC<IQuestionPage> = ({
           <Timer>{time}</Timer>
         </Header>
         <TextMessage>Aguarde o fim da pergunta</TextMessage>
+      </MessageWrapper>
+    );
+  }
+
+  if (statusQuiz === 2 || (time || 0) <= 0) {
+    return (
+      <MessageWrapper>
+        <Header>
+          <Number>
+            <sup>{question?.orderByQuiz}</sup>/<sub>{totalObject}</sub>
+          </Number>
+          <Timer>=</Timer>
+        </Header>
+        <TextMessage>Quiz pausado</TextMessage>
       </MessageWrapper>
     );
   }
