@@ -26,7 +26,7 @@ const Quiz: React.FC = () => {
   const { movQuizId, quizId } = useParams() as IPlayParams;
   const { addToast } = useToasts();
 
-  function handleGetStatusQuiz() {
+  function handleGetStatusQuiz(): void {
     api
       .get(`movQuiz/statusQuiz/${movQuizId}`)
       .then((response) => {
@@ -52,12 +52,14 @@ const Quiz: React.FC = () => {
       });
   }
 
-  useEffect(() => {
+  function handleIntervalStatus() {
     if (statusQuiz !== 4) {
       let intervalGetStatus = setInterval(handleGetStatusQuiz, 5000);
       return () => clearInterval(intervalGetStatus);
     }
-  }, [statusQuiz, handleGetStatusQuiz]);
+  }
+
+  useEffect(handleIntervalStatus, [statusQuiz, handleGetStatusQuiz]);
 
   function handleGetListQuiz() {
     if (!quizId) return;
