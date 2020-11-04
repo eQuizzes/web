@@ -145,13 +145,12 @@ function NewRegister() {
           history.push('/login');
         }, 3600);
       })
-      .catch(() => {
-        alert('Erro ao cadastro!');
+      .catch((err) => {
+        console.error(err.message);
       });
   }
 
   function handleConfirmRegister() {
-    setRegisterConfirm(true);
     addNewStudent();
   }
 
