@@ -305,6 +305,46 @@ const Account: React.FC = () => {
   }
 
   function handleValidationFields() {
+    if (firstName === '') {
+      addToast('Preencha o primeiro nome', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_firstName')?.focus();
+      return false;
+    }
+    if (lastName === '') {
+      addToast('Preencha o sobrenome', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_lastName')?.focus();
+      return false;
+    }
+    if (birthDate === '') {
+      addToast('Preencha a data de nascimento', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_birthDate')?.focus();
+      return false;
+    }
+    if (!validation.dateMinToDay(birthDate)) {
+      addToast('Preencha a data de nascimento corretamente', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_birthDate')?.focus();
+      return false;
+    }
+    if (email === '') {
+      addToast('Preencha o email', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_email')?.focus();
+      return false;
+    }
     if (!validation.email(email)) {
       addToast('O e-mail deve ser válido', {
         appearance: 'warning',
@@ -313,7 +353,14 @@ const Account: React.FC = () => {
       document.getElementById('id_email')?.focus();
       return false;
     }
-
+    if (username === '') {
+      addToast('Preencha o nome de usuário', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_username')?.focus();
+      return false;
+    }
     const hasChangePassword =
       passwordNew.length > 0 || passwordConfirm.length > 0;
     const differenceInNewPassword = passwordNew !== passwordConfirm;
