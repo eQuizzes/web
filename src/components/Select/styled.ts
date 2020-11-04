@@ -18,7 +18,7 @@ export const SelectStyled = styled(ReactSelect)`
     border: 2.5px solid ${(props) => props.theme.colors.primary};
     border-radius: 3.2rem;
     box-shadow: var(--box-shadow);
-    padding: 0.8rem 1.6rem 0;
+    padding: 0.4rem 1.6rem 0;
 
     .react-select__value-container {
       font: 500 1.8rem 'Roboto', sans-serif;

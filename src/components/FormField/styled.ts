@@ -24,7 +24,7 @@ export const Label = styled.label<LabelProps>`
   border: 2.5px solid ${(props) => props.theme.colors.primary};
   border-radius: 3.2rem;
 
-  padding: 0 1.4rem;
+  padding: .4rem 1.4rem 0;
 
   ${(props) =>
     props.type === 'textarea'

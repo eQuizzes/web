@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
-
+import { useToasts } from 'react-toast-notifications';
 import Button from '../../../components/Button';
 import Collapse from '../../../components/Collapse';
 import FormField from '../../../components/FormField';
@@ -8,9 +8,16 @@ import PageStudent from '../../../components/PageStudent';
 import RadioButton from '../../../components/RadioButton';
 import Select from '../../../components/Select';
 
-import useForm from '../../../hooks/useForm';
+import api, {
+  apiCountries,
+  apiViaCep,
+  apiLocations,
+} from '../../../services/api';
 
-import { apiCountries, apiViaCep, apiLocations } from '../../../services/api';
+import validation from '../../../utils/validation';
+import mask from '../../../utils/mask';
+import util from '../../../utils/util';
+import { useAuth } from '../../../contexts/auth';
 
 import {
   Title,
@@ -25,37 +32,37 @@ import {
 import {
   AllCitiesProps,
   AllCountriesProps,
-  AllStatiesProps,
+  AllStatesProps,
   OptionsSelect,
+  IPersonApi,
+  IStudentApi,
 } from './interface';
+import { useHistory } from 'react-router';
 
 const Account: React.FC = () => {
-  const valuesInitials = {
-    firstName: '',
-    lastName: '',
-    cpf: '',
-    dateOfBirth: '',
-    genre: 'M',
-    email: '',
-    typeFone: 'F',
-    countryCode: '',
-    ddd: '',
-    number: '',
-    username: '',
-    password: '',
-    passwordNew: '',
-    passwordNewConfirm: '',
-  };
-
-  const { handleChange, values } = useForm(valuesInitials);
-
-  const [cep, setCep] = useState<string>('');
-  const [country, setCountry] = useState<string>('');
-  const [state, setState] = useState<string>('');
-  const [city, setCity] = useState<string>('');
-  const [neighborhood, setNeighborhood] = useState<string>('');
-  const [address, setAddress] = useState<string>('');
-  const [numberAddress, setNumberAddress] = useState<string>('');
+  const [personId, setPersonId] = useState(0);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [genre, setGenre] = useState('M');
+  const [email, setEmail] = useState('');
+  const [typePhone, setTypePhone] = useState('F');
+  const [countryCode, setCountryCode] = useState('');
+  const [ddd, setDdd] = useState('');
+  const [phone, setPhone] = useState('');
+  const [cep, setCep] = useState('');
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+  const [neighborhood, setNeighborhood] = useState('');
+  const [address, setAddress] = useState('');
+  const [numberAddress, setNumberAddress] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordNew, setPasswordNew] = useState('');
+  const [passwordBack, setPasswordBack] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
   const [countries, setCountries] = useState<OptionsSelect>({
     options: [],
@@ -78,6 +85,10 @@ const Account: React.FC = () => {
     ],
   });
 
+  const { user, signOut } = useAuth();
+  const { addToast } = useToasts();
+  const history = useHistory();
+
   function validationEmptyValue(value: string, id: string) {
     if (value !== '') return true;
 
@@ -86,13 +97,13 @@ const Account: React.FC = () => {
   }
 
   function handleCep() {
-    if (values.cep.length < 8) {
+    if (cep.length < 8) {
       alert('Informe o CEP corretamente');
       return null;
     }
 
     apiViaCep
-      .get(`/${values.cep.replace('-', '')}/json`)
+      .get(`/${cep.replace('-', '')}/json`)
       .then(({ data }) => {
         if (data.erro) {
           alert('Confirme o campo de cep, algo está incorreto');
@@ -148,17 +159,17 @@ const Account: React.FC = () => {
     apiLocations
       .get('/estados')
       .then(({ data }) => {
-        const optionsStaties = data.map((state: AllStatiesProps) => {
-          const optionsNameStaties = {
+        const optionsStates = data.map((state: AllStatesProps) => {
+          const optionsNameStates = {
             value: state.sigla,
             label: state.sigla,
           };
 
-          return optionsNameStaties;
+          return optionsNameStates;
         });
 
         setStates({
-          options: optionsStaties,
+          options: optionsStates,
         });
       })
       .catch(({ response }) => {
@@ -190,6 +201,228 @@ const Account: React.FC = () => {
       });
   }, [state, country]);
 
+  function handleSetPersonByApi(person: IPersonApi) {
+    setPersonId(person.pessoaId);
+    setFirstName(person.nome);
+    setLastName(person.sobrenome);
+    setCpf(mask.cpf(person.cpf || ''));
+    setBirthDate(util.removeHoursDateTimeApi(person.dataNascimento || ''));
+    setGenre(person.sexo || '');
+    setEmail(person.email);
+
+    if (person.telefone) {
+      const { telefone: phone } = person;
+      setTypePhone(phone.tipoTelefone);
+      setCountryCode(String(phone.codigoDiscagem));
+      setDdd(String(phone.ddd));
+      setPhone(String(phone.numeroTelefone));
+    }
+
+    if (person.endereco) {
+      const { endereco: addressApi } = person;
+
+      setCep(mask.cep(String(addressApi.cep)));
+      setAddress(addressApi.logradouro);
+      setNeighborhood(addressApi.bairro);
+      setCity(addressApi.cidade);
+      setState(addressApi.estado);
+      setCountry(addressApi.pais);
+      setNumberAddress(String(person.numero));
+    }
+
+    setUsername(person.usuario);
+    setPasswordBack(person.senha);
+  }
+
+  useEffect(() => {
+    api
+      .get(`aluno/${user?.studentId}`)
+      .then(({ data }) => {
+        const userApi = data as IStudentApi;
+
+        handleSetPersonByApi(userApi.pessoa);
+      })
+      .catch((err) => {
+        console.log(err.response);
+        addToast(
+          'Houve algum erro inesperado ao obter seus dados, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }, [user, addToast]);
+
+  function handleInstancePersonChangeApi() {
+    const applySetPhone =
+      countryCode.length > 0 &&
+      typePhone.length > 0 &&
+      ddd.length > 0 &&
+      phone.length > 0;
+
+    const applySetAddress =
+      cep.length > 0 &&
+      country.length > 0 &&
+      state.length > 0 &&
+      city.length > 0 &&
+      address.length > 0 &&
+      numberAddress.length > 0;
+
+    const personApi = {
+      pessoaId: personId,
+      nome: firstName,
+      sobrenome: lastName,
+      cpf: util.onlyNumbers(cpf),
+      dataNascimento: birthDate,
+      sexo: genre,
+      email: email,
+      telefone: applySetPhone
+        ? {
+            codigoDiscagem: Number(countryCode),
+            ddd: Number(ddd),
+            numeroTelefone: Number(phone),
+            tipoTelefone: typePhone,
+          }
+        : null,
+      endereco: applySetAddress
+        ? {
+            cep: Number(util.onlyNumbers(cep)),
+            logradouro: address,
+            bairro: neighborhood,
+            cidade: city,
+            estado: state,
+            pais: country,
+          }
+        : null,
+      numero: Number(numberAddress),
+      usuario: username,
+      senha: passwordNew === '' ? passwordBack : passwordNew,
+      ultimoUsuarioAlteracao: user?.studentId,
+    } as IPersonApi;
+
+    return personApi;
+  }
+
+  function handleValidationFields() {
+    if (!validation.email(email)) {
+      addToast('O e-mail deve ser válido', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_email')?.focus();
+      return false;
+    }
+
+    const hasChangePassword =
+      passwordNew.length > 0 || passwordConfirm.length > 0;
+    const differenceInNewPassword = passwordNew !== passwordConfirm;
+    const differenceInOldPassword = password !== passwordBack;
+
+    if (hasChangePassword && passwordNew.length <= 3) {
+      addToast('A nova senha deve ter pelo menos 4 caracteres', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_passwordNew')?.focus();
+
+      return false;
+    }
+
+    if (hasChangePassword && differenceInOldPassword) {
+      addToast('Informe sua atual senha corretamente', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_password')?.focus();
+
+      return false;
+    }
+
+    if (hasChangePassword && differenceInNewPassword) {
+      addToast('A nova senha e a confirmação deve ser igual', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+      document.getElementById('id_passwordNew')?.focus();
+
+      return false;
+    }
+
+    return true;
+  }
+
+  function handleUpdate() {
+    if (!handleValidationFields()) return;
+
+    api
+      .put('aluno', {
+        alunoId: user?.studentId,
+        ultimoUsuarioAlteracao: personId,
+        pessoa: handleInstancePersonChangeApi(),
+      })
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        addToast('Dados do perfil alterado com sucesso', {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err.response);
+        addToast(
+          'Houve algum erro inesperado na atualização do professor, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+
+  function handleDeleteStudent() {
+    if (!window.confirm('Realmente deseja remover sua conta?')) {
+      return;
+    }
+
+    api
+      .delete(`aluno/${user?.studentId}`)
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return null;
+        }
+
+        addToast('Sua conta foi removida com sucesso', {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+
+        history.push('/');
+        signOut();
+      })
+      .catch((err) => {
+        console.log(err);
+        addToast(
+          'Houve algum erro inesperado na remoção de sua conta, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+
   return (
     <PageStudent type="icon">
       <Title>Meu perfil</Title>
@@ -200,15 +433,19 @@ const Account: React.FC = () => {
               <FormField
                 label="Nome"
                 name="firstName"
-                value={values.firstName}
-                onChange={handleChange}
+                value={firstName}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFirstName(e.target.value)
+                }
                 maxLength={40}
               />
               <FormField
                 label="Sobrenome"
                 name="lastName"
-                value={values.lastName}
-                onChange={handleChange}
+                value={lastName}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setLastName(e.target.value)
+                }
                 maxLength={40}
               />
             </TwoColumns>
@@ -216,15 +453,19 @@ const Account: React.FC = () => {
               <FormField
                 label="CPF"
                 name="cpf"
-                value={values.cpf}
-                onChange={handleChange}
+                value={cpf}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setCpf(e.target.value)
+                }
                 maxLength={14}
               />
               <FormField
                 label="Aniversário"
-                name="dateOfBirth"
-                value={values.dateOfBirth}
-                onChange={handleChange}
+                name="birthDate"
+                value={birthDate}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setBirthDate(e.target.value)
+                }
                 type="date"
               />
             </TwoColumns>
@@ -244,14 +485,18 @@ const Account: React.FC = () => {
                 },
               ]}
               name="genre"
-              value={values.genre}
-              onChange={handleChange}
+              value={genre}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setGenre(e.target.value)
+              }
             />
             <FormField
               label="E-mail"
               name="email"
-              value={values.email}
-              onChange={handleChange}
+              value={email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
               maxLength={254}
             />
           </Collapse>
@@ -270,33 +515,44 @@ const Account: React.FC = () => {
                     value: 'C',
                   },
                 ]}
-                name="typeFone"
-                value={values.typeFone}
-                onChange={handleChange}
+                name="typePhone"
+                value={typePhone}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setTypePhone(e.target.value)
+                }
               />
             </TypesFone>
             <ThreeColumns>
               <FormField
                 label=""
-                name="codeCountry"
-                value={values.codeCountry}
-                onChange={handleChange}
+                name="countryCode"
+                value={countryCode}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setCountryCode(e.target.value)
+                }
                 prefix="+"
                 maxLength={3}
+                type="number"
               />
               <FormField
                 label="DDD"
                 name="ddd"
-                value={values.ddd}
-                onChange={handleChange}
+                value={ddd}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDdd(e.target.value)
+                }
                 maxLength={2}
+                type="number"
               />
               <FormField
                 label="Número"
-                name="number"
-                value={values.number}
-                onChange={handleChange}
+                name="phone"
+                value={phone}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPhone(e.target.value)
+                }
                 maxLength={9}
+                type="number"
               />
             </ThreeColumns>
           </Collapse>
@@ -398,31 +654,51 @@ const Account: React.FC = () => {
             <FormField
               label="Usuário"
               name="username"
-              value={values.username}
-              onChange={handleChange}
+              value={username}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUsername(e.target.value)
+              }
               maxLength={15}
+            />
+            <FormField
+              label="Senha atual"
+              name="password"
+              value={password}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
+              type="password"
+              maxLength={32}
             />
             <FormField
               label="Nova senha"
               name="passwordNew"
-              value={values.passwordNew}
-              onChange={handleChange}
+              value={passwordNew}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPasswordNew(e.target.value)
+              }
               type="password"
               maxLength={32}
             />
             <FormField
               label="Confirmar senha"
-              name="passwordNewConfirm"
-              value={values.passwordNewConfirm}
-              onChange={handleChange}
+              name="passwordConfirm"
+              value={passwordConfirm}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPasswordConfirm(e.target.value)
+              }
               type="password"
               maxLength={32}
             />
           </Collapse>
         </Fieldset>
         <ButtonsWrapper>
-          <Button color="primary-outline">Excluir</Button>
-          <Button color="primary">Salvar</Button>
+          <Button color="primary-outline" onClick={handleDeleteStudent}>
+            Excluir
+          </Button>
+          <Button color="primary" onClick={handleUpdate}>
+            Salvar
+          </Button>
         </ButtonsWrapper>
       </Form>
     </PageStudent>
