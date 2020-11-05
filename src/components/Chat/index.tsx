@@ -119,7 +119,7 @@ const Chat: React.FC<IChatComponent> = ({ movQuizId }) => {
       <ContainerChat chatOpen={chatOpen}>
         <Close onClick={handleChatOpen} />
         <ContainerMessage>
-          {listMessage.length &&
+          {!!listMessage.length &&
             listMessage.map((m) =>
               m.studentId === (user?.studentId || 0) ? (
                 <MyMessage key={m.movQuizChatId}>{m.message}</MyMessage>
