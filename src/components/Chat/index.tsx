@@ -63,7 +63,7 @@ const Chat: React.FC<IChatComponent> = ({ movQuizId }) => {
   }
 
   function handleGetMessageByMovQuiz() {
-    if (movQuizId === 0) return;
+    if (movQuizId === 0 || !user) return;
 
     api
       .get(`movQuizChat/quiz/${movQuizId}`)

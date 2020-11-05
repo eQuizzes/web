@@ -25,22 +25,22 @@ export const SettingsWrapper = styled.ul<SettingsProps>`
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
+  right: 2vw;
   bottom: 0;
   padding: 1.6rem;
   border: 3px solid ${(props) => props.theme.colors.primary};
   border-top: 0;
-  border-bottom-left-radius: 3.2rem;
+  border-top-right-radius: 3.2rem;
   border-bottom-right-radius: 3.2rem;
   background: ${(props) => props.theme.colors.backgroundGradient};
   grid-gap: 3.2rem;
-  transform: translateY(-100%);
+  transform: translateX(-100%);
   transition: all 260ms ease-in-out;
 
   ${({ isOpen }) =>
     isOpen &&
     css`
-      transform: translateY(0);
+      transform: translateX(0);
     `}
 
   ${RadioButtonWrapper} {

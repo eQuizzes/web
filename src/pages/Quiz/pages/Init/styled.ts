@@ -13,4 +13,6 @@ export const Title = styled.h3`
   text-align: center;
   font-size: 3.2rem;
   text-shadow: var(--text-shadow);
+  margin-bottom: auto;
+  padding-top: 16rem;
 `;

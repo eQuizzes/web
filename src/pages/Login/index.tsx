@@ -11,6 +11,7 @@ import { useAuth } from '../../contexts/auth';
 import iconRecovery from '../../assets/images/icons/recoveryPassword.svg';
 
 import { Title, Description, Form, FieldsWrapper, LinkLogin } from './styled';
+import storage from '../../utils/storage';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -30,6 +31,7 @@ function Login() {
       appearance: 'info',
       autoDismiss: true,
     });
+    storage.removeValuesJTW();
 
     document.getElementById('id_username')?.focus();
   }

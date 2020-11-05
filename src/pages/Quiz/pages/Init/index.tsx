@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { FiMoreVertical } from 'react-icons/fi';
 
 import Chat from '../../../../components/Chat';
 
@@ -8,6 +7,7 @@ import constantsLocalStorage from '../../../../constants/localStorage';
 import { InitWrapper, Title } from './styled';
 
 import { IStatusInit } from './interface';
+import Settings from '../../components/Settings';
 
 const QuizInit: React.FC<IStatusInit> = ({ movQuizId }) => {
   function handleClearResponseLocalStorage() {
@@ -20,7 +20,7 @@ const QuizInit: React.FC<IStatusInit> = ({ movQuizId }) => {
 
   return (
     <InitWrapper>
-      <FiMoreVertical size="4.8rem" />
+      <Settings />
       <Title>Aguarde o professor iniciar o Quiz</Title>
       <Chat movQuizId={movQuizId} />
     </InitWrapper>
