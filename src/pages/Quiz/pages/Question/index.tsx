@@ -191,9 +191,15 @@ const Question: React.FC<IQuestionPage> = ({
         </Number>
         <Timer>{time}</Timer>
       </Header>
-      <QuestionStyles>{question?.text}</QuestionStyles>
+      <QuestionStyles
+        dangerouslySetInnerHTML={{ __html: question?.text || '' }}
+      />
       <ResponseWrapper>
-        <Response>{question?.alternativeQuiz[active - 1]?.text || ''}</Response>
+        <Response
+          dangerouslySetInnerHTML={{
+            __html: question?.alternativeQuiz[active - 1]?.text || '',
+          }}
+        />
         <ButtonsWrapper active={active}>
           <Button onClick={() => handleActive(1)}>A</Button>
           <Button onClick={() => handleActive(2)}>B</Button>
@@ -211,20 +217,34 @@ const Question: React.FC<IQuestionPage> = ({
         </Number>
         <Timer>{time}</Timer>
       </Header>
-      <QuestionStyles>{question?.text}</QuestionStyles>
+      <QuestionStyles
+        dangerouslySetInnerHTML={{ __html: question?.text || '' }}
+      />
       <ButtonsWrapperFull>
-        <Button onClick={() => handleSubmitResponse('A')}>
-          {question?.alternativeQuiz[0]?.text}
-        </Button>
-        <Button onClick={() => handleSubmitResponse('B')}>
-          {question?.alternativeQuiz[1]?.text}
-        </Button>
-        <Button onClick={() => handleSubmitResponse('C')}>
-          {question?.alternativeQuiz[2]?.text}
-        </Button>
-        <Button onClick={() => handleSubmitResponse('D')}>
-          {question?.alternativeQuiz[3]?.text}
-        </Button>
+        <Button
+          onClick={() => handleSubmitResponse('A')}
+          dangerouslySetInnerHTML={{
+            __html: question?.alternativeQuiz[0]?.text || '',
+          }}
+        />
+        <Button
+          onClick={() => handleSubmitResponse('B')}
+          dangerouslySetInnerHTML={{
+            __html: question?.alternativeQuiz[1]?.text || '',
+          }}
+        />
+        <Button
+          onClick={() => handleSubmitResponse('C')}
+          dangerouslySetInnerHTML={{
+            __html: question?.alternativeQuiz[2]?.text || '',
+          }}
+        />
+        <Button
+          onClick={() => handleSubmitResponse('D')}
+          dangerouslySetInnerHTML={{
+            __html: question?.alternativeQuiz[3]?.text || '',
+          }}
+        />
       </ButtonsWrapperFull>
     </QuestionWrapper>
   );
