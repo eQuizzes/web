@@ -25,7 +25,7 @@ const QuizSlide: React.FC<ISlidePage> = ({
         </Number>
         <Settings />
       </Header>
-      <Title>{slide?.content}</Title>
+      <Title dangerouslySetInnerHTML={{ __html: slide?.content || '' }} />
       <Chat />
     </SlideWrapper>
   );
