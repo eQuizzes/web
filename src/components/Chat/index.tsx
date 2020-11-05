@@ -112,6 +112,8 @@ const Chat: React.FC<IChatComponent> = ({ movQuizId }) => {
 
   useEffect(handleGetMessageByMovQuiz, [movQuizId, user]);
 
+  if (!user) return <> </>;
+
   return (
     <>
       <ContainerChat chatOpen={chatOpen}>
