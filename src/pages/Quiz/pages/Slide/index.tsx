@@ -9,6 +9,7 @@ import { ISlidePage } from './interface';
 
 const QuizSlide: React.FC<ISlidePage> = ({
   slide,
+  movQuizId,
   totalObject,
   handleGetCurrentObject,
 }) => {
@@ -26,7 +27,7 @@ const QuizSlide: React.FC<ISlidePage> = ({
         <Settings />
       </Header>
       <Title dangerouslySetInnerHTML={{ __html: slide?.content || '' }} />
-      <Chat />
+      <Chat movQuizId={movQuizId} />
     </SlideWrapper>
   );
 };

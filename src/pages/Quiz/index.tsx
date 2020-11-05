@@ -162,7 +162,7 @@ const Quiz: React.FC = () => {
   function handleViewStatus() {
     switch (statusQuiz) {
       case 0:
-        return <Init />;
+        return <Init movQuizId={Number(movQuizId)} />;
       case 1:
       case 2:
         const currentObjectQuiz = listQuiz.find(
@@ -175,6 +175,7 @@ const Quiz: React.FC = () => {
             slide={currentObjectQuiz?.slideQuiz}
             totalObject={totalObject}
             handleGetCurrentObject={handleGetCurrentObject}
+            movQuizId={Number(movQuizId)}
           />
         ) : (
           <Question

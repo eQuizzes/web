@@ -1,6 +1,7 @@
 
 export interface ISlidePage {
   slide?: ISlideQuiz | null;
+  movQuizId: number;
   totalObject: number;
   handleGetCurrentObject: () => void;
 }

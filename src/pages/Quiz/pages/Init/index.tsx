@@ -7,7 +7,9 @@ import constantsLocalStorage from '../../../../constants/localStorage';
 
 import { InitWrapper, Title } from './styled';
 
-const QuizInit: React.FC = () => {
+import { IStatusInit } from './interface';
+
+const QuizInit: React.FC<IStatusInit> = ({ movQuizId }) => {
   function handleClearResponseLocalStorage() {
     localStorage.removeItem(
       constantsLocalStorage.RESPONSE_QUIZ_STUDENT_ANONYMOUS
@@ -20,7 +22,7 @@ const QuizInit: React.FC = () => {
     <InitWrapper>
       <FiMoreVertical size="4.8rem" />
       <Title>Aguarde o professor iniciar o Quiz</Title>
-      <Chat />
+      <Chat movQuizId={movQuizId} />
     </InitWrapper>
   );
 };
