@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useToasts } from 'react-toast-notifications';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
 
@@ -9,6 +10,7 @@ import Button from '../Button';
 import FormField from '../FormField';
 
 import useForm from '../../hooks/useForm';
+import api from '../../services/api';
 
 import {
   ButtonsWrapper,
@@ -19,8 +21,7 @@ import {
 } from './styled';
 
 import { HeaderProps } from './interface';
-import api from '../../services/api';
-import { useToasts } from 'react-toast-notifications';
+import { useAuth } from '../../contexts/auth';
 
 const links = [
   {
@@ -56,16 +57,15 @@ const PageHeader: React.FC<HeaderProps> = ({
   studentOn,
   text,
 }) => {
-  const valuesInitials = {
-    pin_menu: '',
-  };
+  const [pinMenu, setPinMenu] = useState('');
+
+  const { url } = useRouteMatch();
+  const { addToast } = useToasts();
+  const { user } = useAuth();
+  const history = useHistory();
 
   const hasStudentOn = Boolean(studentOn);
-  const { url } = useRouteMatch();
-  const routeActive = url.replace('/student/', '');
-  const { handleChange, values } = useForm(valuesInitials);
-  const { addToast } = useToasts();
-  const history = useHistory();
+  const routeActive = url.replace('/', '');
 
   function isHomePage(path: string): boolean {
     const isPageHome = path === 'home' && routeActive === '';
@@ -79,11 +79,19 @@ const PageHeader: React.FC<HeaderProps> = ({
   }
 
   function handleValidationCodeAccessQuiz() {
+    const objectSendApiForEnterQuiz =
+      user?.studentId === 0
+        ? {
+            codigoAcesso: pinMenu,
+            nomeAluno: '',
+          }
+        : {
+            codigoAcesso: pinMenu,
+            alunoId: user?.studentId,
+          };
+
     api
-      .post('movQuizAluno', {
-        codigoAcesso: values.pin_menu,
-        nomeAluno: '',
-      })
+      .post('movQuizAluno', objectSendApiForEnterQuiz)
       .then((response) => {
         if (response.status === 206) {
           addToast(response.data, {
@@ -142,9 +150,11 @@ const PageHeader: React.FC<HeaderProps> = ({
           <ButtonsWrapper>
             <FormField
               label="Código da Sala"
-              name="pin_menu"
-              value={values.pin_menu}
-              onChange={handleChange}
+              name="pinMenu"
+              value={pinMenu}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPinMenu(e.target.value)
+              }
               onClick={handleValidationCodeAccessQuiz}
             >
               <FiChevronRight />
