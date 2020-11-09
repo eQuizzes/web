@@ -1,85 +1,129 @@
-import React from 'react';
-import { FiLogOut, FiSearch } from 'react-icons/fi';
-import { MdYoutubeSearchedFor } from 'react-icons/md';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { FiUsers } from 'react-icons/fi';
+import { useToasts } from 'react-toast-notifications';
+
+import Button from '../../../components/Button';
 import FormField from '../../../components/FormField';
 import PageStudent from '../../../components/PageStudent';
 
-import useForm from '../../../hooks/useForm';
-import Item from './components/Item';
+import api from '../../../services/api';
+import util from '../../../utils/util';
+import { useAuth } from '../../../contexts/auth';
 
 import {
-  Header,
-  Title,
-  Info,
+  ButtonWrapper,
+  Descriptions,
+  Information,
+  TwoColumns,
+  ListClass,
+  ItemClass,
+  Form,
   Name,
-  Code,
-  SearchClassWrapper,
-  FormFieldWrapper,
-  FieldsWrapper,
-  ListStudents,
-  Student,
 } from './styled';
 
-import { StudentProps } from './interface';
+import { ClassApiProps, ClassProps } from './interface';
 
-const data: StudentProps[] = [];
+const Classes: React.FC = () => {
+  const [search, setSearch] = useState('');
+  const [listClasses, setListClasses] = useState<ClassProps[]>();
 
-const Class: React.FC = () => {
-  const valuesInitials = {
-    filter: '',
-    codeClass: '',
-  };
+  const { user } = useAuth();
+  const { addToast } = useToasts();
+  const history = useHistory();
 
-  const { handleChange, values } = useForm(valuesInitials);
+  function handleNotHasClass() {
+    history.push('/classes/new');
+    addToast('Comece agora mesmo o estudo com sua primeira turma!', {
+      appearance: 'info',
+      autoDismiss: true,
+    });
+  }
+
+  function handleGetClassInStudent() {
+    api
+      .get(`movAlunoTurma/alunoId/${user?.studentId}`)
+      .then(({ data }) => {
+        console.log(data);
+        const classFromApi: ClassProps[] = data.map((c: ClassApiProps) => {
+          const newClass: ClassProps = {
+            classId: c.turma.turmaId,
+            name: c.turma.nome,
+            description: c.turma.descricao,
+            quizzes: c.quantidadeQuizRealizados,
+            students: c.quantidadeAlunos,
+          };
+
+          return newClass;
+        });
+
+        setListClasses(classFromApi);
+
+        if (classFromApi.length > 0) return;
+        handleNotHasClass();
+      })
+      .catch((err) => {
+        console.error(err.response);
+        addToast(
+          'Houve algum erro inesperado na consulta de turma, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+
+  useEffect(handleGetClassInStudent, [user, addToast]);
+
+  function handleFilterClasses(c: ClassProps): boolean {
+    return util.includesToArray([c.name, c.description], search);
+  }
 
   return (
-    <PageStudent type="icon">
-      {data.length === 0 ? (
-        <SearchClassWrapper>
-          <Title>Pratique em turma</Title>
-          <FieldsWrapper>
-            <FormField
-              label="Código da turma"
-              name="codeClass"
-              onChange={handleChange}
-              value={values.codeClass}
-              maxLength={5}
-            >
-              <FiSearch />
-            </FormField>
-          </FieldsWrapper>
-        </SearchClassWrapper>
-      ) : (
-        <>
-          <Header>
-            <Info>
-              <Name>Nome da turma</Name>
-              <Code>#1234</Code>
-            </Info>
-            <FiLogOut />
-          </Header>
-          <FormFieldWrapper>
-            <FormField
-              label="Filtrar"
-              name="filter"
-              onChange={handleChange}
-              value={values.filter}
-              stroke="0.5"
-            >
-              <MdYoutubeSearchedFor />
-            </FormField>
-          </FormFieldWrapper>
-          <ListStudents>
-            {data.map(({ name, dateOfBirth }) => (
-              <Student>
-                <Item name={name} dateOfBirth={dateOfBirth} />
-              </Student>
+    <PageStudent type="back" text="Turmas">
+      <Form>
+        <FormField
+          label="Pesquisar"
+          name="search"
+          value={search}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearch(e.target.value)
+          }
+        />
+      </Form>
+      <ListClass>
+        {listClasses &&
+          listClasses
+            .filter((className) => handleFilterClasses(className))
+            .map(({ classId, name, description, quizzes, students }) => (
+              <ItemClass key={classId}>
+                <Descriptions>
+                  <Name>{name}</Name>
+                  <Information>{description}</Information>
+                  <TwoColumns>
+                    <Information>
+                      <b>{quizzes}</b> quizzes realizados
+                    </Information>
+                    |
+                    <Information>
+                      <b>{students}</b> alunos
+                    </Information>
+                  </TwoColumns>
+                </Descriptions>
+                <Link to={`/class/${classId}`} title="Detalhes da turma">
+                  <FiUsers />
+                </Link>
+              </ItemClass>
             ))}
-          </ListStudents>
-        </>
-      )}
+      </ListClass>
+      <ButtonWrapper>
+        <Button color="primary" to="/class/new">
+          Nova turma
+        </Button>
+      </ButtonWrapper>
     </PageStudent>
   );
 };
 
-export default Class;
+export default Classes;

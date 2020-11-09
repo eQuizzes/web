@@ -1,60 +1,71 @@
 import styled from 'styled-components';
 
-export const SearchClassWrapper = styled.div`
-  padding: 0 24px 5.6rem;
-  display: grid;
-  grid-auto-rows: 10rem calc(100% - 10rem);
+export const Form = styled.div`
+  padding: 1.6rem 24px;
+`;
+
+export const ListClass = styled.ul`
+  position: relative;
+  padding: 0 24px;
+  overflow-y: auto;
+  max-height: calc(100vh - 30rem);
+  margin-bottom: 1.6rem;
   flex: 1;
-`;
 
-export const Title = styled.h3`
-  font-size: 3.2rem;
-`;
-
-export const FieldsWrapper = styled.div`
-  flex: 1;
-  padding: 0 0 5.6rem;
-  justify-content: center;
-`;
-
-export const Header = styled.div`
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  padding: 3.2rem 24px;
-
-  svg {
-    width: 2.4rem;
-    height: 2.4rem;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
-export const Info = styled.div`
-  align-items: flex-start;
+export const ItemClass = styled.li`
+  border: 2px solid ${(props) => props.theme.colors.primary};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem;
+  margin-bottom: 1.6rem;
+  box-shadow: var(--box-shadow);
+  border-radius: 3.6rem;
+
+  svg {
+    width: 6.4rem;
+    height: 6.4rem;
+    color: ${(props) => props.theme.colors.primary};
+    stroke-width: 1.5px;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+export const TwoColumns = styled.div`
+  flex-direction: row;
+  grid-gap: 1.2rem;
 `;
 
 export const Name = styled.h5`
-  font-size: 2rem;
+  color: ${(props) => props.theme.colors.primary};
+  font-size: 2.4rem;
+  font-weight: 600;
 `;
 
-export const Code = styled.p`
+export const Information = styled.p`
   font-size: 1.6rem;
-`;
 
-export const FormFieldWrapper = styled.div`
-  padding: 0 24px;
-`;
-
-export const ListStudents = styled.ul`
-  padding: 3.2rem 24px;
-  height: calc(100vh - 31rem);
-  overflow: auto;
-`;
-
-export const Student = styled.li`
-  margin-top: 1.6rem;
-
-  &:first-child {
-    margin-top: 0;
+  b {
+    font-size: 1.8rem;
   }
+`;
+
+export const Descriptions = styled.div`
+  align-items: flex-start;
+
+  > ${Information}:nth-child(2) {
+    margin-bottom: 1.6rem;
+  }
+`;
+
+export const ButtonWrapper = styled.div`
+  padding-bottom: 1.6rem;
 `;
