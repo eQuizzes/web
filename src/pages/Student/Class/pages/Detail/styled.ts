@@ -22,8 +22,8 @@ export const Header = styled.div`
 
   svg {
     color: ${({ theme }) => theme.colors.primary};
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 4rem;
+    height: 4rem;
     text-shadow: var(--text-shadow);
   }
 `;

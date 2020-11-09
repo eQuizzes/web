@@ -38,7 +38,7 @@ const Class: React.FC = () => {
 
   const { addToast } = useToasts();
 
-  useEffect(() => {
+  function handleGetDetailClass() {
     api
       .get(`movAlunoTurma/turmaId/${idClass}`)
       .then(({ data }) => {
@@ -85,7 +85,9 @@ const Class: React.FC = () => {
           autoDismiss: true,
         });
       });
-  }, [idClass, addToast]);
+  }
+
+  useEffect(handleGetDetailClass, [idClass, addToast]);
 
   function handleListStudents(student: StudentProps) {
     return util.includesToArray(
@@ -102,6 +104,7 @@ const Class: React.FC = () => {
           <Description>{classDetail.description}</Description>
           <Code>#{classDetail.code}</Code>
         </Details>
+        <FiLogOut title="Sair da turma" />
       </Header>
       <FormFieldWrapper>
         <FormField
@@ -113,12 +116,12 @@ const Class: React.FC = () => {
           value={search}
           stroke="0.5"
         >
-          <MdYoutubeSearchedFor />
+          <MdYoutubeSearchedFor onClick={handleGetDetailClass} />
         </FormField>
       </FormFieldWrapper>
       <ListStudents>
         {!!listStudents.length &&
-          listStudents.map((student) => (
+          listStudents.filter(handleListStudents).map((student) => (
             <Student>
               <Item
                 key={student.studentId}
