@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
@@ -6,9 +6,9 @@ import { FiChevronRight } from 'react-icons/fi';
 import Header from './components/Header';
 import LinkItem from './components/LinkItem';
 import Button from '../Button';
-
 import FormField from '../FormField';
 
+import { useAuth } from '../../contexts/auth';
 import api from '../../services/api';
 
 import {
@@ -19,8 +19,7 @@ import {
   Menu,
 } from './styled';
 
-import { HeaderProps } from './interface';
-import { useAuth } from '../../contexts/auth';
+import { ITransmissionNotificationApi, HeaderProps } from './interface';
 
 const links = [
   {
@@ -42,10 +41,6 @@ const links = [
     title: 'Turma',
   },
   {
-    route: 'live',
-    title: 'Live',
-  },
-  {
     route: 'account',
     title: 'Perfil',
   },
@@ -57,6 +52,7 @@ const PageHeader: React.FC<HeaderProps> = ({
   text,
 }) => {
   const [pinMenu, setPinMenu] = useState('');
+  const [routes, setRoutes] = useState(links);
 
   const { url } = useRouteMatch();
   const { addToast } = useToasts();
@@ -116,6 +112,46 @@ const PageHeader: React.FC<HeaderProps> = ({
       });
   }
 
+  function handleHasLive() {
+    if (!user?.studentId) return;
+
+    api
+      .get('notificacaoTransmissao')
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        const liveApi = response.data as ITransmissionNotificationApi[];
+
+        const lastLive = liveApi[liveApi.length - 1];
+
+        setRoutes([
+          {
+            route: `live/${lastLive.notificacaoTransmissaoId}`,
+            title: 'Live',
+          },
+          ...links,
+        ]);
+      })
+      .catch((err) => {
+        console.log(err);
+        addToast(
+          'Houve algum erro inesperado na busca por live, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+
+  useEffect(handleHasLive, []);
+
   return (
     <HeaderWrapper>
       <Menu id="menu">
@@ -129,7 +165,7 @@ const PageHeader: React.FC<HeaderProps> = ({
 
         <Navigation>
           <LinkList>
-            {links
+            {routes
               .filter(
                 ({ route, logout }) =>
                   route !== routeActive &&

@@ -2,7 +2,7 @@ import Live from '../../pages/Student/Live';
 
 const LiveRoutes = [
   {
-    path: '/live',
+    path: '/live/:idLive',
     component: Live,
   },
 ];
