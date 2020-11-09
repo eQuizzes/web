@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { useToasts } from 'react-toast-notifications';
 import { FiLogOut, FiSearch } from 'react-icons/fi';
 
@@ -9,6 +9,7 @@ import Item from './components/Item';
 
 import util from '../../../../../utils/util';
 import api from '../../../../../services/api';
+import { useAuth } from '../../../../../contexts/auth';
 
 import {
   FormFieldWrapper,
@@ -34,8 +35,10 @@ const Class: React.FC = () => {
   });
 
   const { idClass } = useParams<ParamsProps>();
-
   const { addToast } = useToasts();
+  const { user } = useAuth();
+
+  const history = useHistory();
 
   function handleGetDetailClass() {
     api
@@ -95,6 +98,36 @@ const Class: React.FC = () => {
     );
   }
 
+  function handleRemoveStudentToClass() {
+    api
+      .delete(`movAlunoTurma/turmaId=${idClass}&alunoId=${user?.studentId}`)
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        addToast('Você saiu da turma!', {
+          appearance: 'info',
+          autoDismiss: true,
+        });
+        history.goBack();
+      })
+      .catch((err) => {
+        console.error(err.response);
+        addToast(
+          'Houve algum erro inesperado ao sair da turma, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+
   return (
     <PageStudent type="icon">
       <Header>
@@ -103,7 +136,7 @@ const Class: React.FC = () => {
           <Description>{classDetail.description}</Description>
           <Code>#{classDetail.code}</Code>
         </Details>
-        <FiLogOut title="Sair da turma" />
+        <FiLogOut title="Sair da turma" onClick={handleRemoveStudentToClass} />
       </Header>
       <FormFieldWrapper>
         <FormField

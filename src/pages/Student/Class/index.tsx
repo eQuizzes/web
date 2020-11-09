@@ -33,7 +33,7 @@ const Classes: React.FC = () => {
   const history = useHistory();
 
   function handleNotHasClass() {
-    history.push('/classes/new');
+    history.push('/class/new');
     addToast('Comece agora mesmo o estudo com sua primeira turma!', {
       appearance: 'info',
       autoDismiss: true,
@@ -44,12 +44,11 @@ const Classes: React.FC = () => {
     api
       .get(`movAlunoTurma/alunoId/${user?.studentId}`)
       .then(({ data }) => {
-        console.log(data);
         const classFromApi: ClassProps[] = data.map((c: ClassApiProps) => {
           const newClass: ClassProps = {
-            classId: c.turma.turmaId,
-            name: c.turma.nome,
-            description: c.turma.descricao,
+            classId: c.turmaId,
+            name: c.nome,
+            description: c.descricao,
             quizzes: c.quantidadeQuizRealizados,
             students: c.quantidadeAlunos,
           };
@@ -76,7 +75,7 @@ const Classes: React.FC = () => {
 
   useEffect(handleGetClassInStudent, [user, addToast]);
 
-  function handleFilterClasses(c: ClassProps): boolean {
+  function handleFilterClasses(c: ClassProps) {
     return util.includesToArray([c.name, c.description], search);
   }
 
