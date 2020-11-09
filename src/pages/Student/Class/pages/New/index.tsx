@@ -20,7 +20,7 @@ const ClassesNew: React.FC = () => {
 
   const handleSubmitClass = () => {
     api
-      .post('/movAlunoTurma', {
+      .post('movAlunoTurma', {
         alunoId: user?.studentId,
         codigoTurma: code,
       })
