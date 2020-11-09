@@ -18,7 +18,6 @@ export interface IBookApi {
   autorId: number;
   titulo: string;
   subtitulo: string | null;
-  quantidadeAcesso: number | null;
   linkLivro: string;
   dataPublicacao: string | null;
   ultimoUsuarioAlteracao?: number;
@@ -30,7 +29,6 @@ export interface IBook {
   authorId: number;
   title: string;
   subtitle: string | null;
-  quantityAccess: number | null;
   linkBook: string;
   publishDate: string | null;
 }

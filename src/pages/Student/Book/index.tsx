@@ -34,7 +34,6 @@ const Book: React.FC = () => {
             },
             title: book.titulo,
             subtitle: book.subtitulo,
-            quantityAccess: book.quantidadeAcesso,
             linkBook: book.linkLivro,
             publishDate: book.dataPublicacao,
           };
