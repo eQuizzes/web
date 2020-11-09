@@ -37,6 +37,10 @@ const links = [
     title: 'Home',
   },
   {
+    route: 'book',
+    title: 'Livros',
+  },
+  {
     route: 'class',
     title: 'Turma',
   },

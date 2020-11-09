@@ -5,11 +5,12 @@ import Account from './auth/account.routes';
 import Home from './auth/home.routes';
 import Class from './auth/class.routes';
 import Live from './auth/live.routes';
+import Book from './auth/book.routes';
 
 import Quiz from './quiz.routes';
 
 const AuthRoutes: React.FC = () => {
-  const routes = Home.concat(Account, Class, Live, Quiz);
+  const routes = Home.concat(Account, Class, Live, Quiz, Book);
 
   return (
     <BrowserRouter>
