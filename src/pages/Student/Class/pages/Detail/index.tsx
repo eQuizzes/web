@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useToasts } from 'react-toast-notifications';
 import { FiLogOut, FiSearch } from 'react-icons/fi';
-import { MdYoutubeSearchedFor } from 'react-icons/md';
 
 import FormField from '../../../../../components/FormField';
 import PageStudent from '../../../../../components/PageStudent';
@@ -114,17 +113,15 @@ const Class: React.FC = () => {
             setSearch(e.target.value)
           }
           value={search}
-          stroke="0.5"
         >
-          <MdYoutubeSearchedFor onClick={handleGetDetailClass} />
+          <FiSearch onClick={handleGetDetailClass} />
         </FormField>
       </FormFieldWrapper>
       <ListStudents>
         {!!listStudents.length &&
           listStudents.filter(handleListStudents).map((student) => (
-            <Student>
+            <Student key={student.studentId}>
               <Item
-                key={student.studentId}
                 name={`${student.person.firstName} ${student.person.lastName}`}
                 dateOfBirth={student.person.dateOfBirth}
               />
