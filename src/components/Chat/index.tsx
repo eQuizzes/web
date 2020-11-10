@@ -49,6 +49,8 @@ const Chat: React.FC<IChatComponent> = ({ movQuizId }) => {
           });
           return;
         }
+        handleGetMessageByMovQuiz();
+        setMessage('');
       })
       .catch((err) => {
         console.error(err.response);
