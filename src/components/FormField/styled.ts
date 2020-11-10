@@ -209,6 +209,7 @@ export const ButtonCircle = styled.button<ButtonCircleProps>`
   background: ${(props) => props.theme.colors.primary};
   box-shadow: var(--box-shadow);
   transition: all 260ms ease-in-out;
+  overflow: hidden;
 
   svg,
   img {

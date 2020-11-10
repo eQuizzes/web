@@ -115,13 +115,13 @@ const Chat: React.FC<IChatComponent> = ({ movQuizId }) => {
 
   useEffect(handleGetMessageByMovQuiz, [movQuizId, user]);
 
-  if (!user) return <> </>;
+  if (!user) return <div />;
 
   return (
     <>
       <ContainerChat chatOpen={chatOpen}>
         <Close onClick={handleChatOpen} />
-        <ContainerMessage>
+        <ContainerMessage id="containerMessage">
           {!!listMessage.length &&
             listMessage.map((m) =>
               m.studentId === (user?.studentId || 0) ? (
