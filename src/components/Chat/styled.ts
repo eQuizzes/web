@@ -35,7 +35,6 @@ export const ContainerChat = styled.div<ChatProps>`
   transform: scale(0);
   transition: all 260ms ease-in-out;
   overflow: auto;
-  max-height: 46vh;
 
   ${FormFieldWrapper} {
     background: ${(props) => props.theme.colors.primary};
@@ -52,6 +51,7 @@ export const ContainerChat = styled.div<ChatProps>`
     css`
       transform: scale(1);
     `}
+
 `;
 
 export const ContainerMessage = styled.div`
@@ -65,7 +65,11 @@ export const ContainerMessage = styled.div`
   margin: 0 48px -2px;
   grid-gap: 0.8rem;
   max-height: 47vh;
-  overflow-y: all;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Message = styled.label`
