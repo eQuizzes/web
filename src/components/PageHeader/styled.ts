@@ -11,7 +11,7 @@ export const Menu = styled.div`
   left: 0;
   right: 2vw;
   bottom: 0;
-  z-index: 1;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
 
