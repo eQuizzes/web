@@ -7,15 +7,11 @@ export interface ClassProps {
   code?: string;
 }
 
-export interface IClass {
+export interface ClassApiProps {
   turmaId: string;
   nome: string;
   descricao: string;
   codigo: string;
-}
-
-export interface ClassApiProps {
-  turma: IClass;
   quantidadeQuizRealizados: number;
   quantidadeAlunos: number;
   alunos: IStudent[];

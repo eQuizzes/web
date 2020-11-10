@@ -5,7 +5,6 @@ import {
   FooterBook,
   LinkToBook,
   Descriptions,
-  AccessCount,
   LinkWrapper,
   ItemBook,
   AuthorName,
@@ -27,9 +26,6 @@ const BookItem: React.FC<IBookItem> = ({ book }) => {
 
         <FooterBook>
           <Infos>
-            <AccessCount>
-              <Bold>{book.quantityAccess}</Bold> acessos
-            </AccessCount>
             <AuthorName>{`${book.author.firstName} ${book.author.lastName}`}</AuthorName>
           </Infos>
           <MoreInfos>

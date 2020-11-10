@@ -27,10 +27,6 @@ export const Infos = styled.div`
   align-items: flex-start;
 `;
 
-export const AccessCount = styled.p`
-  font-size: 1.4rem;
-`;
-
 export const AuthorName = styled.p`
   font-size: 1.6rem;
   font-weight: bold;
