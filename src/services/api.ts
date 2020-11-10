@@ -20,8 +20,8 @@ const api = axios.create({
 });
 
 const tokenExpired = () => {
-  window.location.href = '/login?tokenExpired=true';
-  storage.removeValuesJTW();
+  // window.location.href = '/login?tokenExpired=true';
+  // storage.removeValuesJTW();
 };
 
 api.interceptors.response.use(

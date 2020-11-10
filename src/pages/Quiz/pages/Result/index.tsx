@@ -42,7 +42,7 @@ const Result: React.FC<IResultPage> = ({ movQuizId, quizId }) => {
 
   function handleGetForStudentQuiz() {
     api
-      .get(`quiz/${quizId}`)
+      .get(`movQuiz/somenteAlunosCadastrados/${movQuizId}`)
       .then((response) => {
         if (response.status === 206) {
           addToast(response.data, {
@@ -67,7 +67,7 @@ const Result: React.FC<IResultPage> = ({ movQuizId, quizId }) => {
   }
 
   function handleSetDataInGraph() {
-    if (!resultStudent.responseAllStudents) return;
+    if (!resultStudent?.responseAllStudents?.length) return;
 
     let labelsChart = resultStudent.responseAllStudents.map(
       (student) => student.numberQuestion
@@ -215,7 +215,10 @@ const Result: React.FC<IResultPage> = ({ movQuizId, quizId }) => {
     );
 
     api
-      .post(`VWClassificacaoQuiz/${movQuizId}`, responseForApi)
+      .post(
+        `VWClassificacaoQuiz/alunoNaoCadastrado/${movQuizId}`,
+        responseForApi
+      )
       .then((response) => {
         if (response.status === 206) {
           addToast(response.data, {
@@ -224,6 +227,16 @@ const Result: React.FC<IResultPage> = ({ movQuizId, quizId }) => {
           });
           return;
         }
+
+        setResultStudent({
+          description: '',
+          nameStudent: '',
+          points: 0,
+          responseAllStudents: [],
+          responseStudent: [],
+          totalCorrect: response.data.acertos,
+          totalError: response.data.erros,
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -257,8 +270,12 @@ const Result: React.FC<IResultPage> = ({ movQuizId, quizId }) => {
     <PageStudent type="back" text="Resultado">
       <ResultsWrapper>
         <Info>
-          <SubTitle>Pontuação total</SubTitle>
-          <Value>{resultStudent.points}</Value>
+          {!!quizForStudent && (
+            <>
+              <SubTitle>Pontuação total</SubTitle>
+              <Value>{resultStudent.points}</Value>
+            </>
+          )}
           <SubTitle>Acertos</SubTitle>
           <Value>{resultStudent.totalCorrect}</Value>
           <SubTitle>Erros</SubTitle>
@@ -266,14 +283,18 @@ const Result: React.FC<IResultPage> = ({ movQuizId, quizId }) => {
         </Info>
         <Medal></Medal>
       </ResultsWrapper>
-      <AverageClass>
-        <SubTitle>Média da turma</SubTitle>
-        <Graph id="studentsChart"></Graph>
-      </AverageClass>
-      <HistoryQuestions>
-        <SubTitle>Histórico de perguntas</SubTitle>
-        <Question responseStudent={resultStudent.responseStudent} />
-      </HistoryQuestions>
+      {!!quizForStudent && (
+        <>
+          <AverageClass>
+            <SubTitle>Média da turma</SubTitle>
+            <Graph id="studentsChart"></Graph>
+          </AverageClass>
+          <HistoryQuestions>
+            <SubTitle>Histórico de perguntas</SubTitle>
+            <Question responseStudent={resultStudent.responseStudent} />
+          </HistoryQuestions>
+        </>
+      )}
     </PageStudent>
   );
 };
