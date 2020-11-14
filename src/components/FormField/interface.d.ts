@@ -28,4 +28,8 @@ export interface FormFieldProps {
   stroke?: string;
   prefix?: string;
   maxLength?: number;
+  handleListInPressKey?: Array<{
+    handleFunction: () => void,
+    key: 'Enter' | string,
+  }>;
 }

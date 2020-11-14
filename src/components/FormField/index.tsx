@@ -18,22 +18,33 @@ const FormField: React.FC<FormFieldProps> = ({
   label,
   onChange,
   onClick,
-  type,
-  stroke,
+  type = 'text',
+  stroke = '2.4px',
   prefix,
   maxLength,
+  handleListInPressKey,
 }) => {
   const fieldId = `id_${name}`;
-  const hasValue = value !== '';
-  const hasLabel = Boolean(label.length);
-  const typeInput = type !== undefined ? type : 'text';
+  const hasValue = !!value;
+  const hasLabel = !!label.length;
   const isTextarea = type === 'textarea';
-  const strokeWidth = stroke !== undefined ? stroke : '2.4px';
   const hasPrefix = prefix !== undefined;
+
+  function handleKeyPress(
+    event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) {
+    if (!handleListInPressKey) return;
+
+    for (const { key, handleFunction } of handleListInPressKey) {
+      if (event.key === key) {
+        handleFunction();
+      }
+    }
+  }
 
   return (
     <FormFieldWrapper>
-      <Label htmlFor={fieldId} type={typeInput}>
+      <Label htmlFor={fieldId} type={type}>
         {hasPrefix && <Prefix htmlFor={fieldId}>{prefix}</Prefix>}
         {isTextarea ? (
           <Textarea
@@ -45,6 +56,7 @@ const FormField: React.FC<FormFieldProps> = ({
             onChange={onChange}
             autoComplete="off"
             maxLength={maxLength}
+            onKeyPress={handleKeyPress}
           />
         ) : (
           <Input
@@ -54,21 +66,18 @@ const FormField: React.FC<FormFieldProps> = ({
             value={value}
             name={name}
             onChange={onChange}
-            type={typeInput}
+            type={type}
             autoComplete="off"
             maxLength={maxLength}
+            onKeyPress={handleKeyPress}
           />
         )}
 
-        <Text hasLabel={hasLabel} type={typeInput} htmlFor={fieldId}>
+        <Text hasLabel={hasLabel} type={type} htmlFor={fieldId}>
           {label}
         </Text>
         {children && (
-          <ButtonCircle
-            onClick={onClick}
-            type="button"
-            strokeWidth={strokeWidth}
-          >
+          <ButtonCircle onClick={onClick} type="button" strokeWidth={stroke}>
             {children}
           </ButtonCircle>
         )}

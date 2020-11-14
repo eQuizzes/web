@@ -122,6 +122,12 @@ const Home: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPin(e.target.value)
           }
+          handleListInPressKey={[
+            {
+              key: 'Enter',
+              handleFunction: handleValidationCodeAccessQuiz,
+            },
+          ]}
           onClick={handleValidationCodeAccessQuiz}
         >
           <FiChevronRight />

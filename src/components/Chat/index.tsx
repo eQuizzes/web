@@ -139,6 +139,12 @@ const Chat: React.FC<IChatComponent> = ({ movQuizId }) => {
             setMessage(e.target.value)
           }
           stroke="1.5"
+          handleListInPressKey={[
+            {
+              key: 'Enter',
+              handleFunction: handleNewMessage,
+            },
+          ]}
         >
           <FiSend onClick={handleNewMessage} />
         </FormField>
