@@ -74,10 +74,13 @@ export const ContainerMessage = styled.div`
 
 export const Message = styled.label`
   max-width: 90%;
-  padding: 0.8rem 1.2rem;
-  border-radius: 3.2rem;
+  padding: 1.2rem;
+  border-radius: 4rem;
   box-shadow: var(--box-shadow);
   font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  grid-gap: .8rem;
 `;
 
 export const QuizMessage = styled(Message)`
@@ -85,7 +88,7 @@ export const QuizMessage = styled(Message)`
   margin-right: auto;
   background: ${(props) => props.theme.colors.backgroundGradient};
   border: 2px solid ${(props) => props.theme.colors.primary};
-  border-bottom-left-radius: 0;
+  border-bottom-left-radius: .4rem;
 `;
 
 export const MyMessage = styled(Message)`
@@ -93,7 +96,16 @@ export const MyMessage = styled(Message)`
   margin-left: auto;
   color: ${(props) => props.theme.colors.background};
   background: ${(props) => props.theme.colors.primary};
-  border-bottom-right-radius: 0;
+  border-bottom-right-radius: .4rem;
+`;
+
+export const NameStudent = styled.label`
+  color: ${(props) => props.theme.colors.primary};
+  border: 2px solid ${(props) => props.theme.colors.primary};
+  border-radius: 3.2rem;
+  padding: .4rem .8rem;
+  background: ${(props) => props.theme.colors.backgroundGradient};
+  font-weight: 500;
 `;
 
 export const Close = styled(FiX)`

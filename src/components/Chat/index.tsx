@@ -13,6 +13,7 @@ import {
   ContainerIcon,
   ContainerChat,
   QuizMessage,
+  NameStudent,
   MyMessage,
   Close,
 } from './styled';
@@ -86,6 +87,7 @@ const Chat: React.FC<IChatComponent> = ({ movQuizId }) => {
             message: messageApi.mensagem,
             studentId: messageApi.alunoId,
             movQuizChatId: messageApi.movQuizChatId,
+            nameStudent: `${messageApi.aluno.pessoa.nome} ${messageApi.aluno.pessoa.sobrenome}`,
           } as IChatMessage;
         });
 
@@ -127,7 +129,10 @@ const Chat: React.FC<IChatComponent> = ({ movQuizId }) => {
               m.studentId === (user?.studentId || 0) ? (
                 <MyMessage key={m.movQuizChatId}>{m.message}</MyMessage>
               ) : (
-                <QuizMessage key={m.movQuizChatId}>{m.message}</QuizMessage>
+                <QuizMessage key={m.movQuizChatId}>
+                  <NameStudent>{m.nameStudent}</NameStudent>
+                  {m.message}
+                </QuizMessage>
               )
             )}
         </ContainerMessage>
