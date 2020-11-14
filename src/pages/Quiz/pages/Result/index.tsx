@@ -165,7 +165,7 @@ const Result: React.FC<IResultPage> = ({ movQuizId, quizId }) => {
             descriptionCorrect: student.descricaoAlternativaCorreta,
             descriptionSelection: student.descricaoAlternativaSelecionada,
             nivel: student.ePesoPergunta,
-            numberQuestion: student.numeroPergunta,
+            numberQuestion: student.ordenacaoObjetoQuiz,
             points: student.pontuacao,
           } as IResponseStudent;
 

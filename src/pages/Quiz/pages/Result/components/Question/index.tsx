@@ -44,8 +44,8 @@ const Question: React.FC<QuestionProps> = ({ responseStudent }) => {
                   <sup>{response.numberQuestion}</sup>/
                   <sub>{responseStudent.length}</sub>
                 </Number>
-                <QuestionText>{response.content}</QuestionText>
               </Header>
+              <QuestionText>{response.content}</QuestionText>
               <ResponseWrapper>
                 <ResponseText>{response.descriptionSelection}</ResponseText>
                 <IconErrorResponse />
