@@ -12,6 +12,7 @@ import Footer from '../../components/Footer';
 import api from '../../services/api';
 
 import lottieBooks from '../../assets/lottie/books.json';
+import Modal from '../../components/Modal';
 
 import {
   Description,
@@ -24,15 +25,21 @@ import {
 
 function Landing() {
   const [codeAccessQuiz, setCodeAccessQuiz] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [nameAnonymous, setNameAnonymous] = useState('');
 
   const history = useHistory();
   const { addToast } = useToasts();
 
+  function handleGetName() {}
+
   function handleValidationCodeAccessQuiz() {
+    handleGetName();
+
     api
       .post('movQuizAluno', {
         codigoAcesso: codeAccessQuiz,
-        nomeAluno: '',
+        nomeAluno: nameAnonymous,
       })
       .then((response) => {
         if (response.status === 206) {
@@ -59,8 +66,38 @@ function Landing() {
       });
   }
 
+  function handleShowModal() {
+    setShowModal(true);
+  }
+
+  function handleCancelModal() {
+    setShowModal(false);
+  }
+
+  function handleConfirmModal() {
+    if (!nameAnonymous) {
+      addToast('Informe um apelido', {
+        appearance: 'info',
+        autoDismiss: false,
+      });
+      return;
+    }
+
+    handleValidationCodeAccessQuiz();
+    setShowModal(false);
+  }
+
   return (
     <LandingPage>
+      <Modal
+        handleClose={handleCancelModal}
+        handleConfirm={handleConfirmModal}
+        title="Informe seu apelido"
+        setValue={setNameAnonymous}
+        textInput="Apelido"
+        value={nameAnonymous}
+        showModal={showModal}
+      />
       <FistFold>
         <PageHeader />
         <Title>A alternativa correta para seus estudos!</Title>
@@ -81,7 +118,7 @@ function Landing() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setCodeAccessQuiz(e.target.value)
             }
-            onClick={handleValidationCodeAccessQuiz}
+            onClick={handleShowModal}
             maxLength={8}
           >
             <FiChevronRight />
