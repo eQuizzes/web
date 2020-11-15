@@ -3,6 +3,12 @@ export interface IPlayParams {
   quizId: string;
 }
 
+export interface IListStudentsApi {
+  alunos: Array<{
+    alunoId: number;
+  }>;
+}
+
 export interface IQuizApi {
   quizId: number;
   nome: string;

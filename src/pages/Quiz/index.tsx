@@ -14,6 +14,7 @@ import {
   IAlternativeQuizFromApi,
   IQuizByIdFromApi,
   IAlternativeQuiz,
+  IListStudentsApi,
   IPlayParams,
   IQuizById,
 } from './interface';
@@ -28,6 +29,56 @@ const Quiz: React.FC = () => {
   const { addToast } = useToasts();
   const { user } = useAuth();
   const history = useHistory();
+
+  function handleVerifyIfStudentEnterQuiz() {
+    if (!movQuizId || !user) return;
+
+    api
+      .get(`movQuizAluno/${movQuizId}`)
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        const listStudents = response.data as IListStudentsApi;
+
+        const studentInQuiz = listStudents.alunos.find(
+          (student) => student.alunoId === user.studentId
+        );
+
+        if (studentInQuiz) return;
+
+        addToast('Você não está neste quiz', {
+          appearance: 'info',
+          autoDismiss: true,
+        });
+        history.goBack();
+      })
+      .catch((err) => {
+        console.error(err);
+        addToast(
+          'Houve algum erro inesperado ao obter lista de alunos, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+  useEffect(handleVerifyIfStudentEnterQuiz, [movQuizId, user, addToast]);
+
+  function handleIntervalVerifyIfStudentEnterQuiz() {
+    let intervalVerify = setInterval(handleVerifyIfStudentEnterQuiz, 3200);
+    return () => clearInterval(intervalVerify);
+  }
+  useEffect(handleIntervalVerifyIfStudentEnterQuiz, [
+    movQuizId,
+    handleVerifyIfStudentEnterQuiz,
+  ]);
 
   function handleGetStatusQuiz(): void {
     api
