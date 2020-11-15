@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { useToasts } from 'react-toast-notifications';
 
+import { useAuth } from '../../contexts/auth';
 import api from '../../services/api';
 
 import Init from './pages/Init';
 import Slide from './pages/Slide';
 import Question from './pages/Question';
+import Result from './pages/Result';
 
 import {
   IAlternativeQuizFromApi,
@@ -15,7 +17,6 @@ import {
   IPlayParams,
   IQuizById,
 } from './interface';
-import Result from './pages/Result';
 
 const Quiz: React.FC = () => {
   const [listQuiz, setListQuiz] = useState<IQuizById[]>([]);
@@ -25,6 +26,8 @@ const Quiz: React.FC = () => {
 
   const { movQuizId, quizId } = useParams() as IPlayParams;
   const { addToast } = useToasts();
+  const { user } = useAuth();
+  const history = useHistory();
 
   function handleGetStatusQuiz(): void {
     api
@@ -155,6 +158,39 @@ const Quiz: React.FC = () => {
       });
   }
 
+  function handleExitToQuiz() {
+    if (!user?.studentId || !movQuizId) return;
+
+    api
+      .delete(`movQuizAluno/movQuizId=${movQuizId}&AlunoId=${user?.studentId}`)
+      .then((response) => {
+        if (response.status === 206) {
+          addToast(response.data, {
+            appearance: 'warning',
+            autoDismiss: true,
+          });
+          return;
+        }
+
+        addToast('Esperamos que você volte logo ao quiz', {
+          appearance: 'info',
+          autoDismiss: true,
+        });
+
+        history.goBack();
+      })
+      .catch((err) => {
+        console.error(err.message);
+        addToast(
+          'Houve algum erro inesperado ao sair do quiz, tente novamente mais tarde',
+          {
+            appearance: 'error',
+            autoDismiss: true,
+          }
+        );
+      });
+  }
+
   useEffect(handleGetStatusQuiz, [movQuizId, addToast]);
   useEffect(handleGetListQuiz, [quizId, addToast]);
   useEffect(handleGetCurrentObject, [statusQuiz, addToast]);
@@ -162,7 +198,12 @@ const Quiz: React.FC = () => {
   function handleViewStatus() {
     switch (statusQuiz) {
       case 0:
-        return <Init movQuizId={Number(movQuizId)} />;
+        return (
+          <Init
+            movQuizId={Number(movQuizId)}
+            handleExitToQuiz={handleExitToQuiz}
+          />
+        );
       case 1:
       case 2:
         const currentObjectQuiz = listQuiz.find(

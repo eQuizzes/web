@@ -16,3 +16,7 @@ export const Title = styled.h3`
   margin-bottom: auto;
   padding-top: 16rem;
 `;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+`;
